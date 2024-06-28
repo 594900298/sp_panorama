@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.common.mapper.GroupAccessMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.common.po.GroupAccess">
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uid
+        ,role_id
+    </sql>
+    <!--  查询所有id有的权限  -->
+    <select id="selectUidRule" resultType="com.example.common.po.Role">
+        SELECT r.rules
+        FROM sp_group_access ga
+                 JOIN sp_role r ON ga.role_id = r.role_id
+        WHERE ga.uid = #{id}
+    </select>
+</mapper>
