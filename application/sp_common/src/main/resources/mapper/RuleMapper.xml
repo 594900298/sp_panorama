@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.common.mapper.RuleMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.common.po.Rule">
+        <id property="ruleId" column="rule_id" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="ruleUrl" column="rule_url" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="isMenu" column="is_menu" jdbcType="TINYINT"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        rule_id
+        ,pid,name,
+        rule_url,icon,
+        remark,is_menu,
+        sort,create_time
+    </sql>
+
+</mapper>

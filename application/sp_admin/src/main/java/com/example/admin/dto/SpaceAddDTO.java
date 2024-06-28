@@ -4,25 +4,27 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BannerAddDTO {
-    @ApiModelProperty(value = "名称", required = true, example = "banner")
+public class SpaceAddDTO {
+    @ApiModelProperty(value = "名称", required = true, example = "故宫")
     @NotNull(message = "名称不能为空")
-    private String bannerName;
+    private String spaceName;
 
-    @ApiModelProperty(value = "轮播图", required = true, example = "url")
-    @NotNull(message = "请先上传轮播图")
-    private String bannerImage;
+    @ApiModelProperty(value = "封面", example = "url")
+    private String spaceThumb;
 
-    @ApiModelProperty(value = "跳转连接", example = "url")
-    private String bannerLink;
-
-    @ApiModelProperty(value = "显示状态", required = true, example = "true")
-    @NotNull(message = "缺少显示状态")
+    @ApiModelProperty(value = "显示状态", required = true, example = "url")
+    @NotNull(message = "显示状态不能为空")
     private Boolean isShow;
+
+    @ApiModelProperty(value = "排序", required = true, example = "1")
+    @NotNull(message = "排序不能为空")
+    @Range(min = 0, max = 999, message = "排序只能填写0-999")
+    private Integer sort;
 }

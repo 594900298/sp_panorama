@@ -9,15 +9,15 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotNull;
 
 /**
- * 角色修改排序DTO
+ * 修改排序DTO
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleEditSortDTO {
+public class SpaceEditSortDTO {
     @ApiModelProperty(value = "规则id", required = true, example = "1")
     @NotNull(message = "主键不能为空")
-    private Integer roleId;
+    private Integer spaceId;
 
     @ApiModelProperty(value = "排序", required = true, example = "1")
     @NotNull(message = "排序不能为空")

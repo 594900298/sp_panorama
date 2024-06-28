@@ -1,55 +1,60 @@
-package com.example.admin.domain;
+package com.example.common.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.*;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 空间表
-
+ *
  * @TableName sp_space
  */
-@TableName(value ="sp_space")
+@TableName(value = "sp_space")
 @Data
 public class Space implements Serializable {
     /**
      * 主键
      */
+    @ApiModelProperty(value = "空间id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer spaceId;
 
     /**
      * 空间名称
      */
+    @ApiModelProperty(value = "空间名称", example = "故宫")
     private String spaceName;
 
     /**
      * 空间唯一识别码
      */
+    @ApiModelProperty(value = "空间唯一识别码", example = "自动生成")
     private String spaceCode;
 
     /**
      * 封面
      */
+    @ApiModelProperty(value = "封面", example = "url")
     private String spaceThumb;
 
     /**
      * 1-显示 0-隐藏
      */
-    private Integer isShow;
+    @ApiModelProperty(value = "显示状态", example = "true")
+    private Boolean isShow;
 
     /**
      * 排序
      */
+    @ApiModelProperty(value = "排序", example = "50")
     private Integer sort;
 
     /**
      * 软删
      */
-    private Integer deleteTime;
+    private Integer deleted;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -67,12 +72,12 @@ public class Space implements Serializable {
         }
         Space other = (Space) that;
         return (this.getSpaceId() == null ? other.getSpaceId() == null : this.getSpaceId().equals(other.getSpaceId()))
-            && (this.getSpaceName() == null ? other.getSpaceName() == null : this.getSpaceName().equals(other.getSpaceName()))
-            && (this.getSpaceCode() == null ? other.getSpaceCode() == null : this.getSpaceCode().equals(other.getSpaceCode()))
-            && (this.getSpaceThumb() == null ? other.getSpaceThumb() == null : this.getSpaceThumb().equals(other.getSpaceThumb()))
-            && (this.getIsShow() == null ? other.getIsShow() == null : this.getIsShow().equals(other.getIsShow()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
-            && (this.getDeleteTime() == null ? other.getDeleteTime() == null : this.getDeleteTime().equals(other.getDeleteTime()));
+                && (this.getSpaceName() == null ? other.getSpaceName() == null : this.getSpaceName().equals(other.getSpaceName()))
+                && (this.getSpaceCode() == null ? other.getSpaceCode() == null : this.getSpaceCode().equals(other.getSpaceCode()))
+                && (this.getSpaceThumb() == null ? other.getSpaceThumb() == null : this.getSpaceThumb().equals(other.getSpaceThumb()))
+                && (this.getIsShow() == null ? other.getIsShow() == null : this.getIsShow().equals(other.getIsShow()))
+                && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+                && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()));
     }
 
     @Override
@@ -85,7 +90,7 @@ public class Space implements Serializable {
         result = prime * result + ((getSpaceThumb() == null) ? 0 : getSpaceThumb().hashCode());
         result = prime * result + ((getIsShow() == null) ? 0 : getIsShow().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
-        result = prime * result + ((getDeleteTime() == null) ? 0 : getDeleteTime().hashCode());
+        result = prime * result + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
         return result;
     }
 
@@ -101,7 +106,7 @@ public class Space implements Serializable {
         sb.append(", spaceThumb=").append(spaceThumb);
         sb.append(", isShow=").append(isShow);
         sb.append(", sort=").append(sort);
-        sb.append(", deleteTime=").append(deleteTime);
+        sb.append(", Deleted=").append(deleted);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

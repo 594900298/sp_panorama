@@ -1,0 +1,185 @@
+//通用样式s
+* {
+    font-size: 12px;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, "\5FAE\8F6F\96C5\9ED1",
+        Arial, sans-serif;
+}
+.page {
+    .title {
+        padding: 15px 30px;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+    }
+    .toolbar {
+        margin: 10px 0;
+        padding: 10px 20px;
+        background: #fff;
+        overflow: hidden;
+        font-size: 14px;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        .query{
+            display: inline-block;
+            margin: 0 5px;
+        }
+    }
+    .main {
+        padding: 20px;
+        background: #fff;
+    }
+    .el-breadcrumb{
+        padding: 5px 30px;
+    }
+}
+.active {
+    .el-form-item__content {
+        justify-content: right;
+    }
+}
+
+.el-input-number {
+    width: auto !important ;
+}
+.no-data-page {
+    padding: 50px;
+    text-align: center;
+    .iconfont {
+        font-size: 100px;
+    }
+}
+//通用样式e
+// 登陆 s
+.login-page {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-image: url("@/assets/images/login-bg.jpeg");
+    .main-continaer {
+        margin: auto;
+        width: 350px;
+        text-align: center;
+        p {
+            color: #fff;
+            font-size: 24px;
+        }
+        .el-button--primary {
+            width: 100%;
+        }
+        .code-wrapper {
+            .el-form-item__content {
+                flex-wrap: nowrap !important;
+                .el-input {
+                    width: 65%;
+                    height: 100%;
+                }
+                img {
+                    width: 35%;
+                    height: 100%;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+// 登陆e
+// 布局s
+.app {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    .header-container {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        background-color: #1e222d;
+        .logo {
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            padding: 5px;
+            text-align: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid #464646;
+            img {
+                width: 65%;
+            }
+        }
+        .full-screen-wrapper {
+            flex: auto;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 10px;
+            .iconfont {
+                cursor: pointer;
+                font-size: 24px;
+                color: #fff;
+            }
+        }
+        .header-action-wrapper {
+            height: 60px;
+            padding-right: 10px;
+            box-sizing: border-box;
+            .el-dropdown {
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                height: 100%;
+                div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    p {
+                        padding: 0 5px;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .menu-container {
+        background-color: #1e222d;
+        border-right: 1px solid #464646;
+        height: 100vh;
+        overflow-y: auto;
+        .el-menu {
+            border: none;
+        }
+        .is-active {
+            background: rgba(52, 66, 88, 0.6);
+        }
+        .iconfont {
+            margin: 0 5px;
+        }
+        .el-menu-item-group__title {
+            display: none;
+        }
+    }
+    .el-container {
+        height: 100vh;
+        .el-main {
+            height: 100%;
+            overflow: scroll;
+        }
+    }
+    .collapse-button-wrapper {
+        width: 20px;
+        cursor: pointer;
+        color: #fff;
+    }
+    .el-main {
+        background: #f8f8f9;
+    }
+}
+.el-scrollbar {
+    min-width: 150px;
+    text-align: center;
+    .el-dropdown-menu__item {
+        div {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+        }
+    }
+}
+// 布局e

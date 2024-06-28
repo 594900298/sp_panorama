@@ -1,124 +1,84 @@
-package com.example.admin.po;
+package com.example.common.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.*;
+import com.example.common.enums.Control;
+import com.example.common.enums.Limitview;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 场景表
+ *
  * @TableName sp_scene
  */
-@TableName(value ="sp_scene")
+@TableName(value = "sp_scene")
 @Data
 public class Scene implements Serializable {
-    /**
-     * 场景id
-     */
+    @ApiModelProperty(value = "场景id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer sceneId;
 
-    /**
-     * 空间id
-     */
+    @ApiModelProperty(value = "空间id", example = "1")
     private Integer spaceId;
 
-    /**
-     * 场景名称
-     */
+    @ApiModelProperty(value = "场景名称", example = "故宫")
     private String sceneName;
 
-    /**
-     * 起始水平视角
-     */
+    @ApiModelProperty(value = "起始水平视角", example = "90")
     private String hlookat;
 
-    /**
-     * 起始垂直视角
-     */
+    @ApiModelProperty(value = "起始垂直视角", example = "90")
     private String vlookat;
 
-    /**
-     * 默认视角的缩放
-     */
+    @ApiModelProperty(value = "默认视角的缩放", example = "90")
     private String fov;
 
-    /**
-     * 视角类型
-     */
-    private String limitview;
+    @ApiModelProperty(value = "视角类型", example = "90")
+    private Limitview limitview;
 
-    /**
-     * 最小水平视角范围
-     */
+    @ApiModelProperty(value = "最小水平视角范围", example = "90")
     private String hlookatmin;
 
-    /**
-     * 最大水平视角范围
-     */
+    @ApiModelProperty(value = "最大水平视角范围", example = "90")
     private String hlookatmax;
 
-    /**
-     * 最小垂直视角范围
-     */
+    @ApiModelProperty(value = "最小垂直视角范围", example = "90")
     private String vlookatmin;
 
-    /**
-     * 最大垂直视角范围
-     */
+    @ApiModelProperty(value = "最大垂直视角范围", example = "90")
     private String vlookatmax;
 
-    /**
-     * 控制方式 drag[默认]、moveto
-     */
-    private String control;
+    @ApiModelProperty(value = "控制方式 drag[默认]、moveto", example = "DRAG/MOVETO")
+    private Control control;
 
-    /**
-     * 随机生成的字符串
-     */
+    @ApiModelProperty(value = "随机生成的字符串", example = "scene_8fbe40cdfd2fc681c7d9c9f0832ae52e")
     private String randomString;
 
-    /**
-     * 素材路径
-     */
+    @ApiModelProperty(value = "素材路径", example = "/scene/material/scene_8fbe40cdfd2fc681c7d9c9f0832ae52e/")
     private String panosPath;
 
-    /**
-     * xml路径
-     */
+    @ApiModelProperty(value = "xml路径", example = "/scene/scene_8fbe40cdfd2fc681c7d9c9f0832ae52e.xml")
     private String xmlPath;
 
-    /**
-     * 素材文件名
-     */
+    @ApiModelProperty(value = "素材文件名", example = "34.tiles")
     private String materialFileName;
 
-    /**
-     * xml level配置
-     */
+    @ApiModelProperty(value = "xml level配置", example = "[{\"tiledimagewidth\":\"4736\",\"tiledimageheight\":\"4736\",\"url\":\"/%s/l4/%0v/l4_%s_%0v_%0h.jpg\"}...]")
     private String levelConfig;
 
-    /**
-     * 1-显示 2-隐藏
-     */
-    private Integer isShow;
+    @ApiModelProperty(value = "显示状态", example = "true")
+    private Boolean isShow;
 
-    /**
-     * 排序
-     */
+    @ApiModelProperty(value = "排序", example = "50")
     private Integer sort;
 
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty(value = "创建时间", example = "1647412311")
+    @TableField(fill = FieldFill.INSERT)
     private Integer createTime;
 
-    /**
-     * 软删
-     */
-    private Integer deleteTime;
+    private Integer deleted;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -136,26 +96,26 @@ public class Scene implements Serializable {
         }
         Scene other = (Scene) that;
         return (this.getSceneId() == null ? other.getSceneId() == null : this.getSceneId().equals(other.getSceneId()))
-            && (this.getSpaceId() == null ? other.getSpaceId() == null : this.getSpaceId().equals(other.getSpaceId()))
-            && (this.getSceneName() == null ? other.getSceneName() == null : this.getSceneName().equals(other.getSceneName()))
-            && (this.getHlookat() == null ? other.getHlookat() == null : this.getHlookat().equals(other.getHlookat()))
-            && (this.getVlookat() == null ? other.getVlookat() == null : this.getVlookat().equals(other.getVlookat()))
-            && (this.getFov() == null ? other.getFov() == null : this.getFov().equals(other.getFov()))
-            && (this.getLimitview() == null ? other.getLimitview() == null : this.getLimitview().equals(other.getLimitview()))
-            && (this.getHlookatmin() == null ? other.getHlookatmin() == null : this.getHlookatmin().equals(other.getHlookatmin()))
-            && (this.getHlookatmax() == null ? other.getHlookatmax() == null : this.getHlookatmax().equals(other.getHlookatmax()))
-            && (this.getVlookatmin() == null ? other.getVlookatmin() == null : this.getVlookatmin().equals(other.getVlookatmin()))
-            && (this.getVlookatmax() == null ? other.getVlookatmax() == null : this.getVlookatmax().equals(other.getVlookatmax()))
-            && (this.getControl() == null ? other.getControl() == null : this.getControl().equals(other.getControl()))
-            && (this.getRandomString() == null ? other.getRandomString() == null : this.getRandomString().equals(other.getRandomString()))
-            && (this.getPanosPath() == null ? other.getPanosPath() == null : this.getPanosPath().equals(other.getPanosPath()))
-            && (this.getXmlPath() == null ? other.getXmlPath() == null : this.getXmlPath().equals(other.getXmlPath()))
-            && (this.getMaterialFileName() == null ? other.getMaterialFileName() == null : this.getMaterialFileName().equals(other.getMaterialFileName()))
-            && (this.getLevelConfig() == null ? other.getLevelConfig() == null : this.getLevelConfig().equals(other.getLevelConfig()))
-            && (this.getIsShow() == null ? other.getIsShow() == null : this.getIsShow().equals(other.getIsShow()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getDeleteTime() == null ? other.getDeleteTime() == null : this.getDeleteTime().equals(other.getDeleteTime()));
+                && (this.getSpaceId() == null ? other.getSpaceId() == null : this.getSpaceId().equals(other.getSpaceId()))
+                && (this.getSceneName() == null ? other.getSceneName() == null : this.getSceneName().equals(other.getSceneName()))
+                && (this.getHlookat() == null ? other.getHlookat() == null : this.getHlookat().equals(other.getHlookat()))
+                && (this.getVlookat() == null ? other.getVlookat() == null : this.getVlookat().equals(other.getVlookat()))
+                && (this.getFov() == null ? other.getFov() == null : this.getFov().equals(other.getFov()))
+                && (this.getLimitview() == null ? other.getLimitview() == null : this.getLimitview().equals(other.getLimitview()))
+                && (this.getHlookatmin() == null ? other.getHlookatmin() == null : this.getHlookatmin().equals(other.getHlookatmin()))
+                && (this.getHlookatmax() == null ? other.getHlookatmax() == null : this.getHlookatmax().equals(other.getHlookatmax()))
+                && (this.getVlookatmin() == null ? other.getVlookatmin() == null : this.getVlookatmin().equals(other.getVlookatmin()))
+                && (this.getVlookatmax() == null ? other.getVlookatmax() == null : this.getVlookatmax().equals(other.getVlookatmax()))
+                && (this.getControl() == null ? other.getControl() == null : this.getControl().equals(other.getControl()))
+                && (this.getRandomString() == null ? other.getRandomString() == null : this.getRandomString().equals(other.getRandomString()))
+                && (this.getPanosPath() == null ? other.getPanosPath() == null : this.getPanosPath().equals(other.getPanosPath()))
+                && (this.getXmlPath() == null ? other.getXmlPath() == null : this.getXmlPath().equals(other.getXmlPath()))
+                && (this.getMaterialFileName() == null ? other.getMaterialFileName() == null : this.getMaterialFileName().equals(other.getMaterialFileName()))
+                && (this.getLevelConfig() == null ? other.getLevelConfig() == null : this.getLevelConfig().equals(other.getLevelConfig()))
+                && (this.getIsShow() == null ? other.getIsShow() == null : this.getIsShow().equals(other.getIsShow()))
+                && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()));
     }
 
     @Override
@@ -182,7 +142,7 @@ public class Scene implements Serializable {
         result = prime * result + ((getIsShow() == null) ? 0 : getIsShow().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getDeleteTime() == null) ? 0 : getDeleteTime().hashCode());
+        result = prime * result + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
         return result;
     }
 
@@ -212,7 +172,7 @@ public class Scene implements Serializable {
         sb.append(", isShow=").append(isShow);
         sb.append(", sort=").append(sort);
         sb.append(", createTime=").append(createTime);
-        sb.append(", deleteTime=").append(deleteTime);
+        sb.append(", Deleted=").append(deleted);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

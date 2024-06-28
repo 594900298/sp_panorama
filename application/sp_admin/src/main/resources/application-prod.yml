@@ -1,0 +1,17 @@
+# 配置knife4j
+knife4j:
+    # 是否开启文档
+    enable: false
+spring:
+    #数据库配置
+    datasource:
+        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+        url: jdbc:p6spy:mysql://localhost:3306/sp_panorama?serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+    # 使用rabbitmq
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest

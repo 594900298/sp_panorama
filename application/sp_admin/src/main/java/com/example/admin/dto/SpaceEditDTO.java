@@ -11,14 +11,14 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpaceAddDTO {
+public class SpaceEditDTO {
+    @ApiModelProperty(value = "主键", required = true, example = "1")
+    @NotNull(message = "主键不能为空")
+    private Integer spaceId;
+
     @ApiModelProperty(value = "名称", required = true, example = "故宫")
     @NotNull(message = "名称不能为空")
     private String spaceName;
-
-    @ApiModelProperty(value = "空间唯一识别码", required = true, example = "识别码")
-    @NotNull(message = "名称不能为空")
-    private String spaceCode;
 
     @ApiModelProperty(value = "封面", example = "url")
     private String spaceThumb;

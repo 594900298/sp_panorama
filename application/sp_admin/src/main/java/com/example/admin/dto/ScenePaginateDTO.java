@@ -4,23 +4,23 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Range;
-
-import javax.validation.constraints.NotNull;
 
 /**
- * 修改排序DTO
+ * 分页筛选条件
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SceneEditSortDTO {
-    @ApiModelProperty(value = "场景id", required = true, example = "1")
-    @NotNull(message = "主键不能为空")
+public class ScenePaginateDTO {
+    @ApiModelProperty(value = "空间id", example = "1")
+    private Integer spaceId;
+
+    @ApiModelProperty(value = "场景id", example = "1")
     private Integer sceneId;
 
-    @ApiModelProperty(value = "排序", required = true, example = "1")
-    @NotNull(message = "排序不能为空")
-    @Range(min = 0, max = 999, message = "排序只能填写0-999")
-    private Integer sort;
+    @ApiModelProperty(value = "场景名称", example = "故宫")
+    private String sceneName;
+
+    @ApiModelProperty(value = "显示状态", example = "true")
+    private Boolean isShow;
 }

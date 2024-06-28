@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.common.mapper.BannerMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.common.po.Banner">
+        <id property="bannerId" column="banner_id" jdbcType="INTEGER"/>
+        <result property="bannerName" column="banner_name" jdbcType="VARCHAR"/>
+        <result property="bannerImage" column="banner_image" jdbcType="VARCHAR"/>
+        <result property="bannerLink" column="banner_link" jdbcType="VARCHAR"/>
+        <result property="isShow" column="is_show" jdbcType="BOOLEAN"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        banner_id
+        ,banner_name,banner_image,
+        banner_link,is_show,sort,
+        create_time,delete_time
+    </sql>
+</mapper>

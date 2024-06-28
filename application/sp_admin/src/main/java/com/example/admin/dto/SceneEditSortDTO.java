@@ -14,10 +14,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpaceEditSortDTO {
-    @ApiModelProperty(value = "规则id", required = true, example = "1")
+public class SceneEditSortDTO {
+    @ApiModelProperty(value = "场景id", required = true, example = "1")
     @NotNull(message = "主键不能为空")
-    private Integer spaceId;
+    private Integer sceneId;
 
     @ApiModelProperty(value = "排序", required = true, example = "1")
     @NotNull(message = "排序不能为空")

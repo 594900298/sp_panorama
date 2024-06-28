@@ -1,0 +1,82 @@
+server:
+    port: 8081 # 设置启动端口
+spring:
+    profiles:
+        # 启动环境 dev/test/prod
+        active: test
+    mvc:
+        # 静态文件请求匹配方式
+        static-path-pattern: /static/**
+        hidden-method:
+            filter:
+                enabled: true # 开启Restful请求模式
+    #redis配置
+    redis:
+        host: localhost
+        port: 6379
+        # 开启confirm机制
+        publisher-confirm-type: correlated
+        # 开启return机制
+        publisher-returns: true
+        #全局配置，局部配置存在就以局部为准
+        listener:
+            simple:
+                acknowledge-mode: manual # 手动ACK
+    #数据库配置
+    datasource:
+        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+        url: jdbc:p6spy:mysql://localhost:3306/sp_panorama?serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+    servlet:
+        multipart:
+            #单个文件大小为5MB
+            max-file-size: 5MB
+            #总上传的数据大小5MB
+            max-request-size: 5MB
+# 整合mybatis-plus
+mybatis-plus:
+    global-config:
+        db-config:
+            # 设置实体类所对应的表的统一前缀
+            table-prefix: sp_
+            # 配置mp的主键策略为自增
+            id-type: auto
+            # 全局逻辑删除字段名
+            logic-delete-field: deleted
+            # 逻辑已删除值
+            logic-delete-value: 1
+            # 逻辑未删除值
+            logic-not-delete-value: 0
+    configuration:
+        mapUnderscoreToCamelCase: true #开启驼峰式命名
+    type-handlers-package: com.example.main.po #配置实体类包名
+    mapper-locations: classpath*:/mapper/*.xml #扫描xml路径
+# 配置knife4j
+knife4j:
+    # 是否开启文档
+    enable: true
+#自定义参数
+app:
+    #通用配置
+    common:
+        # 在线生成工具 https://www.w3cschool.cn/tools/index?name=random
+        appId: KKvC1oQOYpbthPaNNNE #应用id 【主要用于缓存前缀】
+        appSecret: vJ6U95nlEBfHzRR3bV #秘钥
+        debug: true #开启调试
+    #Token配置
+    token:
+        expire: 7200 #有效秒数,刷新token是它的6倍
+        prefix: token_ #缓存前缀
+        unique: true #是否单人登陆，不允许多人登陆同一个账号
+        autoEffect: true #是否自动生效
+    #验证码配置
+    captcha:
+        prefix: captcha_ #前缀
+        expire: 600 #有效秒数
+        codeCount: 4 #验证码数量
+        thickness: 5 #浓度
+    # 订单配置
+    order:
+        # 未支付状态下保留订单时间 过了则会释放库存并取消订单
+        holdTime: 1800

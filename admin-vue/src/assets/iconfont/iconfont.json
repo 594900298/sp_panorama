@@ -1,0 +1,51 @@
+{
+  "id": "3946531",
+  "name": "vue3 后台管理系统",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "自己搭建",
+  "glyphs": [
+    {
+      "icon_id": "565981",
+      "name": "订单",
+      "font_class": "dingdan",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "791889",
+      "name": "商品",
+      "font_class": "goods-copy",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "15872071",
+      "name": "没有数据",
+      "font_class": "meiyoushuju",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "5387604",
+      "name": "取消全屏",
+      "font_class": "quxiaoquanping",
+      "unicode": "eb10",
+      "unicode_decimal": 60176
+    },
+    {
+      "icon_id": "5387948",
+      "name": "全屏_o",
+      "font_class": "quanping_o",
+      "unicode": "eb99",
+      "unicode_decimal": 60313
+    },
+    {
+      "icon_id": "3545533",
+      "name": "九宫格",
+      "font_class": "jiugongge",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    }
+  ]
+}

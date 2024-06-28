@@ -1,4 +1,4 @@
-package com.example.admin.po;
+package com.example.admin.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 @TableName(value = "sp_space")
 @Data
-public class SpacePaginateVo implements Serializable {
+public class SpaceDetailVo implements Serializable {
     /**
      * 主键
      */
@@ -68,7 +68,7 @@ public class SpacePaginateVo implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        SpacePaginateVo other = (SpacePaginateVo) that;
+        SpaceDetailVo other = (SpaceDetailVo) that;
         return (this.getSpaceId() == null ? other.getSpaceId() == null : this.getSpaceId().equals(other.getSpaceId()))
                 && (this.getSpaceName() == null ? other.getSpaceName() == null : this.getSpaceName().equals(other.getSpaceName()))
                 && (this.getSpaceCode() == null ? other.getSpaceCode() == null : this.getSpaceCode().equals(other.getSpaceCode()))
