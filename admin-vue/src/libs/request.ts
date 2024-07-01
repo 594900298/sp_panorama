@@ -9,7 +9,7 @@ import appConfig from "./app.config";
 import qs from "qs";
 import type { responseInterface } from "@/interfaces"
 //是否显示Loading,配置是否刷新令牌,刷新token地址,服务器地址,超时时间,携带请求信息
-let { showLoading, isRefreshing, refreshUrl, webServiceUrl, timeout, withCredentials } = appConfig.requestConfig;
+let { showLoading, isRefreshing, refreshUrl, domain, webServiceUrl, timeout, withCredentials } = appConfig.requestConfig;
 //访问令牌名称,刷新token名称
 let { accessTokenName, refreshTokenName } = appConfig.storageConfig;
 //提示,清除,返回上一级,超时时间
@@ -22,7 +22,7 @@ axios.defaults.withCredentials = withCredentials;
 let subscribers: Array<any> = []
 axios.defaults.transformRequest = [
     (data) => {
-        if(data){
+        if (data) {
             Object.keys(data).forEach((key: any) => {
                 if (Array.isArray(data[key]) && data[key].length === 0) {
                     data[key] = null;
@@ -90,7 +90,7 @@ function returnHandle(response: any) {
  */
 export function get(url: string, params: object = {}): Promise<responseInterface> {
     let loadingInstance: any = null;
-    if (showLoading) { loadingInstance = ElLoading.service(); }    
+    if (showLoading) { loadingInstance = ElLoading.service(); }
     return new Promise((resolve, reject) => {
         const timestamp = (new Date()).getTime() / 1000
         const expire = storage.getExpire(accessTokenName)
@@ -99,8 +99,8 @@ export function get(url: string, params: object = {}): Promise<responseInterface
             if (showLoading) { loadingInstance.close() }
             return
         }
-        axios.get(url, { 
-            params 
+        axios.get(url, {
+            params
         }).then(function (response) {
             if (showLoading) { loadingInstance.close() }
             resolve(response.data)
@@ -125,14 +125,14 @@ export function post(url: string, data: object = {}, params: object = {}): Promi
         const timestamp = (new Date()).getTime() / 1000
         const expire = storage.getExpire(accessTokenName)
         if (timestamp > expire - 3600 && url !== refreshUrl && expire >= 0) {
-            resolve(reload(url,data, params, 'post'))
+            resolve(reload(url, data, params, 'post'))
             if (showLoading) { loadingInstance.close() }
             return
         }
-        axios.post(url,data,{
+        axios.post(url, data, {
             params,
-            headers:{
-                'Content-Type':'application/json'
+            headers: {
+                'Content-Type': 'application/json'
             }
         }).then(function (response) {
             if (showLoading) { loadingInstance.close() }
@@ -151,7 +151,7 @@ export function post(url: string, data: object = {}, params: object = {}): Promi
  * @param {String} method
  * @return {Object}
  */
-function reload(url: string,data:object, params: object, method: string): Promise<responseInterface> {
+function reload(url: string, data: object, params: object, method: string): Promise<responseInterface> {
     if (isRefreshing) {
         post(refreshUrl, {
             [refreshTokenName]: storage.get(refreshTokenName)

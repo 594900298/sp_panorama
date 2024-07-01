@@ -9,7 +9,7 @@ export default {
     //请求配置
     requestConfig: {
         //超时时间
-        timeout: 15000,
+        timeout: 30000,
         //是否携带请求信息
         withCredentials: true,
         //请求地址

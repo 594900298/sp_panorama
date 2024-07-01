@@ -12,7 +12,6 @@ const routers: RouteRecordRaw[] = [
         },
         component: () => import('@/views/login/index.vue')
     },
-
     // 路由规则
     {
         path: '/rules',
@@ -32,6 +31,13 @@ const routers: RouteRecordRaw[] = [
     {
         path: '/space',
         component: () => import('@/views/space/index.vue')
+    },
+    {
+        path: '/scene',
+        meta: {
+            showContainer: false,
+        },
+        component: () => import('@/views/space/components/scene/edit.vue')
     },
     // 区域管理
     {

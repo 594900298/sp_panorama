@@ -1,0 +1,44 @@
+$--color-primary: #409EFF;
+$--color-success: #1BCFB4;
+$--color-warning: #FED713;
+$--color-danger: #FE7C96;
+$--color-info: #A4B3C2;
+
+@for $i from 1 through 200
+{
+    .mr#{$i}
+    {
+      margin-right: $i * 1px!important;;
+    }
+    .ml#{$i}
+    {
+      margin-left: $i * 1px!important;
+    }
+    .mt#{$i}
+    {
+      margin-top: $i * 1px!important;
+    }
+    .mb#{$i}
+    {
+      margin-bottom: $i * 1px!important;
+    }
+}
+@for $i from 1 through 800
+{
+    .width#{$i * 10}
+    {
+      width: $i * 10px!important;
+    }
+}
+@each $i in [left, right, center] {
+  .#{$i}
+  {
+    text-align: $i;
+  }
+}
+@each $i in [left, right] {
+  .f#{$i}
+  {
+    float: $i;
+  }
+}

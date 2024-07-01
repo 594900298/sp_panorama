@@ -7,6 +7,8 @@ import { ElMessage } from "element-plus";
 import paginationCase from "@/components/paginationCase.vue";
 import { debounce } from "@/libs/util";
 import { Search } from '@element-plus/icons-vue'
+import { useRouter } from "vue-router";
+const router = useRouter();
 const props = defineProps(["modelValue"]);
 const tableData = ref([]);
 const pageData = ref({
@@ -92,16 +94,7 @@ const addRow = () => {
 };
 //点击编辑
 const editRow = (row: any) => {
-  const dialog = useDialogCase();
-  dialog.show({
-    path: "space/components/scene/edit",
-    params: {
-      sceneId: row.sceneId,
-    },
-    callback: () => {
-      getPaginateDate();
-    },
-  });
+  router.push({ path: "/scene", query: { sceneId: row.sceneId }  });
 };
 onMounted(() => {
   getPaginateDate();

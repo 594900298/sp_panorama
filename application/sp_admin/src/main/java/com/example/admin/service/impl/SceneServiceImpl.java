@@ -133,7 +133,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             if (SystemUtil.getOsInfo().isWindows()) {
                 RuntimeUtil.execForStr(StrUtil.format("{}\\krpano\\win\\krpanotools64.exe makepano -config=templates\\vtour-vr.config {}", currentPath, absolutePath));
             } else {
-                RuntimeUtil.execForStr("ipconfig");
+                RuntimeUtil.execForStr(StrUtil.format("{}\\krpano\\linux\\krpanotools makepano -config=templates\\vtour-vr.config {}", currentPath, absolutePath));
             }
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), 106);
@@ -144,13 +144,13 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
         String vtourPath = StrUtil.format("{}\\vtour", StringUtils.substringBeforeLast(absolutePath, "\\"));
         String panosPath = StrUtil.format("{}\\panos", vtourPath);
         String materialFileName = FileUtil.ls(panosPath)[0].getName();
-        FileUtil.copy(Paths.get(StrUtil.format("{}\\tour.xml", vtourPath)), Paths.get(new File(StrUtil.format("/scene/{}", randomString + ".xml")).getAbsolutePath()));
-        FileUtil.copy(Paths.get(panosPath), Paths.get(new File(StrUtil.format("/scene/material/{}/", randomString)).getAbsolutePath()));
+        FileUtil.copy(Paths.get(StrUtil.format("{}\\tour.xml", vtourPath)), Paths.get(new File(StrUtil.format("/static/scene/{}", randomString + ".xml")).getAbsolutePath()));
+        FileUtil.copy(Paths.get(panosPath), Paths.get(new File(StrUtil.format("/static/scene/material/{}/", randomString)).getAbsolutePath()));
         // 加载xml
         try {
             // 读取
             SAXReader saxReader = new SAXReader();
-            Document document = saxReader.read(new File(StrUtil.format("/scene/{}", randomString + ".xml")).getAbsolutePath());
+            Document document = saxReader.read(new File(StrUtil.format("/static/scene/{}", randomString + ".xml")).getAbsolutePath());
             //获取skin_settings节点
             Element rootElement = document.getRootElement();
             //获取skin_settings节点
@@ -164,11 +164,11 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             // 获取scene节点
             Element sceneEl = rootElement.element("scene");
             // 调整封面路径
-            sceneEl.addAttribute("thumburl", StrUtil.format("material/{}/{}", randomString, sceneEl.attribute("thumburl")));
+            sceneEl.addAttribute("thumburl", StrUtil.format("material/{}/{}", randomString, sceneEl.attribute("thumburl").getValue()));
             //获取preview节点
             Element previewEl = sceneEl.element("preview");
             // 调整预览图片路径
-            previewEl.addAttribute("url", StrUtil.format("material/{}/{}", randomString, sceneEl.attribute("url")));
+            previewEl.addAttribute("url", StrUtil.format("material/{}/{}", randomString, previewEl.attribute("url").getValue()));
             List<Element> images = sceneEl.elements("image");
             List<Element> levels = images.get(0).elements("level");
             List<LevelConfigBO> levelConfig = new ArrayList<>();
@@ -181,17 +181,17 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
                 levelConfig.add(levelConfigBO);
                 levels.get(i).element("cube").addAttribute("url", url);
             }
-            images.get(1).element("cube").addAttribute("url", StrUtil.format("material/{}/{}", randomString, images.get(1).element("cube").attribute("url").toString()));
+            images.get(1).element("cube").addAttribute("url", StrUtil.format("material/{}/{}", randomString, images.get(1).element("cube").attribute("url").getValue()));
             //添加拖拽热点action
-            rootElement.element("action").addAttribute("name", "draghotspot").setText("spheretoscreen(ath, atv, hotspotcenterx, hotspotcentery, calc(mouse.stagex LT stagewidth/2 ? 'l' : 'r')); sub(drag_adjustx, mouse.stagex, hotspotcenterx); sub(drag_adjusty, mouse.stagey, hotspotcentery); asyncloop(pressed, sub(dx, mouse.stagex, drag_adjustx); sub(dy, mouse.stagey, drag_adjusty); screentosphere(dx, dy, ath, atv); js(listenerDragHotSpot(get('xml.scene'),get('name'),get(ath),get(atv))); );");
+            rootElement.addElement("action").addAttribute("name", "draghotspot").setText("spheretoscreen(ath, atv, hotspotcenterx, hotspotcentery, calc(mouse.stagex LT stagewidth/2 ? 'l' : 'r')); sub(drag_adjustx, mouse.stagex, hotspotcenterx); sub(drag_adjusty, mouse.stagey, hotspotcentery); asyncloop(pressed, sub(dx, mouse.stagex, drag_adjustx); sub(dy, mouse.stagey, drag_adjusty); screentosphere(dx, dy, ath, atv); js(listenerDragHotSpot(get('xml.scene'),get('name'),get(ath),get(atv))); );");
             //显示热点文字提醒
-            rootElement.element("action").addAttribute("name", "show_tooltip").setText("txtadd(tooltipname, 'tooltip_', get(name)); addplugin(get(tooltipname)); txtadd(plugin[get(tooltipname)].parent, 'hotspot[', get(name), ']'); set(plugin[get(tooltipname)].url,'%SWFPATH%/plugins/textfield.swf'); set(plugin[get(tooltipname)].alpha,1); set(plugin[get(tooltipname)].align,top); set(plugin[get(tooltipname)].edge,bottom); set(plugin[get(tooltipname)].x,0); set(plugin[get(tooltipname)].y,-20); set(plugin[get(tooltipname)].autowidth,true); set(plugin[get(tooltipname)].autoheight,true); set(plugin[get(tooltipname)].vcenter,true); set(plugin[get(tooltipname)].background,true); set(plugin[get(tooltipname)].backgroundcolor,0x000000); set(plugin[get(tooltipname)].roundedge,5); set(plugin[get(tooltipname)].backgroundalpha,0.65); set(plugin[get(tooltipname)].css,'text-align:center; padding: 5px 10px; color:#FFFFFF; font-family:MicrosoftYahei; font-size:16px;'); copy(plugin[get(tooltipname)].html,tiptext)");
+            rootElement.addElement("action").addAttribute("name", "show_tooltip").setText("txtadd(tooltipname, 'tooltip_', get(name)); addplugin(get(tooltipname)); txtadd(plugin[get(tooltipname)].parent, 'hotspot[', get(name), ']'); set(plugin[get(tooltipname)].url,'%SWFPATH%/plugins/textfield.swf'); set(plugin[get(tooltipname)].alpha,1); set(plugin[get(tooltipname)].align,top); set(plugin[get(tooltipname)].edge,bottom); set(plugin[get(tooltipname)].x,0); set(plugin[get(tooltipname)].y,-20); set(plugin[get(tooltipname)].autowidth,true); set(plugin[get(tooltipname)].autoheight,true); set(plugin[get(tooltipname)].vcenter,true); set(plugin[get(tooltipname)].background,true); set(plugin[get(tooltipname)].backgroundcolor,0x000000); set(plugin[get(tooltipname)].roundedge,5); set(plugin[get(tooltipname)].backgroundalpha,0.65); set(plugin[get(tooltipname)].css,'text-align:center; padding: 5px 10px; color:#FFFFFF; font-family:MicrosoftYahei; font-size:16px;'); copy(plugin[get(tooltipname)].html,tiptext)");
             //隐藏热点文字提示
-            rootElement.element("action").addAttribute("name", "hide_tooltip").setText("txtadd(tooltipname, 'tooltip_', get(name)); set(plugin[get(tooltipname)].alpha,0);");
+            rootElement.addElement("action").addAttribute("name", "hide_tooltip").setText("txtadd(tooltipname, 'tooltip_', get(name)); set(plugin[get(tooltipname)].alpha,0);");
             //隐藏菜单
-            rootElement.element("action").addAttribute("name", "hide_vtourskin").addAttribute("autorun", "onstart").setText("skin_hideskin('instant'); set(layer[skin_scroll_window].visible,false); set(layer[skin_control_bar].visible,false); set(layer[skin_btn_prev_fs].visible,false); set(layer[skin_btn_next_fs].visible,false);");
+            rootElement.addElement("action").addAttribute("name", "hide_vtourskin").addAttribute("autorun", "onstart").setText("skin_hideskin('instant'); set(layer[skin_scroll_window].visible,false); set(layer[skin_control_bar].visible,false); set(layer[skin_btn_prev_fs].visible,false); set(layer[skin_btn_next_fs].visible,false);");
             // 保存
-            Writer writer = new OutputStreamWriter(new FileOutputStream(new File(StrUtil.format("/scene/{}", randomString + ".xml")).getAbsolutePath()), "UTF-8");
+            Writer writer = new OutputStreamWriter(new FileOutputStream(new File(StrUtil.format("/static/scene/{}", randomString + ".xml")).getAbsolutePath()), "UTF-8");
             XMLWriter xmlWriter = new XMLWriter(writer);
             xmlWriter.write(document);
             xmlWriter.close();
@@ -202,8 +202,8 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             BeanUtils.copyProperties(sceneAddDTO, insert);
             insert.setRandomString(randomString);
             insert.setMaterialFileName(materialFileName);
-            insert.setXmlPath(StrUtil.format("/scene/{}", randomString + ".xml"));
-            insert.setPanosPath(StrUtil.format("/scene/material/{}/", randomString));
+            insert.setXmlPath(StrUtil.format("/static/scene/{}", randomString + ".xml"));
+            insert.setPanosPath(StrUtil.format("/static/scene/material/{}/", randomString));
             insert.setLevelConfig(JSON.toJSONString(levelConfig));
             insert.setControl(Control.DRAG);
             insert.setLimitview(Limitview.AUTO);
@@ -213,6 +213,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             insert.setVlookatmax("90");
             return sceneMapper.insert(insert);
         } catch (Exception e) {
+            FileUtil.del(vtourPath);
             throw new ServiceException(e.getMessage(), 106);
         }
     }

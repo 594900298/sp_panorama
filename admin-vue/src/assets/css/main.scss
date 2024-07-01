@@ -183,3 +183,423 @@
     }
 }
 // 布局e
+// 展厅 S
+.vrScene_box {
+	scrollbar-color:#A79F9C #fff;
+    scrollbar-width:thin;
+	.el-main {
+		padding: 0;
+	}
+	.el-header {
+		padding: 0;
+		height: 39px!important;
+		border-bottom: 1px solid #ededed;
+	}
+	.box_l {
+		width: 50px!important;
+		height: 100vh;
+		position: relative;
+		.back {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+		.itemBtn {
+			width: 100%;
+			height: 60px;
+			font-size: 14px;
+			text-align: center;
+			cursor: pointer;
+			padding-top: 10px;
+			box-sizing: border-box;
+		}
+		.isActiveItem {
+			background: #eee;
+			color: #409EFF;
+		}
+		.itemBtn:hover {
+			background: #eee;
+			color: #409EFF;
+		}
+	}
+	.box_mid {
+		position: relative;
+		width: 100%;height: 100vh;
+		border-right: 1px solid #ededed;
+		border-left: 1px solid #ededed;
+		#pano {
+			width: 100%; 
+			height: 100vh;
+		}
+		.view_frame {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+			width: 660px;
+			height: 360px;
+			background: url('../images/view_frame.png') no-repeat;
+			background-size: 100% 100%;
+			overflow: visible;
+			cursor: default;
+			pointer-events: none;
+			z-index: 3001;
+			border-style: solid;
+			border-color: rgb(0, 0, 0);
+			border-width: 0px;
+			border-radius: 0px;
+		}
+		.view_frame_btn {
+			height: 30px;
+			padding: 0 15px;
+			position: absolute;
+			bottom: 25%;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+			cursor: pointer;
+			z-index: 4002;
+			letter-spacing: 1px;
+		}
+	}
+	.box_r {
+		width: 260px!important;
+		height: 100vh;
+		box-sizing: border-box;
+		overflow: hidden;
+		overflow-y: auto;
+		.sceneSlider {
+			.el-input__inner {
+				width: 50px;
+				padding: 0 10px;
+				text-align: center;
+			}
+			.el-input--mini .el-input__inner {
+				height: 22px;
+			}
+			.el-form-item__content {
+				height: 22px!important;
+				line-height: 22px;
+			}
+			.sceneSlider_text {
+				font-size: 12px;
+				height: 20px;
+				line-height: 20px;
+				text-align: center;
+			}
+			.el-input.is-disabled .el-input__inner {
+				background-color: rgba(0,0,0,0);
+				color: #606266;
+			}
+		}
+
+		#panoTwo {
+			width: 220px; 
+			height: 110px;
+			margin-top: 3px;
+			.fixed {
+				width: 220px; 
+				height: 110px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 999;
+				cursor: move;
+			}
+		}
+		.title {
+			text-align: center;
+			height: 39px;
+			line-height: 39px;
+			border-bottom: 1px solid #ededed;
+		}
+		.el-form-item__label {
+			padding: 0;
+			line-height: 30px;
+		} 
+		.el-form-item {
+			margin-bottom: 15px!important;
+		}
+		.el-form-item__content {
+			// height: 28px;
+			line-height: 28px;
+		}
+		.right_setting {
+				padding: 10px 20px 0;
+			}
+		.slideIp{
+			.el-slider__input{
+				width: 45px;
+				.el-input__inner{
+					height: 28px;
+				}
+			}
+			.el-slider__runway{
+				margin-right: 65px;
+			}
+		}			
+		.right_hotSpot {
+			padding: 0 15px 10px;
+			.el-collapse-item__content {
+				padding-bottom: 0;
+			}
+			.el-input-number .el-input__inner{
+				width: 100%;
+			}
+			.spot_title {
+				display: flex;
+				align-items: center;
+				font-size: 14px;
+				height: 40px;
+			}
+			.el-collapse-item__header {
+				height: 40px;
+				line-height: 40px;
+				font-weight: bold;
+			}
+			.styleList_box {
+				display: flex;
+				flex-wrap: wrap;
+				border-bottom: 1px solid #ededed;
+				border-top: 1px solid #ededed;
+				padding: 10px 0;
+				img {
+					padding: 3px;
+					width: 52px;
+					height:  52px;
+					object-fit: contain;
+					cursor: pointer;
+					margin: 5px;
+					border: 2px solid #fff;
+				}
+				.isActiveImg {
+					border: 2px solid #409EFF;
+				}
+				img:hover {
+					border: 2px solid #409EFF;
+				}
+			}
+			.selectScene_tip {
+				width: 218px;
+				height: 108px;
+				line-height: 108px;
+				border: 1px solid #ededed;
+				text-align: center;
+				cursor: pointer;
+				color: #C0C4CC;
+			}
+			.selectScene_tip:hover {
+				background: #ededed;
+			}
+			.scene_img {
+				display: block;
+				margin: 10px auto 0;
+				width: 150px;
+				height: 150px;
+				object-fit: contain;
+				cursor: pointer;
+			}
+			.hotSpot_list {
+				border-top: 1px solid #ededed;
+				height: 40px;
+				line-height: 40px;
+				padding: 0 10px;
+				cursor: pointer;
+				img {
+					width: 25px;
+					height: 25px;
+					object-fit: contain;
+				}
+				.spot_name {
+					flex: 1;
+					padding: 0 10px;
+					font-weight: bold;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+				.spot_style {
+					font-size: 12px;
+					float: right;
+				}
+			}
+			.isSpotActive {
+				background: #ededed!important;
+			}
+			.hotSpot_list:hover {
+				background: #ededed;
+			}
+			.hotSpot_list:nth-last-child(1) {
+				border-bottom: 1px solid #ededed;
+			}
+
+		}
+	}
+}
+// 展厅 E
+
+// 全景预览 S
+.vrSceneShow_box {
+	position: relative;
+	overflow-y: hidden;
+	#showPano {
+		width: 100%;
+		height: 100vh;
+	}
+	.bt {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background: rgba(0,0,0,.5);
+		.collapse_box {
+			height: 29px;
+			font-size: 23px;
+			display: flex;
+			justify-items: center;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			cursor: pointer;
+			border-top: 1px solid #fff;
+		}
+		.list_box {
+			box-sizing: border-box;
+			margin: 0 auto;
+			border-top: 1px solid #fff;
+			height: 49px;
+			color: #fff;
+			text-align: center;
+			font-size: 16px;
+			transition: all .3s;
+			display: flex;
+			justify-items: center;
+			align-items: center;
+			.swiper-wrapper {
+				flex: 1;
+				display: flex;
+				align-items: center;
+				justify-items: center;
+				flex-direction: row;
+				box-sizing: border-box;
+				height: 48px!important;
+			}
+			.swiper-slide {
+				width: auto!important;
+				height: 30px;
+				line-height: 30px;
+				padding: 0 10px;
+				border-radius: 6px;
+				letter-spacing: 0;
+				box-sizing: border-box;
+				cursor: pointer;
+			}
+			.swiper-slide:hover {
+				color: #F7A413;
+			}
+			.isActive {
+				background: #F7A413;
+				color: #fff!important;
+			}
+		}
+		.list_box::-webkit-scrollbar,
+		.list_box::-webkit-scrollbar-thumb,
+		.vrScene_box::-webkit-scrollbar,
+		.vrScene_box::-webkit-scrollbar-thumb {
+			width: 0;
+			height: 0;
+		}
+		.vrScene_box {
+			box-sizing: border-box;
+			margin: 0 auto;
+			border-top: 1px solid #fff;
+			height: 109px;
+			display: flex;
+			justify-items: center;
+			align-items: center;
+			font-size: 16px;
+			transition: all .3s;
+			.swiper-wrapper {
+				flex: 1;
+				display: flex;
+				align-items: center;
+				justify-items: center;
+				flex-direction: row;
+				height: 108px!important;
+			}
+			// .swiper-slide {
+			// 	width: auto!important;
+			// 	height: 30px;
+			// 	line-height: 30px;
+			// 	padding: 0 10px;
+			// 	border-radius: 6px;
+			// 	letter-spacing: 0;
+			// 	cursor: pointer;
+			// }
+			.swiper-slide {
+				position: relative;
+				width: 110px!important;
+				height: 90px!important;
+				// margin-right: 15px!important;
+				border: 2px solid transparent;
+				box-sizing: border-box;
+				overflow: hidden;
+				cursor: pointer;
+				img {
+					width: 110px;
+					height: 90px;
+					object-fit: cover;
+				}
+				.text {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					height: 20px;
+					line-height: 20px;
+					text-align: center;
+					font-size: 12px;
+					background: rgba(103,109,105,0.7);
+					color: #fff;
+					letter-spacing: 1px;
+					box-sizing: border-box;
+					padding: 0 5px;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+			.swiper-slide:hover {
+				border: 2px solid #F7A413;
+			}
+			.isActive {
+				border: 2px solid #F7A413;
+			}
+		}
+		.changeVrscene {
+			height: 0!important;
+			transition: all .3s;
+			border-top: 0 solid transparent;
+		}
+	}
+	.el-scrollbar__bar.is-vertical {
+		width: 6px;
+		right: 0;
+		background-color: #D2D2D2;
+		opacity: 1;
+	}
+	.el-scrollbar__thumb {
+		width: 6px;
+		background-color: #00A0E9;
+	}
+	.el-scrollbar:hover>.is-horizontal {
+		opacity: 0;
+	}
+}
+// 全景预览 E
+
+// 全景预览 - 视频
+.productVideo_box>iframe {
+	width: 100% !important;
+	height: 100% !important;
+}

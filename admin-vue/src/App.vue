@@ -66,5 +66,6 @@ onMounted(() => {
 </style>
 <!-- 引入主要样式 -->
 <style lang="scss">
+@import "@/assets/css/common.scss";
 @import "@/assets/css/main.scss";
 </style>

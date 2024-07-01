@@ -77,7 +77,8 @@
 |  |  |  ├─app.config.js    配置文件   
 ├─baseXml                   baseXML
 ├─krpano                    krpano
-├─scene                     全景素材
+├─stitic                    静态素材
+│  ├─scene                  全景素材
 └─mysql                     数据库备份文件
 ~~~
 

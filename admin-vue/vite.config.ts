@@ -19,6 +19,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/admin/, "/admin"),
       },
+      '/static': {
+        target: 'http://127.0.0.1:8081', // 实际请求地址
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/static/, "/static"),
+      },
     },
   }
 })
