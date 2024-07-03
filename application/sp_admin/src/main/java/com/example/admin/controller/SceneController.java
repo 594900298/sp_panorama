@@ -52,7 +52,7 @@ public class SceneController {
      * @return
      */
     @ApiOperation("列表")
-    @GetMapping("/getList")
+    @PostMapping("/getList")
     private ResultData<List<SceneListVo>> getList(@RequestBody SceneListDTO sceneListDTO) {
         return ResultData.success(sceneService.getList(sceneListDTO));
     }

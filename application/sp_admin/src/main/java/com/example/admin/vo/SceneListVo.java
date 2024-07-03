@@ -1,11 +1,16 @@
 package com.example.admin.vo;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.example.common.utils.DomainUtil;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 @Data
@@ -34,7 +39,9 @@ public class SceneListVo implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    public String getMaterialFileName() {
-        return "/scene/material/" + randomString + "/panos/" + materialFileName + "/thumb.jpg";
+    public String getThumb() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        return StrUtil.format("{}/static/scene/material/{}/panos/{}/thumb.jpg",DomainUtil.getCurrentDomain(request),randomString,materialFileName);
     }
 }

@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter, useRoute } from "vue-router";
 import { get, post } from "@/libs/request";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { Grid, More } from '@element-plus/icons-vue'
+import selectSceneVue from "@/views/space/components/scene/selectScene.vue"
 const router = useRouter();
 const route = useRoute();
 const lMenuList = Object.freeze([
@@ -11,74 +12,72 @@ const lMenuList = Object.freeze([
   { title: "热点", icon: More },
 ])
 const viewTypeList = Object.freeze([
-  { label: "自动限制", value: "auto" },
-  { label: "限制查看", value: "lookat" },
-  { label: "只有在这个范围内,允许观察", value: "range" },
-  { label: "但允许放大看到整个图像", value: "fullrage" },
-  { label: "不以任何方式限制缩放", value: "offrange" },
+  { value: "自动限制" },
+  { value: "限制查看" },
+  { value: "只有在这个范围内,允许观察" },
+  { value: "但允许放大看到整个图像" },
+  { value: "不以任何方式限制缩放" },
 ])
 const controlTypeList = Object.freeze([
   { label: "拖动全景图像", value: "drag" },
   { label: "移动全景图像", value: "moveto" },
 ])
 const spotTypeList = Object.freeze([
-  { label: "切换场景热点", value: 0 },
-  { label: "货架热点", value: 1 },
-  { label: "视频热点", value: 2 },
-  { label: "热门热点", value: 3 },
+  { label: "切换场景热点", value: "CHANGE_SCENE" },
+  { label: "视频热点", value: "VIDEO_HOTSPOT" },
 ])
 const styleImgList = Object.freeze([
   {
     label: "skin_prod_list",
-    value: "@/assets/image/skin_prod_list.gif",
+    value: "/src/assets/images/skin_prod_list.gif",
   },
   {
     label: "skin_hotspotstyle_turn_left",
-    value: "@/assets/image/skin_hotspotstyle_turn_left.gif",
+    value: "/src/assets/images/skin_hotspotstyle_turn_left.gif",
   },
   {
     label: "skin_hotspotstyle_turn_right",
-    value: "@/assets/image/skin_hotspotstyle_turn_right.gif",
+    value: "/src/assets/images/skin_hotspotstyle_turn_right.gif",
   },
   {
     label: "skin_hotspotstyle_turn_left_back",
-    value: "@/assets/image/skin_hotspotstyle_turn_left_back.gif",
+    value: "/src/assets/images/skin_hotspotstyle_turn_left_back.gif",
   },
   {
     label: "skin_hotspotstyle_turn_right_back",
-    value: "@/assets/image/skin_hotspotstyle_turn_right_back.gif",
+    value: "/src/assets/images/skin_hotspotstyle_turn_right_back.gif",
   },
   {
     label: "skin_hotspotstyle_arrow",
-    value: "@/assets/image/skin_hotspotstyle_arrow.gif",
+    value: "/src/assets/images/skin_hotspotstyle_arrow.gif",
   },
   {
     label: "skin_layerstyle_tip",
-    value: "@/assets/image/skin_layerstyle_tip.png",
+    value: "/src/assets/images/skin_layerstyle_tip.png",
   },
   {
     label: "skin_hotspotstyle",
-    value: "@/assets/image/skin_hotspotstyle.png",
+    value: "/src/assets/images/skin_hotspotstyle.png",
   },
   {
     label: "skin_hotspotstyle_hotspot",
-    value: "@/assets/image/skin_hotspotstyle_hotspot.gif",
+    value: "/src/assets/images/skin_hotspotstyle_hotspot.gif",
   },
   {
     label: "skin_hotspotstyle_inspiration",
-    value: "@/assets/image/skin_hotspotstyle_inspiration.gif",
+    value: "/src/assets/images/skin_hotspotstyle_inspiration.gif",
   },
   {
     label: "skin_hotspotstyle_video",
-    value: "@/assets/image/skin_hotspotstyle_video.gif",
+    value: "/src/assets/images/skin_hotspotstyle_video.gif",
   },
   {
     label: "skin_hotspotstyle_point",
-    value: "@/assets/image/skin_hotspotstyle_point.jpg",
+    value: "/src/assets/images/skin_hotspotstyle_point.jpg",
   },
   {
     label: "skin_hotspotstyle_door",
-    value: "@/assets/image/skin_hotspotstyle_door.jpg",
+    value: "/src/assets/images/skin_hotspotstyle_door.jpg",
   },
 ])
 const ruleFormRef = ref(null);
@@ -106,12 +105,9 @@ const hotRuleForm = ref({
   sceneId: route.params.sceneId,
   hotspotStyle: "skin_prod_list",
   hotspotType: null,
+  hotspotValue:null,
   ath: "",
   atv: "",
-  toSceneId: "",
-  shelfId: "",
-  videoLink: "",
-  pdfLink: [],
   width: 0,
   height: 0,
 });
@@ -119,14 +115,9 @@ const hotRules = ref({
   hotspotType: [
     { required: true, message: "请选择热点类型", trigger: "blur" },
   ],
-  toSceneId: [
-    { required: true, message: "请选择切换的场景", trigger: "blur" },
+  hotspotValue: [
+    { required: true, message: "请选择或填入值", trigger: "blur" },
   ],
-  shelfId: [{ required: true, message: "请选择货架", trigger: "blur" }],
-  videoLink: [
-    { required: true, message: "请上传视频地址", trigger: "blur" },
-  ],
-  pdfLink: [{ required: true, message: "请上传PDF", trigger: "blur" }],
 });
 const isActive = ref<number>(0);
 const spaceList = ref<Array<any>>([]);
@@ -264,11 +255,10 @@ const changeMenu = (index) => {
   if (index == 1) {
     getSceneList();
     getHotspotList();
-    getShelfList();
   } else {
     krpanoUtils.value.deleteHotspot(addSpotName.value);
     hotspotList.value.map((item) => {
-      krpanoUtils.value.deleteHotspot(item.random_string);
+      krpanoUtils.value.deleteHotspot(item.randomString);
     });
     initSpot();
     isAddHotSpot.value = false;
@@ -287,22 +277,22 @@ const selectControl = (e) => {
  * @description: 获取热点列表
  */
 const getHotspotList = async () => {
-  const res = await post("Hotspot/getList", {
+  const res = await post("hotspot/getList", {
     sceneId: route.query.sceneId,
   });
   if (res.errCode === 0) {
     hotspotList.value = res.data;
     res.data.map((item) => {
       krpanoUtils.value.addHotspots(
-        item.random_string,
-        item.hotspot_style,
-        item.hotspot_name,
+        item.randomString,
+        item.hotspotStyle,
+        item.hotspotName,
         item.ath,
         item.atv
       );
       if (item.width > 0 && item.height > 0) {
         krpanoUtils.value.registercontentsize(
-          item.random_string,
+          item.randomString,
           item.width,
           item.height
         );
@@ -314,23 +304,12 @@ const getHotspotList = async () => {
  * @description: 获取场景列表
  */
 const getSceneList = async () => {
-  const res = await post("VrScene/getList", {
-    roomId: ruleForm.value.roomId,
+  const res = await post("scene/getList", {
+    spaceId: ruleForm.value.spaceId,
     sceneId: ruleForm.value.sceneId,
   });
   if (res.errCode === 0) {
     sceneList.value = res.data;
-  }
-}
-/**
- * @description: 获取货架列表
- */
-const getShelfList = async () => {
-  const res = await post("Shelf/getList", {
-    roomId: ruleForm.value.roomId,
-  });
-  if (res.errCode === 0) {
-    shelfList.value = res.data;
   }
 }
 /**
@@ -389,7 +368,7 @@ const changeVLookAt = () => {
  * @description: 保存场景编辑
  */
 const saveSet = () => {
-  ruleFormRef.value.validate(async (valid) => {
+  ruleFormRef.value?.validate(async (valid) => {
     if (valid) {
       const res = await post("scene/edit", ruleForm.value);
       if (res.errCode === 0) {
@@ -439,9 +418,9 @@ const changeHotSpot = (item) => {
   hotRuleForm.value.height = 0;
 }
 /**
- * @description: 设置hotspot_name名称
+ * @description: 设置hotspotName名称
  */
-const setHotSpot_name = () => {
+const setHotSpotName = () => {
   krpanoUtils.value.setHotspotsText(
     addSpotName.value,
     hotRuleForm.value.hotspotName
@@ -451,7 +430,7 @@ const setHotSpot_name = () => {
  * @description: 获取选择场景id、封面图
  */
 const selectScenData = (e) => {
-  hotRuleForm.value.toSceneId = e.sceneId;
+  hotRuleForm.value.hotspotValue = e.sceneId;
   tempScene.value = e;
   isSelectScene.value = false;
 }
@@ -464,36 +443,8 @@ const selectScenData = (e) => {
     { label: '热门热点', value: 3 }
  */
 const changeSpotType = (e) => {
-  hotRuleFormRef.value.clearValidate();
-  switch (e) {
-    case 0:
-      hotRuleForm.value.shelfId = '';
-      hotRuleForm.value.videoLink = '';
-      hotRuleForm.value.pdfLink = [];
-      break;
-    case 1:
-      hotRuleForm.value.toSceneId = '';
-      hotRuleForm.value.videoLink = '';
-      hotRuleForm.value.pdfLink = [];
-      break;
-    case 2:
-      hotRuleForm.value.shelfId = '';
-      hotRuleForm.value.toSceneId = '';
-      hotRuleForm.value.pdfLink = [];
-      break;
-    case 3:
-      hotRuleForm.value.shelfId = '';
-      hotRuleForm.value.videoLink = '';
-      hotRuleForm.value.toSceneId = '';
-      break;
-  }
-}
-/**
- * @description: 上传热点pdf回调
- * @return {*} 上传文件数据
- */
-const setFileUrl = (e) => {
-  hotRuleForm.value.pdfLink = [e.name, e.url];
+  hotRuleFormRef.value?.clearValidate();
+  hotRuleForm.value.hotspotValue
 }
 /**
  * @description: 保存热点新增
@@ -502,21 +453,21 @@ const saveAddSpot = () => {
   let param = krpanoUtils.value.getHotspots(addSpotName.value);
   hotRuleForm.value.ath = param.hlookat.toFixed(2);
   hotRuleForm.value.atv = param.vlookat.toFixed(2);
-  hotRuleFormRef.value.validate(async (valid) => {
+  hotRuleFormRef.value?.validate(async (valid) => {
     if (valid) {
       var res;
       // 新增
       if (!hotRuleForm.value.hotspotId) {
-        res = await post("Hotspot/add", hotRuleForm);
+        res = await post("hotspot/add", hotRuleForm.value);
       }
       // 编辑
       else {
-        res = await post("Hotspot/edit", hotRuleForm);
+        res = await post("hotspot/edit", hotRuleForm.value);
       }
       if (res.errCode === 0) {
         krpanoUtils.value.deleteHotspot(addSpotName.value);
         ElMessage.success("操作成功");
-        hotRuleFormRef.value.resetFields();
+        hotRuleFormRef.value?.resetFields();
         initSpot();
         getHotspotList();
         isAddHotSpot.value = false;
@@ -535,20 +486,20 @@ const editSpot = (item) => {
   }
   // 删除所有热点
   hotspotList.value.map((item) => {
-    krpanoUtils.value.deleteHotspot(item.random_string);
+    krpanoUtils.value.deleteHotspot(item.randomString);
   });
   // 添加当前编辑标签
   krpanoUtils.value.addHotspots(
-    item.random_string,
-    item.hotspot_style,
-    item.hotspot_name,
+    item.randomString,
+    item.hotspotStyle,
+    item.hotspotName,
     item.ath,
     item.atv
   );
   // 设置当前编辑标签大小
   if (item.width > 0 && item.height > 0) {
     krpanoUtils.value.registercontentsize(
-      item.random_string,
+      item.randomString,
       item.width,
       item.height
     );
@@ -556,10 +507,10 @@ const editSpot = (item) => {
   isSpotActive.value = item.hotspotId;
   krpanoUtils.value.setViewLookat(item.ath, item.atv);
   hotRuleForm.value = item;
-  addSpotName.value = item.random_string;
-  if (item.toSceneId) {
+  addSpotName.value = item.randomString;
+  if (item.hotspotValue) {
     sceneList.value.map((data) => {
-      if (data.sceneId == item.toSceneId) {
+      if (data.sceneId == item.hotspotValue) {
         tempScene.value = data;
       }
     });
@@ -573,16 +524,14 @@ const editSpot = (item) => {
 const initSpot = () => {
   tempScene.value = {};
   hotRuleForm.value = {
+    hotspotId: null,
     hotspotName: "",
     sceneId: String(route.query.sceneId),
     hotspotStyle: "skin_prod_list",
     hotspotType: null,
+    hotspotValue:null,
     ath: "",
     atv: "",
-    toSceneId: "",
-    shelfId: "",
-    videoLink: "",
-    pdfLink: [],
     width: 0,
     height: 0,
   };
@@ -619,24 +568,24 @@ const deleteSpot = () => {
 const setHotSpotPosition = async (name, ath, atv) => {
   let num = 0;
   hotspotList.value.map((item, index) => {
-    if (item.random_string == name) {
+    if (item.randomString == name) {
       item.ath = ath.toFixed(2);
       item.atv = atv.toFixed(2);
       num = index;
     }
   });
   const res = await post("Hotspot/edit", hotspotList.value[num]);
-  krpanoUtils.value.deleteHotspot(hotspotList.value[num].random_string);
+  krpanoUtils.value.deleteHotspot(hotspotList.value[num].randomString);
   krpanoUtils.value.addHotspots(
-    hotspotList.value[num].random_string,
-    hotspotList.value[num].hotspot_style,
-    hotspotList.value[num].hotspot_name,
+    hotspotList.value[num].randomString,
+    hotspotList.value[num].hotspotStyle,
+    hotspotList.value[num].hotspotName,
     hotspotList.value[num].ath,
     hotspotList.value[num].atv
   );
   if (hotspotList.value[num].width > 0 && hotspotList.value[num].height > 0) {
     krpanoUtils.value.registercontentsize(
-      hotspotList.value[num].random_string,
+      hotspotList.value[num].randomString,
       hotspotList.value[num].width,
       hotspotList.value[num].height
     );
@@ -656,6 +605,11 @@ const changeSpotSize = () => {
     );
   }
 }
+const getHotSoptImg = (item) =>{
+  return styleImgList.find((value)=>{
+    return item.hotspotStyle == value.label
+  })?.value
+}
 onMounted(() => {
   window.listenerDragHotSpot = function (_, name, ath, atv) {
     if (!isAddHotSpot.value) {
@@ -672,7 +626,7 @@ onMounted(() => {
       isSpotEdit.value = "1";
       return
     }
-    let item = hotspotList.value.filter((item) => item.random_string == e);
+    let item = hotspotList.value.filter((item) => item.randomString == e);
     if (item.length > 0) {
       editSpot(item[0]);
     }
@@ -692,7 +646,7 @@ onMounted(() => {
           </el-icon>
           <div>{{ item.title }}</div>
         </div>
-        <div class="back itemBtn" @click="$router.push({ path: '/vrScene' })">
+        <div class="back itemBtn" @click="router.back()">
           <i class="el-icon-back"></i>
           <div>返回</div>
         </div>
@@ -730,7 +684,7 @@ onMounted(() => {
                 <el-input size="mini" v-model="ruleForm.sceneName"></el-input>
               </el-form-item>
               <el-form-item label="空间分类" prop="spaceId">
-                <el-select v-model="ruleForm.spaceId" placeholder="请选择空间分类" >
+                <el-select v-model="ruleForm.spaceId" placeholder="请选择空间分类">
                   <el-option v-for="item in spaceList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
               </el-form-item>
@@ -747,10 +701,10 @@ onMounted(() => {
               </el-form-item>
               <el-form-item label="视角类型" prop="limitview">
                 <el-select style="width: 100%" size="mini" v-model="ruleForm.limitview" @change="selectType">
-                  <el-option v-for="(item, key) in viewTypeList" :key="key" :label="item.label" :value="item.value" />
+                  <el-option v-for="(item, key) in viewTypeList" :key="key" :value="item.value" />
                 </el-select>
               </el-form-item>
-              <div v-if="ruleForm.limitview !== 'auto'" :class="ruleForm.limitview === 'auto' ? '' : 'mb90'">
+              <div v-if="ruleForm.limitview !== '自动限制'" :class="ruleForm.limitview === '自动限制' ? '' : 'mb90'">
                 <el-form-item class="sceneSlider" label="水平视角限制" prop="hlookatmin">
                   <el-slider :key="`h_${componentKey}`" class="mr20 ml20" v-model="hlookat" range :min="-360" :max="360"
                     @change="changeHLookAt">
@@ -810,44 +764,44 @@ onMounted(() => {
           <div class="right_hotSpot">
             <el-collapse v-model="isSpotEdit" accordion>
               <el-collapse-item name="0">
-                <template slot="title">
+                <template #title>
                   <div class="spot_title">
                     热点列表
                     <el-button class="ml20" size="mini" type="primary" @click.stop.prevent="addHotSpot"
                       :disabled="isAddHotSpot && !hotRuleForm.hotspotId">新增热点</el-button>
                   </div>
                 </template>
-                <flex v-if="hotspotList.length < 1" justify="center" align="center">
+                <div v-if="hotspotList.length < 1" class="flex justify-center">
                   <el-empty description="暂无热点" :image-size="50"></el-empty>
-                </flex>
+                </div>
                 <div class="hotSpot_list" :class="isSpotActive == item.hotspotId ? 'isSpotActive' : ''"
                   v-for="item in hotspotList" :key="item.hotspotId" @click.prevent="editSpot(item)">
-                  <flex style="height: 100%" align="center">
+                  <div style="height: 100%" class="flex justify-center items-center">
                     <img :src="getHotSoptImg(item)" />
-                    <div class="spot_name">{{ item.hotspot_name }}</div>
+                    <div class="spot_name">{{ item.hotspotName }}</div>
                     <div class="spot_style">
                       {{
-                        spotTypeList[item.hotspot_type] &&
-                        spotTypeList[item.hotspot_type].label
+                        spotTypeList[item.hotspotType] &&
+                        spotTypeList[item.hotspotType].label
                       }}
                     </div>
-                  </flex>
+                  </div>
                 </div>
               </el-collapse-item>
               <el-collapse-item :disabled="!isAddHotSpot" title="热点编辑" name="1">
                 <el-form label-position="top" ref="hotRuleFormRef" label-width="80px" :model="hotRuleForm"
                   :rules="hotRules" @submit.native.prevent>
-                  <el-form-item label="热点样式" prop="hotspot_style">
+                  <el-form-item label="热点样式" prop="hotspotStyle">
                     <div class="styleList_box">
-                      <img :class="item.label == hotRuleForm.hotspot_style
+                      <img :class="item.label == hotRuleForm.hotspotStyle
                         ? 'isActiveImg'
                         : ''
-                        " :src="item.value" alt="" v-for="(item, index) in styleImgList" :key="index"
+                        " :src="item.value" v-for="(item, index) in styleImgList" :key="index"
                         @click="changeHotSpot(item)" />
                     </div>
                   </el-form-item>
-                  <el-form-item label="热点名称" prop="hotspot_name">
-                    <el-input size="mini" v-model="hotRuleForm.hotspot_name" @change="setHotSpot_name"></el-input>
+                  <el-form-item label="热点名称" prop="hotspotName">
+                    <el-input size="mini" v-model="hotRuleForm.hotspotName" @change="setHotSpotName"></el-input>
                   </el-form-item>
                   <el-form-item label="热点宽度">
                     <el-slider class="ml15 mr15 bsbb slideIp" style="width: 90%" v-model="hotRuleForm.width" :min="0"
@@ -858,52 +812,34 @@ onMounted(() => {
                       :max="999" @change="changeSpotSize" show-input :show-input-controls="false"></el-slider>
                   </el-form-item>
                   <el-form-item label="热点类型" prop="hotspot_type">
-                    <el-select style="width: 100%" size="mini" v-model="hotRuleForm.hotspot_type"
+                    <el-select style="width: 100%" size="mini" v-model="hotRuleForm.hotspotType"
                       @change="changeSpotType">
                       <el-option v-for="(item, key) in spotTypeList" :key="key" :label="item.label"
                         :value="item.value" />
                     </el-select>
                   </el-form-item>
-                  <el-form-item v-if="hotRuleForm.hotspot_type == 0" label="目标场景" prop="toSceneId">
-                    <div class="selectScene_tip" v-if="!hotRuleForm.toSceneId" @click="isSelectScene = true">
+                  <el-form-item v-if="hotRuleForm.hotspotType == 'CHANGE_SCENE'" label="目标场景" prop="hotspotValue">
+                    <div class="selectScene_tip" v-if="!hotRuleForm.hotspotValue" @click="isSelectScene = true">
                       请选择目标场景
                     </div>
                     <img class="scene_img" v-else :src="tempScene.thumb" alt="" @click="isSelectScene = true" />
-                    <flex justify="center" align="center">{{
-                      tempScene.scene_name
-                    }}</flex>
+                    <div class="flex justify-center align-center">{{
+                      tempScene.scenename
+                    }}</div>
                   </el-form-item>
-                  <el-form-item v-if="hotRuleForm.hotspot_type == 1" label="货架热点" prop="shelfId">
-                    <el-select style="width: 100%" size="mini" filterable placeholder="请选择货架热点"
-                      v-model="hotRuleForm.shelfId">
-                      <el-option v-for="item in shelfList" :key="item.shelfId" :label="item.mc" :value="item.shelfId" />
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item v-if="hotRuleForm.hotspot_type == 2" label="视频链接" prop="videoLink">
-                    <el-input size="mini" type="textarea" :rows="3" v-model="hotRuleForm.videoLink"></el-input>
-                  </el-form-item>
-                  <el-form-item v-if="hotRuleForm.hotspot_type == 3" label="PDF文件" prop="pdfLink">
-                    <uploadFile :otherUrl="'Hotspot/uploadPdf'" :fileList="[
-                      {
-                        name: hotRuleForm.pdfLink
-                          ? hotRuleForm.pdfLink[0]
-                          : '',
-                        url: hotRuleForm.pdfLink
-                          ? hotRuleForm.pdfLink[1]
-                          : '',
-                      },
-                    ]" :type="'.pdf'" @setFileUrl="setFileUrl"></uploadFile>
+                  <el-form-item v-if="hotRuleForm.hotspotType == 'VIDEO_HOTSPOT'" label="视频链接" prop="hotspotValue">
+                    <el-input size="mini" type="textarea" :rows="3" v-model="hotRuleForm.hotspotValue"></el-input>
                   </el-form-item>
                 </el-form>
                 <el-divider></el-divider>
-                <flex class="mb25" justify="center" align="center">
+                <div class="mb25 flex justify-center align-center">
                   <el-button class="mr20" size="small" type="primary" @click="saveAddSpot" v-points>
                     保存设置
                   </el-button>
                   <el-button size="small" type="danger" @click.prevent="deleteSpot">
                     删除热点
                   </el-button>
-                </flex>
+                </div>
               </el-collapse-item>
             </el-collapse>
           </div>
@@ -911,8 +847,8 @@ onMounted(() => {
       </el-aside>
     </el-container>
     <!-- 选择场景 -->
-    <el-dialog title="选择场景" :visible.sync="isSelectScene" width="50%">
-      <selectSceneVue v-if="isAddHotSpot && isSelectScene" :sceneList="sceneList" :toSceneId="hotRuleForm.toSceneId"
+    <el-dialog title="选择场景" v-model="isSelectScene" width="50%">
+      <selectSceneVue v-if="isAddHotSpot && isSelectScene" :sceneList="sceneList" :hotspotValue="hotRuleForm.hotspotValue"
         @selectScenData="selectScenData"></selectSceneVue>
     </el-dialog>
   </div>

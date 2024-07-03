@@ -207,8 +207,8 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             insert.setLevelConfig(JSON.toJSONString(levelConfig));
             insert.setControl(Control.DRAG);
             insert.setLimitview(Limitview.AUTO);
-            insert.setHlookatmin("180");
-            insert.setHlookatmax("180");
+            insert.setHlookatmin("-360");
+            insert.setHlookatmax("360");
             insert.setVlookatmin("-90");
             insert.setVlookatmax("90");
             return sceneMapper.insert(insert);
