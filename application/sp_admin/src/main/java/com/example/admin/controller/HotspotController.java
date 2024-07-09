@@ -4,7 +4,7 @@ import com.example.admin.dto.HotspotAddDTO;
 import com.example.admin.dto.HotspotEditDTO;
 import com.example.admin.dto.HotspotListDTO;
 import com.example.admin.service.HotspotService;
-import com.example.admin.vo.HotspotListVo;
+import com.example.admin.vo.HotspotListVO;
 import com.example.common.po.ResultData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +30,7 @@ public class HotspotController {
      */
     @ApiOperation("列表")
     @PostMapping("/getList")
-    private ResultData<List<HotspotListVo>> getList(@RequestBody HotspotListDTO hotspotListDTO) {
+    private ResultData<List<HotspotListVO>> getList(@RequestBody HotspotListDTO hotspotListDTO) {
         return ResultData.success(hotspotService.getList(hotspotListDTO));
     }
 

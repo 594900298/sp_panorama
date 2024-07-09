@@ -20,7 +20,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                         "/error",
                         "/admin/captcha/getCaptcha",
                         "/admin/login/code",
-                        "/admin/login/refreshToken"
+                        "/admin/login/refreshToken",
+                        "/admin/scene/getXml/*"
                 );
     }
 

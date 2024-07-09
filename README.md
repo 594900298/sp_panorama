@@ -71,7 +71,7 @@
 │  ├─src                    核心包
 │  │  ├─libs                公告模块
 |  |  |  ├─app.config.ts    配置文件              
-├─mini-program              小程序(UniApp标准开发(H5 + 微信小程序))
+├─front-vue                 使用nuxt 开发的用户端
 │  ├─src                    核心包
 │  │  ├─libs                公告模块
 |  |  |  ├─app.config.js    配置文件   

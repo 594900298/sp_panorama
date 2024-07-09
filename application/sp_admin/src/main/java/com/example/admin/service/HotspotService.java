@@ -2,8 +2,7 @@ package com.example.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.admin.dto.*;
-import com.example.admin.vo.HotspotListVo;
-import com.example.admin.vo.SceneListVo;
+import com.example.admin.vo.HotspotListVO;
 import com.example.common.po.Hotspot;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * @createDate 2024-07-02 09:23:17
  */
 public interface HotspotService extends IService<Hotspot> {
-    List<HotspotListVo> getList(HotspotListDTO hotspotListDTO);
+    List<HotspotListVO> getList(HotspotListDTO hotspotListDTO);
 
     Integer add(HotspotAddDTO hotspotAddDTO);
 

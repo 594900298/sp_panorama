@@ -3,9 +3,9 @@ package com.example.admin.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.admin.dto.*;
 import com.example.admin.service.SceneService;
-import com.example.admin.vo.SceneDetailVo;
-import com.example.admin.vo.SceneListVo;
-import com.example.admin.vo.ScenePaginateVo;
+import com.example.admin.vo.SceneDetailVO;
+import com.example.admin.vo.SceneListVO;
+import com.example.admin.vo.ScenePaginateVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.po.PageResult;
 import com.example.common.po.ResultData;
@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/scene")
 @Api(tags = "场景接口")
+@CrossOrigin(origins = "*")
 public class SceneController {
     @Autowired
     private SceneService sceneService;
@@ -34,7 +35,7 @@ public class SceneController {
      */
     @ApiOperation("分页")
     @PostMapping("/paginate")
-    private ResultData<List<ScenePaginateVo>> paginate(
+    private ResultData<List<ScenePaginateVO>> paginate(
             @ApiParam(name = "pageIndex", value = "当前页数", required = true) @RequestParam Integer pageIndex,
             @ApiParam(name = "pageSize", value = "每页显示条目个数", required = true) @RequestParam Integer pageSize,
             @RequestBody ScenePaginateDTO scenePaginateDTO
@@ -53,7 +54,7 @@ public class SceneController {
      */
     @ApiOperation("列表")
     @PostMapping("/getList")
-    private ResultData<List<SceneListVo>> getList(@RequestBody SceneListDTO sceneListDTO) {
+    private ResultData<List<SceneListVO>> getList(@RequestBody SceneListDTO sceneListDTO) {
         return ResultData.success(sceneService.getList(sceneListDTO));
     }
 
@@ -81,10 +82,24 @@ public class SceneController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    private ResultData<SceneDetailVo> detail(
+    private ResultData<SceneDetailVO> detail(
             @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer sceneId
     ) {
         return ResultData.success(sceneService.detail(sceneId));
+    }
+
+    /**
+     * 获取xml
+     *
+     * @param sceneId
+     * @return
+     */
+    @ApiOperation("获取xml")
+    @GetMapping(value = "/getXml/{id}", produces = "application/xhtml+xml;charset=UTF-8")
+    private String getXml(
+            @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer sceneId
+    ) {
+        return sceneService.getXml(sceneId);
     }
 
     /**

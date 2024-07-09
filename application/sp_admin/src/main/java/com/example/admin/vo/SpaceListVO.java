@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 @TableName(value = "sp_space")
 @Data
-public class SpaceDetailVo implements Serializable {
+public class SpaceListVO implements Serializable {
     /**
      * 主键
      */
@@ -68,7 +68,7 @@ public class SpaceDetailVo implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        SpaceDetailVo other = (SpaceDetailVo) that;
+        SpaceListVO other = (SpaceListVO) that;
         return (this.getSpaceId() == null ? other.getSpaceId() == null : this.getSpaceId().equals(other.getSpaceId()))
                 && (this.getSpaceName() == null ? other.getSpaceName() == null : this.getSpaceName().equals(other.getSpaceName()))
                 && (this.getSpaceCode() == null ? other.getSpaceCode() == null : this.getSpaceCode().equals(other.getSpaceCode()))

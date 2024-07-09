@@ -3,8 +3,8 @@ package com.example.admin.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.admin.dto.*;
-import com.example.admin.vo.SceneDetailVo;
-import com.example.admin.vo.SceneListVo;
+import com.example.admin.vo.SceneDetailVO;
+import com.example.admin.vo.SceneListVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.po.Scene;
 
@@ -18,11 +18,13 @@ import java.util.List;
 public interface SceneService extends IService<Scene> {
     IPage getPaginate(PageParamBO pageParamBO, ScenePaginateDTO scenePaginateDTO);
 
-    List<SceneListVo> getList(SceneListDTO sceneListDTO);
+    List<SceneListVO> getList(SceneListDTO sceneListDTO);
 
     Integer add(SceneAddDTO sceneAddDTO);
 
-    SceneDetailVo detail(Integer sceneId);
+    SceneDetailVO detail(Integer sceneId);
+
+    String getXml(Integer sceneId);
 
     Integer edit(SceneEditDTO sceneEditDTO);
 

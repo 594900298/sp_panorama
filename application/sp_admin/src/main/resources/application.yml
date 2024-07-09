@@ -9,7 +9,8 @@ spring:
         static-path-pattern: /static/**
         hidden-method:
             filter:
-                enabled: true # 开启Restful请求模式
+              # 开启Restful请求模式
+              enabled: true
     #redis配置
     redis:
         host: localhost

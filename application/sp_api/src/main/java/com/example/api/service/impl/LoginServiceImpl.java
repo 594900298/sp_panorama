@@ -44,9 +44,6 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     CaptchaUtil captchaUtil;
 
-    @Autowired
-    private WxMaService wxMaService;
-
     @Value("${app.common.appSecret}")
     private String appSecret;
 
@@ -68,12 +65,10 @@ public class LoginServiceImpl implements LoginService {
         //开启事务
         TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(transactionDefinition);
         try {
-            WxMaJscode2SessionResult sessionResult = wxMaService.getUserService().getSessionInfo((String) loginCodeDTO.getCode());
             User user = userMapper.selectOne(
                     new QueryWrapper<User>()
                             .select("user_id", "status", "uuid", "openid")
                             .lambda()
-                            .eq(User::getOpenid, sessionResult.getOpenid())
             );
             Map<String, Object> resMap = new HashMap<>();
             if (user != null) {
@@ -88,7 +83,6 @@ public class LoginServiceImpl implements LoginService {
                  * 插入新用户
                  */
                 User insertData = new User();
-                insertData.setOpenid(sessionResult.getOpenid());
                 insertData.setStatus(true);
                 insertData.setUuid(String.valueOf(UUID.randomUUID()));
                 userMapper.insert(insertData);
@@ -102,13 +96,10 @@ public class LoginServiceImpl implements LoginService {
                             .lambda()
                             .set(User::getLoginTime, System.currentTimeMillis() / 1000)
                             .set(User::getLoginIp, request.getRemoteAddr())
-                            .eq(User::getOpenid, sessionResult.getOpenid())
                             .setSql("login_num = login_num+1 ")
             );
             Map<String, Object> data = new HashMap<>();
             //这些数据不会返回给用户
-            data.put("openid", sessionResult.getOpenid());
-            data.put("sessionKey", sessionResult.getSessionKey());
             tokenUtil.setRedisData(data);
             HashMap<String, Object> token = tokenUtil.getToken((Integer) resMap.get("userId"), (String) resMap.get("uuid"), "api");
             dataSourceTransactionManager.commit(transactionStatus);
@@ -117,7 +108,6 @@ public class LoginServiceImpl implements LoginService {
             vo.setRefreshToken((String) token.get("refreshToken"));
             vo.setExpire((Long) token.get("expire"));
             vo.setName((String) resMap.get("name"));
-            vo.setOpenid(sessionResult.getOpenid());
             return vo;
         } catch (Exception e) {
             dataSourceTransactionManager.rollback(transactionStatus);

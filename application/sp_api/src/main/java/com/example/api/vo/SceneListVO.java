@@ -1,5 +1,6 @@
-package com.example.admin.vo;
+package com.example.api.vo;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,9 +10,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
-public class SceneDetailVo implements Serializable {
+public class SceneListVO implements Serializable {
     @ApiModelProperty(value = "场景id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer sceneId;
@@ -62,7 +64,7 @@ public class SceneDetailVo implements Serializable {
     private String materialFileName;
 
     @ApiModelProperty(value = "xml level配置", example = "[{\"tiledimagewidth\":\"4736\",\"tiledimageheight\":\"4736\",\"url\":\"/%s/l4/%0v/l4_%s_%0v_%0h.jpg\"}...]")
-    private String levelConfig;
+    private JSONArray levelConfig;
 
     @ApiModelProperty(value = "显示状态", example = "true")
     private Boolean isShow;
@@ -72,6 +74,9 @@ public class SceneDetailVo implements Serializable {
 
     @ApiModelProperty(value = "创建时间", example = "1647412311")
     private Integer createTime;
+
+    @ApiModelProperty(value = "热点列表", example = "List<HotspotListVO>")
+    private List<HotspotListVO> hotspotListVO;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

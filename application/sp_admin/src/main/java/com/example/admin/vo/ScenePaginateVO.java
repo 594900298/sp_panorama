@@ -3,14 +3,13 @@ package com.example.admin.vo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.example.common.enums.Limitview;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class ScenePaginateVo implements Serializable {
+public class ScenePaginateVO implements Serializable {
     @ApiModelProperty(value = "场景id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer sceneId;

@@ -10,9 +10,9 @@ import com.example.admin.dto.SpaceEditDTO;
 import com.example.admin.dto.SpaceEditSortDTO;
 import com.example.common.mapper.SpaceMapper;
 import com.example.admin.service.SpaceService;
-import com.example.admin.vo.SpaceDetailVo;
-import com.example.admin.vo.SpaceListVo;
-import com.example.admin.vo.SpacePaginateVo;
+import com.example.admin.vo.SpaceDetailVO;
+import com.example.admin.vo.SpaceListVO;
+import com.example.admin.vo.SpacePaginateVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.exception.ServiceException;
 import com.example.common.po.Space;
@@ -54,7 +54,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
                 new Page<>(pageParamBO.getPageIndex(), pageParamBO.getPageSize()),
                 queryWrapper
         ).convert(po -> {
-            SpacePaginateVo vo = new SpacePaginateVo();
+            SpacePaginateVO vo = new SpacePaginateVO();
             BeanUtils.copyProperties(po, vo);
             return vo;
         });
@@ -66,12 +66,12 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      * @return
      */
     @Override
-    public List<SpaceListVo> getList() {
+    public List<SpaceListVO> getList() {
         return spaceMapper.selectList(new QueryWrapper<Space>()
                 .select("space_id", "space_id", "space_name", "space_thumb", "is_show", "sort")
                 .lambda()
                 .orderByAsc(Space::getSort)).stream().map(po -> {
-            SpaceListVo vo = new SpaceListVo();
+            SpaceListVO vo = new SpaceListVO();
             BeanUtils.copyProperties(po, vo);
             return vo;
         }).collect(Collectors.toList());
@@ -98,12 +98,12 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      * @return
      */
     @Override
-    public SpaceDetailVo detail(Integer spaceId) {
+    public SpaceDetailVO detail(Integer spaceId) {
         Space po = spaceMapper.selectById(spaceId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        SpaceDetailVo vo = new SpaceDetailVo();
+        SpaceDetailVO vo = new SpaceDetailVO();
         BeanUtils.copyProperties(po, vo);
         return vo;
     }

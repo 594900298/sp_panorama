@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.admin.dto.SpaceAddDTO;
 import com.example.admin.dto.SpaceEditDTO;
 import com.example.admin.dto.SpaceEditSortDTO;
-import com.example.admin.vo.SpaceDetailVo;
-import com.example.admin.vo.SpaceListVo;
+import com.example.admin.vo.SpaceDetailVO;
+import com.example.admin.vo.SpaceListVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.po.Space;
 
@@ -21,11 +21,11 @@ import java.util.List;
 public interface SpaceService extends IService<Space> {
     IPage getPaginate(PageParamBO pageParamBO);
 
-    List<SpaceListVo> getList();
+    List<SpaceListVO> getList();
 
     Integer add(SpaceAddDTO spaceAddDTO);
 
-    SpaceDetailVo detail(Integer spaceId);
+    SpaceDetailVO detail(Integer spaceId);
 
     Integer edit(SpaceEditDTO spaceEditDTO);
 

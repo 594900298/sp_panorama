@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.api.mapper.SpaceMapper">
+    <select id="selectJoinById" resultMap="selectJoinByIdMap">
+        SELECT sp.space_id,
+               sp.space_name,
+               sp.space_code,
+               sp.space_thumb,
+               sc.scene_id,
+               sc.scene_name,
+               sc.hlookat,
+               sc.vlookat,
+               sc.fov,
+               sc.limitview,
+               sc.hlookatmin,
+               sc.hlookatmax,
+               sc.vlookatmin,
+               sc.vlookatmax,
+               sc.control,
+               sc.random_string as scene_random_string,
+               sc.panos_path,
+               sc.xml_path,
+               sc.material_file_name,
+               sc.level_config,
+               h.hotspot_id,
+               h.hotspot_name,
+               h.random_string as hotspot_random_string,
+               h.hotspot_style,
+               h.hotspot_type,
+               h.hotspot_value,
+               h.ath,
+               h.atv,
+               h.height,
+               h.width
+        FROM sp_space sp
+                 LEFT JOIN sp_scene sc
+                           ON sp.space_id = sc.space_id
+                 LEFT JOIN sp_hotspot h
+                           ON sc.scene_id = h.scene_id
+        WHERE sp.space_id = #{id}
+          AND sp.is_show = 1
+          AND sp.is_show = 1
+    </select>
+
+    <resultMap id="selectJoinByIdMap" type="com.example.api.po.SpaceDetailPO">
+        <id property="spaceId" column="space_id" jdbcType="INTEGER"/>
+        <result property="spaceName" column="space_name" jdbcType="VARCHAR"/>
+        <result property="spaceCode" column="space_code" jdbcType="VARCHAR"/>
+        <result property="spaceThumb" column="space_thumb" jdbcType="VARCHAR"/>
+        <collection property="sceneListPO" ofType="com.example.api.po.SceneListPO">
+            <id property="sceneId" column="scene_id" jdbcType="INTEGER"/>
+            <result property="sceneName" column="scene_name" jdbcType="VARCHAR"/>
+            <result property="hlookat" column="hlookat" jdbcType="VARCHAR"/>
+            <result property="vlookat" column="vlookat" jdbcType="VARCHAR"/>
+            <result property="fov" column="fov" jdbcType="VARCHAR"/>
+            <result property="limitview" column="limitview" jdbcType="VARCHAR"/>
+            <result property="hlookatmin" column="hlookatmin" jdbcType="VARCHAR"/>
+            <result property="hlookatmax" column="hlookatmax" jdbcType="VARCHAR"/>
+            <result property="vlookatmin" column="vlookatmin" jdbcType="VARCHAR"/>
+            <result property="vlookatmax" column="vlookatmax" jdbcType="VARCHAR"/>
+            <result property="control" column="control" jdbcType="VARCHAR"/>
+            <result property="randomString" column="scene_random_string" jdbcType="VARCHAR"/>
+            <result property="panosPath" column="panos_path" jdbcType="VARCHAR"/>
+            <result property="xmlPath" column="xml_path" jdbcType="VARCHAR"/>
+            <result property="materialFileName" column="materialFile_name" jdbcType="VARCHAR"/>
+            <result property="levelConfig" column="level_config" jdbcType="VARCHAR"/>
+            <collection property="hotspotListPO" ofType="com.example.api.po.HotspotListPO">
+                <id property="hotspotId" column="hotspot_id" jdbcType="INTEGER"/>
+                <result property="hotspotName" column="hotspot_name" jdbcType="VARCHAR"/>
+                <result property="randomString" column="hotspot_random_string" jdbcType="VARCHAR"/>
+                <result property="hotspotStyle" column="hotspot_style" jdbcType="VARCHAR"/>
+                <result property="hotspotType" column="hotspot_type" jdbcType="VARCHAR"/>
+                <result property="hotspotValue" column="hotspot_value" jdbcType="VARCHAR"/>
+                <result property="ath" column="ath" jdbcType="VARCHAR"/>
+                <result property="atv" column="atv" jdbcType="VARCHAR"/>
+                <result property="width" column="width" jdbcType="VARCHAR"/>
+                <result property="height" column="height" jdbcType="VARCHAR"/>
+            </collection>
+        </collection>
+    </resultMap>
+</mapper>

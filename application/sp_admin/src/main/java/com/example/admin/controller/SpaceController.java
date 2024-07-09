@@ -5,8 +5,8 @@ import com.example.admin.dto.SpaceAddDTO;
 import com.example.admin.dto.SpaceEditDTO;
 import com.example.admin.dto.SpaceEditSortDTO;
 import com.example.admin.service.SpaceService;
-import com.example.admin.vo.SpaceDetailVo;
-import com.example.admin.vo.SpaceListVo;
+import com.example.admin.vo.SpaceDetailVO;
+import com.example.admin.vo.SpaceListVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.po.PageResult;
 import com.example.common.po.ResultData;
@@ -52,7 +52,7 @@ public class SpaceController {
      */
     @ApiOperation("列表")
     @GetMapping("/getList")
-    private ResultData<List<SpaceListVo>> getList() {
+    private ResultData<List<SpaceListVO>> getList() {
         return ResultData.success(spaceService.getList());
     }
 
@@ -81,7 +81,7 @@ public class SpaceController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    private ResultData<SpaceDetailVo> detail(
+    private ResultData<SpaceDetailVO> detail(
             @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer spaceId
     ) {
         return ResultData.success(spaceService.detail(spaceId));

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 @Data
-public class SceneListVo implements Serializable {
+public class SceneListVO implements Serializable {
     @ApiModelProperty(value = "场景id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer sceneId;

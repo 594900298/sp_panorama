@@ -159,7 +159,7 @@ const getDetail = async () => {
     vlookat.value = [ruleForm.value.vlookatmin, ruleForm.value.vlookatmax];
     embedpano({
       swf: `/static/scene/tour.swf`,
-      xml: `${res.data.xmlPath}`,
+      xml: `http://localhost:8081/admin/scene/getXml/${route.query.sceneId}`,
       target: "pano",
       html5: "auto",
       mobilescale: 1.0,
@@ -195,7 +195,7 @@ const getDetail = async () => {
 const initTwoPano = () => {
   embedpano({
     swf: `/static/scene/tour.swf`,
-    xml: `${ruleForm.value.xmlPath}`,
+    xml: `http://localhost:8081/admin/scene/getXml/${route.query.sceneId}`,
     target: "panoTwo",
     html5: "auto",
     mobilescale: 1.0,

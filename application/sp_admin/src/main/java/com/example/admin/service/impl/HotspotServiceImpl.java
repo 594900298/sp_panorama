@@ -8,7 +8,7 @@ import com.example.admin.dto.HotspotAddDTO;
 import com.example.admin.dto.HotspotEditDTO;
 import com.example.admin.dto.HotspotListDTO;
 import com.example.admin.service.HotspotService;
-import com.example.admin.vo.HotspotListVo;
+import com.example.admin.vo.HotspotListVO;
 import com.example.common.exception.ServiceException;
 import com.example.common.mapper.HotspotMapper;
 import com.example.common.po.Hotspot;
@@ -32,13 +32,13 @@ public class HotspotServiceImpl extends ServiceImpl<HotspotMapper, Hotspot>
     private HotspotMapper hotspotMapper;
 
     @Override
-    public List<HotspotListVo> getList(HotspotListDTO hotspotListDTO) {
+    public List<HotspotListVO> getList(HotspotListDTO hotspotListDTO) {
         QueryWrapper queryWrapper = new QueryWrapper<Hotspot>().select("hotspot_id", "scene_id", "hotspot_name", "random_string", "hotspot_style", "hotspot_type", "hotspot_value", "ath", "atv", "height", "width", "create_time").orderByAsc("hotspot_id");
         if (!Objects.isNull(hotspotListDTO.getSceneId()) && hotspotListDTO.getSceneId() > 0) {
             queryWrapper.eq("scene_id", hotspotListDTO.getSceneId());
         }
-        return (List<HotspotListVo>) hotspotMapper.selectList(queryWrapper).stream().map(po -> {
-            HotspotListVo vo = new HotspotListVo();
+        return (List<HotspotListVO>) hotspotMapper.selectList(queryWrapper).stream().map(po -> {
+            HotspotListVO vo = new HotspotListVO();
             BeanUtils.copyProperties(po, vo);
             return vo;
         }).collect(Collectors.toList());

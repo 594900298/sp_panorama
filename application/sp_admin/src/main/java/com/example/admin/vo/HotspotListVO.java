@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @TableName(value = "sp_space")
 @Data
-public class HotspotListVo implements Serializable {
+public class HotspotListVO implements Serializable {
     @ApiModelProperty(value = "热点id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer hotspotId;
