@@ -83,10 +83,12 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
             Document document = saxReader.read(new File("/static/baseXml/api.xml").getAbsolutePath());
             //获取根节点
             Element rootElement = document.getRootElement();
+            Element includeEl = rootElement.element("include");
+            includeEl.addAttribute("url", StrUtil.format("/static/scene/{}", includeEl.attributeValue("url")));
             Iterator<SceneListVO> it = vo.getSceneListVO().iterator();
             while (it.hasNext()) {
                 SceneListVO item = it.next();
-                String materialPath = StrUtil.format("material/{}/panos/{}", item.getRandomString(), item.getMaterialFileName());
+                String materialPath = StrUtil.format("/static/scene/material/{}/panos/{}", item.getRandomString(), item.getMaterialFileName());
                 //scene 标签
                 Element sceneEl = rootElement.addElement("scene")
                         .addAttribute("name", item.getRandomString())

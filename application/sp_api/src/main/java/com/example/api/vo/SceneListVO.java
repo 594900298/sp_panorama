@@ -1,14 +1,19 @@
 package com.example.api.vo;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSONArray;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.example.common.enums.Control;
 import com.example.common.enums.Limitview;
+import com.example.common.utils.DomainUtil;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.List;
 
@@ -75,9 +80,18 @@ public class SceneListVO implements Serializable {
     @ApiModelProperty(value = "创建时间", example = "1647412311")
     private Integer createTime;
 
+    @ApiModelProperty(value = "封面", example = "[path]/thumb.jpg")
+    private String thumb;
+
     @ApiModelProperty(value = "热点列表", example = "List<HotspotListVO>")
     private List<HotspotListVO> hotspotListVO;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public String getThumb() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        return StrUtil.format("{}/static/scene/material/{}/panos/{}/thumb.jpg", DomainUtil.getCurrentDomain(request), randomString, materialFileName);
+    }
 }

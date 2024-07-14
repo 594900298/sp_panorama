@@ -64,7 +64,7 @@
             <result property="randomString" column="scene_random_string" jdbcType="VARCHAR"/>
             <result property="panosPath" column="panos_path" jdbcType="VARCHAR"/>
             <result property="xmlPath" column="xml_path" jdbcType="VARCHAR"/>
-            <result property="materialFileName" column="materialFile_name" jdbcType="VARCHAR"/>
+            <result property="materialFileName" column="material_file_name" jdbcType="VARCHAR"/>
             <result property="levelConfig" column="level_config" jdbcType="VARCHAR"/>
             <collection property="hotspotListPO" ofType="com.example.api.po.HotspotListPO">
                 <id property="hotspotId" column="hotspot_id" jdbcType="INTEGER"/>

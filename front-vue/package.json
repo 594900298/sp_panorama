@@ -10,10 +10,17 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@nuxt/ui": "^2.17.0",
     "axios": "^1.7.2",
     "element-plus": "^2.7.6",
     "nuxt": "^3.12.3",
-    "vue": "latest"
+    "swiper": "^11.1.4",
+    "vue": "latest",
+    "vue-awesome-swiper": "^5.0.1"
+  },
+  "devDependencies": {
+    "less": "^4.2.0",
+    "postcss-px-to-viewport": "^1.1.1"
   }
 }

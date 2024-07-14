@@ -1,5 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  postcss: {
+    plugins: {
+      'postcss-px-to-viewport': {
+        viewportWidth: 1920,
+      }
+    }
+  },
   runtimeConfig: {
     public: {
 
