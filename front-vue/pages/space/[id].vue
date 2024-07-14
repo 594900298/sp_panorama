@@ -18,7 +18,7 @@
             </noscript>
         </div>
         <div class="left-menu">
-            <div>
+            <div @click="router.push('/')">
                 <img src="../../public/images/vr_home.png" alt="HOME">
                 <p>HOME</p>
             </div>
@@ -42,7 +42,8 @@
                 <img src="../../public/images/vr_arrow.png" alt="ARROW" @click="isShowButtomMenu = !isShowButtomMenu">
                 <Swiper class="swiper-wrapper" :slides-per-view="'auto'" :centerInsufficientSlides="true">
                     <swiper-slide v-for="(value, index) in detail.sceneListVO" :key="index" class="item"
-                        @click="linkedsceneClick(value.randomString)">
+                        @click="linkedsceneClick(value.randomString)"
+                        :class="{ 'active': value.randomString == curRandomString }">
                         <img :src="value.thumb" :alt="value.sceneName" />
                         <div class="text">{{ value.sceneName }}</div>
                     </swiper-slide>
@@ -60,9 +61,11 @@
 import { ref } from "vue";
 import { get } from "~/src/libs/request";
 import { ElMessage } from "element-plus";
+import { useRouter, useRoute } from "vue-router";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import 'swiper/css'
 import { KrpanoUtilsClass } from "~/public/js/krpanoUtils1.1";
+import 'swiper/css'
+let krpanoUtils: any = null;
 const isShowButtomMenu = ref<boolean>(true);
 const detail = ref<{
     sceneListVO: Array<{
@@ -73,8 +76,12 @@ const detail = ref<{
 }>({
     sceneListVO: []
 });
-let krpanoUtils: any = null;
 const route = useRoute();
+const router = useRouter();
+const curRandomString = ref<String>("");
+/**
+ * 获取详情
+ */
 async function getDeatil() {
     const res = await get(`space/detail/${route.params.id}`);
     if (res.errCode === 0) {
@@ -90,12 +97,20 @@ async function getDeatil() {
         nextTick(() => {
             krpanoUtils = new KrpanoUtilsClass();
             window.linkedsceneClick = linkedsceneClick
+            if (detail.value.sceneListVO.length) {
+                linkedsceneClick(detail.value.sceneListVO[0].randomString);
+            }
         })
     } else {
         ElMessage.error(res.errMsg)
     }
 }
+/**
+ * 点击热点跳转
+ * @param randomString 
+ */
 function linkedsceneClick(randomString: String) {
+    curRandomString.value = randomString;
     krpanoUtils.loadscene(randomString);
 }
 onMounted(() => {
@@ -123,6 +138,7 @@ onMounted(() => {
         background: rgba(0, 0, 0, 0.3);
 
         div {
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -147,6 +163,7 @@ onMounted(() => {
         background: rgba(0, 0, 0, 0.3);
 
         div {
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
