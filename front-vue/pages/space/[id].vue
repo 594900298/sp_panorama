@@ -22,7 +22,7 @@
                 <img src="../../public/images/vr_home.png" alt="HOME">
                 <p>HOME</p>
             </div>
-            <div>
+            <div @click="handleBack">
                 <img src="../../public/images/vr_back.png" alt="BACK">
                 <p>BACK</p>
             </div>
@@ -32,7 +32,7 @@
                 <img src="../../public/images/vr_music.png" alt="MUSIC">
                 <p>MUSIC</p>
             </div>
-            <div>
+            <div @click="handleViewPort">
                 <img src="../../public/images/vr_viewPort.png" alt="VIEWPORT">
                 <p>VIEWPORT</p>
             </div>
@@ -65,6 +65,7 @@ import { useRouter, useRoute } from "vue-router";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { KrpanoUtilsClass } from "~/public/js/krpanoUtils1.1";
 import 'swiper/css'
+import { CollectionTag } from "@element-plus/icons-vue";
 let krpanoUtils: any = null;
 const isShowButtomMenu = ref<boolean>(true);
 const detail = ref<{
@@ -79,6 +80,12 @@ const detail = ref<{
 const route = useRoute();
 const router = useRouter();
 const curRandomString = ref<String>("");
+const sceneStack = ref<Array<String>>([]);
+const viewPort = ref<number>(0);
+const ViewLookat = ref<{
+    hlookat: number,
+    vlookat: number,
+}>();
 /**
  * 获取详情
  */
@@ -111,7 +118,28 @@ async function getDeatil() {
  */
 function linkedsceneClick(randomString: String) {
     curRandomString.value = randomString;
+    sceneStack.value.push(randomString);
     krpanoUtils.loadscene(randomString);
+    viewPort.value = krpanoUtils.getViewFov();
+    ViewLookat.value = krpanoUtils.getViewLookat();
+}
+/**
+ * 点击回退
+ */
+function handleBack() {
+    if (sceneStack.value.length < 2) return;
+    sceneStack.value.pop();
+    curRandomString.value = sceneStack.value[sceneStack.value.length - 1];
+    krpanoUtils.loadscene(sceneStack.value[sceneStack.value.length - 1]);
+    viewPort.value = krpanoUtils.getViewFov();
+    ViewLookat.value = krpanoUtils.getViewLookat();
+}
+/**
+ * 视角恢复
+ */
+function handleViewPort() {
+    krpanoUtils.setViewFov(viewPort.value);
+    krpanoUtils.setViewLookat(ViewLookat.value?.hlookat, ViewLookat.value?.vlookat);
 }
 onMounted(() => {
     getDeatil();
