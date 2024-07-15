@@ -7,6 +7,7 @@ import com.example.admin.dto.SpaceEditSortDTO;
 import com.example.admin.service.SpaceService;
 import com.example.admin.vo.SpaceDetailVO;
 import com.example.admin.vo.SpaceListVO;
+import com.example.admin.vo.SpacePaginateVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.po.PageResult;
 import com.example.common.po.ResultData;
@@ -35,7 +36,7 @@ public class SpaceController {
      */
     @ApiOperation("分页")
     @PostMapping("/paginate")
-    private ResultData paginate(
+    private ResultData<List<SpacePaginateVO>> paginate(
             @ApiParam(name = "pageIndex", value = "当前页数", required = true) @RequestParam Integer pageIndex,
             @ApiParam(name = "pageSize", value = "每页显示条目个数", required = true) @RequestParam Integer pageSize
     ) {

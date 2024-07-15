@@ -20,4 +20,9 @@ public class CommonServiceImpl implements CommonService {
     public UpLoadFileVO uploadPic(MultipartFile file) {
         return this.upLoadUtil.upload(file, "jpg,jpeg,gif,png,bmp");
     }
+
+    @Override
+    public UpLoadFileVO uploadMusic(MultipartFile file) {
+        return this.upLoadUtil.upload(file, "ogg,mp3,wav,flac");
+    }
 }

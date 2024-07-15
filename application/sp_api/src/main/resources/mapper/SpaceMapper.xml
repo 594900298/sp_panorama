@@ -8,6 +8,7 @@
                sp.space_name,
                sp.space_code,
                sp.space_thumb,
+               sp.background_music,
                sc.scene_id,
                sc.scene_name,
                sc.hlookat,
@@ -26,7 +27,7 @@
                sc.level_config,
                h.hotspot_id,
                h.hotspot_name,
-               h.random_string as hotspot_random_string,
+               h.random_string  as hotspot_random_string,
                h.hotspot_style,
                h.hotspot_type,
                h.hotspot_value,
@@ -42,6 +43,8 @@
         WHERE sp.space_id = #{id}
           AND sp.is_show = 1
           AND sp.is_show = 1
+          AND sp.deleted = 0
+          AND sc.deleted = 0
     </select>
 
     <resultMap id="selectJoinByIdMap" type="com.example.api.po.SpaceDetailPO">
@@ -49,6 +52,7 @@
         <result property="spaceName" column="space_name" jdbcType="VARCHAR"/>
         <result property="spaceCode" column="space_code" jdbcType="VARCHAR"/>
         <result property="spaceThumb" column="space_thumb" jdbcType="VARCHAR"/>
+        <result property="backgroundMusic" column="background_music" jdbcType="VARCHAR"/>
         <collection property="sceneListPO" ofType="com.example.api.po.SceneListPO">
             <id property="sceneId" column="scene_id" jdbcType="INTEGER"/>
             <result property="sceneName" column="scene_name" jdbcType="VARCHAR"/>

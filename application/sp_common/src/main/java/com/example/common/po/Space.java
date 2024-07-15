@@ -39,6 +39,9 @@ public class Space implements Serializable {
     @ApiModelProperty(value = "封面", example = "url")
     private String spaceThumb;
 
+    @ApiModelProperty(value = "背景音乐", example = "url")
+    private String backgroundMusic;
+
     /**
      * 1-显示 0-隐藏
      */

@@ -117,7 +117,7 @@ onMounted(() => {
         </el-table-column>
         <el-table-column label="封面图" align="center">
           <template #default="scope">
-            <el-image :src="scope.row.spaceCover" />
+            <el-image :src="scope.row.spaceThumb" />
           </template>
         </el-table-column>
         <el-table-column prop="spaceName" label="空间名称" />
@@ -129,7 +129,6 @@ onMounted(() => {
         </el-table-column>
         <el-table-column label="操作" align="center" width="220">
           <template #default="scope">
-            <el-button type="primary" size="small" @click="editRow(scope.row)">预览</el-button>
             <el-button type="primary" size="small" @click="editRow(scope.row)">编辑</el-button>
             <el-button type="danger" size="small" @click="deleteRow(scope.row)">删除</el-button>
           </template>

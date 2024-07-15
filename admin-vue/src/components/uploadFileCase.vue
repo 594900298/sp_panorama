@@ -24,22 +24,22 @@ let { webServiceUrl } = appConfig.requestConfig;
 //声明props
 const props = withDefaults(defineProps<{
   // 双向绑定
-  modelValue?:Array<any>,
+  modelValue?: string,
   // 上传路径
-  action?:string
+  action?: string
   // 字段名
-  name?:string,
+  name?: string,
   //文件类型
-  accept?:string
+  accept?: string
   // 文件列表的类型 text/picture/picture-card
-  listType?:string,
-   // 最大上传数量
-  limit?:number
+  listType?: string,
+  // 最大上传数量
+  limit?: number
 }>(), {
-  modelValue: ()=>[],
-  action:"common/uploadPic",
-  name:"img",
-  accept:".png, .jpg, .jpeg",
+  modelValue: "",
+  action: "common/uploadPic",
+  name: "img",
+  accept: ".png, .jpg, .jpeg",
 })
 //实现双向数据绑定
 const emit = defineEmits(["update:modelValue"]);
@@ -67,14 +67,14 @@ const uploadUrl = computed(() => {
 const fileList = computed(() => {
   return value.value
     ? [
-        {
-          name: value.value.substring(
-            value.value.lastIndexOf("/") + 1,
-            value.value.length
-          ),
-          url: value.value,
-        },
-      ]
+      {
+        name: props.modelValue.substring(
+          value.value.lastIndexOf("/") + 1,
+          value.value.length
+        ),
+        url: value.value,
+      },
+    ]
     : [];
 });
 //上传回调
@@ -93,32 +93,15 @@ const handleRemove = () => {
 </script>
 <template>
   <div class="upload-file">
-    <el-button
-      size="small"
-      type="primary"
-      :disabled="disabled"
-      v-if="disabled"
-      class="disabled-button"
-      >点击上传</el-button
-    >
-    <el-upload
-      class="upload-demo"
-      :action="uploadUrl"
-      :name="name"
-      :file-list="fileList"
-      :accept="accept"
-      :headers="headers"
-      :on-success="handleSuccess"
-      :on-remove="handleRemove"
-    >
-      <el-button size="small" type="primary" v-if="!disabled"
-        >点击上传</el-button
-      >
+    <el-button size="small" type="primary" :disabled="disabled" v-if="disabled" class="disabled-button">点击上传</el-button>
+    <el-upload class="upload-demo" :action="uploadUrl" :name="name" :file-list="fileList" :accept="accept"
+      :headers="headers" :on-success="handleSuccess" :on-remove="handleRemove">
+      <el-button size="small" type="primary" v-if="!disabled">点击上传</el-button>
     </el-upload>
   </div>
 </template>
 <style>
-.el-upload-list__item-file-name{
+.el-upload-list__item-file-name {
   width: 90px;
 }
 </style>

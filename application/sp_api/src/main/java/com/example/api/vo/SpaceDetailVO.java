@@ -42,6 +42,9 @@ public class SpaceDetailVO implements Serializable {
     @ApiModelProperty(value = "封面", example = "url")
     private String spaceThumb;
 
+    @ApiModelProperty(value = "音乐链接", example = "url")
+    private String backgroundMusic;
+
     @ApiModelProperty(value = "场景列表", example = "List<SceneDetailVo>")
     private List<SceneListVO> sceneListVO;
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <div id="pano">
+        <div id="pano" @mousedown="handleDown" @mouseup="handleUp">
             <noscript>
                 <table style="width: 100%; height: 100%">
                     <tr style="vertical-align: middle">
@@ -17,7 +17,7 @@
                 </table>
             </noscript>
         </div>
-        <div class="left-menu">
+        <div class="left-menu" v-if="controls">
             <div @click="router.push('/')">
                 <img src="../../public/images/vr_home.png" alt="HOME">
                 <p>HOME</p>
@@ -27,9 +27,9 @@
                 <p>BACK</p>
             </div>
         </div>
-        <div class="right-menu">
-            <div>
-                <img src="../../public/images/vr_music.png" alt="MUSIC">
+        <div class="right-menu" v-if="controls">
+            <div @click="handleMusic">
+                <img :src="isPlayAudio ? `/images/vr_music.png` : `/images/vr_unmusic.png`" alt="MUSIC">
                 <p>MUSIC</p>
             </div>
             <div @click="handleViewPort">
@@ -37,7 +37,7 @@
                 <p>VIEWPORT</p>
             </div>
         </div>
-        <Transition>
+        <Transition v-if="controls">
             <div class="retract-buttom-menu" v-if="isShowButtomMenu">
                 <img src="../../public/images/vr_arrow.png" alt="ARROW" @click="isShowButtomMenu = !isShowButtomMenu">
                 <Swiper class="swiper-wrapper" :slides-per-view="'auto'" :centerInsufficientSlides="true">
@@ -54,6 +54,7 @@
                 <div>场景选择</div>
             </div>
         </Transition>
+        <audio :src="detail.backgroundMusic" loop ref="audioRef"></audio>
     </div>
 </template>
 
@@ -65,24 +66,32 @@ import { useRouter, useRoute } from "vue-router";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { KrpanoUtilsClass } from "~/public/js/krpanoUtils1.1";
 import 'swiper/css'
-import { CollectionTag } from "@element-plus/icons-vue";
 let krpanoUtils: any = null;
 const isShowButtomMenu = ref<boolean>(true);
 const detail = ref<{
+    spaceName?: string,
+    backgroundMusic?: string,
     sceneListVO: Array<{
         sceneName: string,
         thumb: string,
         randomString: string,
     }>
 }>({
-    sceneListVO: []
+    sceneListVO: [],
 });
 const route = useRoute();
 const router = useRouter();
 const curRandomString = ref<String>("");
 const sceneStack = ref<Array<String>>([]);
 const viewPort = ref<number>(0);
-const ViewLookat = ref<{
+const viewLookat = ref<{
+    hlookat: number,
+    vlookat: number,
+}>();
+const isPlayAudio = ref<boolean>(false);
+const audioRef = ref();
+const controls = ref<boolean>(true);
+const logViewLookat = ref<{
     hlookat: number,
     vlookat: number,
 }>();
@@ -121,7 +130,7 @@ function linkedsceneClick(randomString: String) {
     sceneStack.value.push(randomString);
     krpanoUtils.loadscene(randomString);
     viewPort.value = krpanoUtils.getViewFov();
-    ViewLookat.value = krpanoUtils.getViewLookat();
+    viewLookat.value = krpanoUtils.getViewLookat();
 }
 /**
  * 点击回退
@@ -132,17 +141,43 @@ function handleBack() {
     curRandomString.value = sceneStack.value[sceneStack.value.length - 1];
     krpanoUtils.loadscene(sceneStack.value[sceneStack.value.length - 1]);
     viewPort.value = krpanoUtils.getViewFov();
-    ViewLookat.value = krpanoUtils.getViewLookat();
+    viewLookat.value = krpanoUtils.getViewLookat();
 }
 /**
  * 视角恢复
  */
 function handleViewPort() {
     krpanoUtils.setViewFov(viewPort.value);
-    krpanoUtils.setViewLookat(ViewLookat.value?.hlookat, ViewLookat.value?.vlookat);
+    krpanoUtils.setViewLookat(viewLookat.value?.hlookat, viewLookat.value?.vlookat);
 }
-onMounted(() => {
-    getDeatil();
+/**
+ * 背景音乐
+ */
+function handleMusic() {
+    isPlayAudio.value = !isPlayAudio.value;
+    isPlayAudio.value ? audioRef.value.play() : audioRef.value.pause();
+}
+/**
+ * 点击
+ */
+function handleDown() {
+    logViewLookat.value = krpanoUtils.getViewLookat();
+}
+/**
+ * 弹起相同则为控制台调整
+ */
+function handleUp() {
+    const { hlookat, vlookat } = krpanoUtils.getViewLookat();
+    if (vlookat === logViewLookat.value?.vlookat && hlookat === logViewLookat.value?.hlookat) {
+        controls.value = !controls.value
+    }
+}
+onMounted(async() => {
+    await getDeatil();
+    useSeoMeta({
+        title: `${detail.value.spaceName}-3DVR全景拍摄制作软件平台`,
+        ogTitle: `${detail.value.spaceName}-3DVR全景拍摄制作软件平台`,
+    })
 })
 </script>
 

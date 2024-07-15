@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : docker-container
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50744
- Source Host           : 172.17.165.79:3306
- Source Schema         : sp_shop
+ Source Server Version : 50726
+ Source Host           : localhost:3306
+ Source Schema         : sp_panorama
 
  Target Server Type    : MySQL
- Target Server Version : 50744
+ Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 08/05/2024 09:37:46
+ Date: 15/07/2024 11:04:00
 */
 
 SET NAMES utf8mb4;
@@ -41,12 +41,12 @@ CREATE TABLE `sp_admin`  (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '后台管理员' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '后台管理员' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sp_admin
 -- ----------------------------
-INSERT INTO `sp_admin` VALUES (1, 'admin', '97be8156ad5ec9190a86192d04a2a39c', 'admin', '13249205697', 'design@gzhometrend.com', 1, 1, 0, '172.18.0.1', 1715054316, 87, '60b6b9c7-35e9-43b5-8143-c761e0da054f', 1, 0, 1715054316, 1594862466);
+INSERT INTO `sp_admin` VALUES (1, 'admin', '97be8156ad5ec9190a86192d04a2a39c', 'admin', '13249205697', 'design@gzhometrend.com', 1, 1, 0, '127.0.0.1', 1721012028, 115, '60b6b9c7-35e9-43b5-8143-c761e0da054f', 1, 0, 1721012028, 1594862466);
 
 -- ----------------------------
 -- Table structure for sp_area
@@ -3487,217 +3487,11 @@ CREATE TABLE `sp_banner`  (
   `sort` int(3) NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`banner_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '轮播' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '轮播' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sp_banner
 -- ----------------------------
-INSERT INTO `sp_banner` VALUES (2, '123', 'http://172.17.165.79:8080/static/uploads/2024-05/1715051970698.jpg', '123', 1, 0, 1714356514);
-
--- ----------------------------
--- Table structure for sp_car
--- ----------------------------
-DROP TABLE IF EXISTS `sp_car`;
-CREATE TABLE `sp_car`  (
-  `car_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '购物车id',
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `goods_id` int(11) NOT NULL COMMENT '商品id',
-  `sku_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品sku',
-  `quantity` smallint(3) NOT NULL DEFAULT 1 COMMENT '商品数量',
-  `checked` tinyint(1) NOT NULL COMMENT '选中状态 0未选中 1选中',
-  `update_time` int(11) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`car_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '购物车表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_car
--- ----------------------------
-
--- ----------------------------
--- Table structure for sp_goods
--- ----------------------------
-DROP TABLE IF EXISTS `sp_goods`;
-CREATE TABLE `sp_goods`  (
-  `goods_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品id',
-  `cat_id` int(11) NOT NULL COMMENT '分类id',
-  `goods_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '商品名称',
-  `goods_keyword` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '商品关键词',
-  `goods_desc` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '商品描述',
-  `goods_cover` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '商品封面',
-  `goods_gallery` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL COMMENT '商品图片画册',
-  `goods_content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL COMMENT '商品详情',
-  `unit_name` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '商品计量单位名称',
-  `spec_type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否多规格 0单规格 1多规格',
-  `is_hot` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否热门 0非热门 1热门',
-  `is_new` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否新品 0非新品 1新品',
-  `is_show` tinyint(1) NULL DEFAULT 1 COMMENT '是否展示',
-  `sort` tinyint(3) NOT NULL DEFAULT 0 COMMENT '商品排序',
-  PRIMARY KEY (`goods_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '商品表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_goods
--- ----------------------------
-INSERT INTO `sp_goods` VALUES (4, 2, '魅族22', NULL, NULL, 'http://172.17.165.79:8080/static/uploads/2024-05/1715051779054.png', '[{\"name\":\"1715053489227.png\",\"url\":\"http://172.17.165.79:8080/static/uploads/2024-05/1715053489227.png\",\"uid\":1715053842614,\"status\":\"success\"},{\"name\":\"1715053491361.png\",\"url\":\"http://172.17.165.79:8080/static/uploads/2024-05/1715053491361.png\",\"uid\":1715053842615,\"status\":\"success\"}]', NULL, '台', 1, 1, 1, 0, 0);
-INSERT INTO `sp_goods` VALUES (6, 5, '机械革命', NULL, NULL, 'http://172.17.165.79:8080/static/uploads/2024-05/1715051634734.png', '', NULL, '台', 1, 1, 1, 1, 0);
-INSERT INTO `sp_goods` VALUES (7, 6, '小米', NULL, NULL, 'http://172.17.165.79:8080/static/uploads/2024-05/1715049684657.jpg', '', NULL, '小米', 0, 1, 1, 1, 0);
-INSERT INTO `sp_goods` VALUES (10, 2, '三星s24', NULL, NULL, 'http://172.17.165.79:8080/static/uploads/2024-05/1715049690969.jpg', NULL, NULL, '台', 0, 1, 1, 1, 0);
-INSERT INTO `sp_goods` VALUES (11, 2, '哆啦A梦', NULL, NULL, 'http://172.17.165.79:8080/static/uploads/2024-05/1715049601218.png', NULL, NULL, '只', 0, 1, 1, 1, 0);
-INSERT INTO `sp_goods` VALUES (13, 2, '华为Mate60', NULL, NULL, 'http://172.17.165.79:8080/static/uploads/2024-05/1715049517105.jpg', NULL, NULL, '台', 1, 0, 1, 1, 0);
-INSERT INTO `sp_goods` VALUES (14, 2, '苹果/iphone11', NULL, NULL, 'http://172.17.165.79:8080/static/uploads/2024-05/1715049443916.jpg', NULL, '<p><img src=\"http://127.0.0.1:8080/static/uploads/2024-04/1714380978650.png\"></p>', '台', 1, 0, 1, 1, 0);
-
--- ----------------------------
--- Table structure for sp_goods_attr
--- ----------------------------
-DROP TABLE IF EXISTS `sp_goods_attr`;
-CREATE TABLE `sp_goods_attr`  (
-  `attr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '属性id',
-  `goods_id` int(11) NOT NULL COMMENT '绑定商品id',
-  `attr_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '属性名称',
-  `set_image` tinyint(255) NOT NULL DEFAULT 0 COMMENT '是否设置规格图片',
-  PRIMARY KEY (`attr_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品属性表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_goods_attr
--- ----------------------------
-INSERT INTO `sp_goods_attr` VALUES (7, 4, '颜色', 1);
-INSERT INTO `sp_goods_attr` VALUES (8, 4, '内存', 0);
-INSERT INTO `sp_goods_attr` VALUES (11, 6, '内存', 1);
-INSERT INTO `sp_goods_attr` VALUES (12, 13, '颜色', 0);
-INSERT INTO `sp_goods_attr` VALUES (13, 13, '内存', 0);
-INSERT INTO `sp_goods_attr` VALUES (14, 14, '颜色', 0);
-INSERT INTO `sp_goods_attr` VALUES (15, 14, '内存', 0);
-
--- ----------------------------
--- Table structure for sp_goods_attr_value
--- ----------------------------
-DROP TABLE IF EXISTS `sp_goods_attr_value`;
-CREATE TABLE `sp_goods_attr_value`  (
-  `attr_value_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '属性值id',
-  `goods_id` int(11) NOT NULL DEFAULT 0 COMMENT '商品id',
-  `attr_id` int(11) NOT NULL DEFAULT 0 COMMENT '属性id',
-  `attr_value_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '属性值名称',
-  `attr_value_image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '属性值图片',
-  PRIMARY KEY (`attr_value_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品属值性表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_goods_attr_value
--- ----------------------------
-INSERT INTO `sp_goods_attr_value` VALUES (1, 4, 7, '白色', 'http://172.17.165.79:8080/static/uploads/2024-05/1715051804798.png');
-INSERT INTO `sp_goods_attr_value` VALUES (2, 4, 7, '黑色', 'http://172.17.165.79:8080/static/uploads/2024-05/1715053499190.jpg');
-INSERT INTO `sp_goods_attr_value` VALUES (3, 4, 7, '银色', 'http://172.17.165.79:8080/static/uploads/2024-05/1715053502290.jpg');
-INSERT INTO `sp_goods_attr_value` VALUES (4, 4, 8, '128G', '');
-INSERT INTO `sp_goods_attr_value` VALUES (6, 4, 8, '512G', '');
-INSERT INTO `sp_goods_attr_value` VALUES (7, 4, 8, '1T', '');
-INSERT INTO `sp_goods_attr_value` VALUES (15, 6, 11, '8G', 'http://172.17.165.79:8080/static/uploads/2024-05/1715051642961.png');
-INSERT INTO `sp_goods_attr_value` VALUES (16, 13, 12, '青色', '');
-INSERT INTO `sp_goods_attr_value` VALUES (17, 13, 12, '白色', '');
-INSERT INTO `sp_goods_attr_value` VALUES (18, 13, 13, '128G', '');
-INSERT INTO `sp_goods_attr_value` VALUES (19, 13, 13, '256G', '');
-INSERT INTO `sp_goods_attr_value` VALUES (20, 14, 14, '白色', '');
-INSERT INTO `sp_goods_attr_value` VALUES (21, 14, 14, '黑色', '');
-INSERT INTO `sp_goods_attr_value` VALUES (22, 14, 14, '蓝色', '');
-INSERT INTO `sp_goods_attr_value` VALUES (23, 14, 15, '128G', '');
-INSERT INTO `sp_goods_attr_value` VALUES (24, 14, 15, '256G', '');
-
--- ----------------------------
--- Table structure for sp_goods_category
--- ----------------------------
-DROP TABLE IF EXISTS `sp_goods_category`;
-CREATE TABLE `sp_goods_category`  (
-  `cat_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类id',
-  `pid` int(11) NOT NULL DEFAULT 0 COMMENT '上级id',
-  `cat_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '分类名称',
-  `cat_level` int(1) NOT NULL COMMENT '分类等级',
-  `cat_path` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类全路径',
-  `sort` int(3) NULL DEFAULT NULL COMMENT '排序',
-  `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否展示',
-  PRIMARY KEY (`cat_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品分类表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_goods_category
--- ----------------------------
-INSERT INTO `sp_goods_category` VALUES (1, 0, '数码', 1, ',1,', 0, 1);
-INSERT INTO `sp_goods_category` VALUES (2, 1, '手机通讯', 2, ',1,2,', 0, 1);
-INSERT INTO `sp_goods_category` VALUES (3, 1, '摄影数码', 2, ',1,3,', 0, 1);
-INSERT INTO `sp_goods_category` VALUES (4, 0, '电脑', 1, ',4,', 0, 1);
-INSERT INTO `sp_goods_category` VALUES (5, 4, '笔记本', 2, ',4,5,', 0, 1);
-INSERT INTO `sp_goods_category` VALUES (6, 4, '游戏本', 2, ',4,6,', 0, 1);
-INSERT INTO `sp_goods_category` VALUES (7, 4, '平板电脑', 2, ',4,7,', 0, 1);
-INSERT INTO `sp_goods_category` VALUES (8, 4, '台式机', 2, ',4,8,', 0, 1);
-
--- ----------------------------
--- Table structure for sp_goods_collect
--- ----------------------------
-DROP TABLE IF EXISTS `sp_goods_collect`;
-CREATE TABLE `sp_goods_collect`  (
-  `collect_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '收藏id',
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `goods_id` int(11) NOT NULL COMMENT '商品id',
-  `update_time` int(11) NOT NULL COMMENT '更新时间',
-  `create_time` int(11) NOT NULL COMMENT '创建时间',
-  `delete_time` int(11) NOT NULL DEFAULT 0 COMMENT '删除时间',
-  PRIMARY KEY (`collect_id`) USING BTREE,
-  INDEX `user_id,goods_id`(`user_id`, `goods_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品收藏表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_goods_collect
--- ----------------------------
-INSERT INTO `sp_goods_collect` VALUES (1, 1, 4, 1711437479, 1711437288, 0);
-
--- ----------------------------
--- Table structure for sp_goods_spec
--- ----------------------------
-DROP TABLE IF EXISTS `sp_goods_spec`;
-CREATE TABLE `sp_goods_spec`  (
-  `goods_id` int(11) NOT NULL COMMENT '主键',
-  `key_name` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '组合名称',
-  `cover` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组合图片',
-  `gallery` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '轮播图片',
-  `content` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
-  `old_price` decimal(10, 2) NOT NULL COMMENT '折扣价',
-  `price` decimal(10, 2) NOT NULL COMMENT '商品价格',
-  `store_count` int(11) NOT NULL DEFAULT 0 COMMENT '库存数量',
-  `sku_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品码',
-  `bar_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商品条形码',
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否上架 0未上架 1已上架',
-  UNIQUE INDEX `sku_code`(`sku_code`) USING BTREE COMMENT 'sku唯一',
-  INDEX `goods_id`(`goods_id`) USING BTREE COMMENT 'id搜索'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品规格表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_goods_spec
--- ----------------------------
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:银色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 10.00, 89, '0af41685-3940-4129-9824-e5d106cebe87', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:银色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 0.10, 0, '0fa357dd-e6ed-4855-a9b6-ea807071d966', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (11, '哆啦A梦', '', NULL, NULL, 99999999.00, 99999.00, 1, '18163698-2c4b-454f-bd4e-ecb6174f745a', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (14, '[\"颜色:白色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 6799.00, 11, '21bce751-3ced-4c2b-9c63-7e8f2348db97', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (13, '[\"颜色:白色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 6999.00, 99, '2fe93624-1065-4f16-9cf3-d37f637011c1', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:黑色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 10.00, 0, '4d9ffade-de3a-4e5f-be93-40861095cc22', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (13, '[\"颜色:青色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 5999.00, 99, '51170393-e3c1-403d-89a3-f2249255a5f4', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (7, '小米', '', NULL, NULL, 10.00, 10.00, 100, '5fabc303-de43-445c-8a4d-38bf70d2a796', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (6, '内存:8G', '', NULL, NULL, 0.00, 0.00, 10, '66e115da-5766-4199-a032-a152ae88d1c3', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:白色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 10.00, 0, '6d7a31a8-1b38-4b9e-bbc6-2b882f81071f', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (14, '[\"颜色:蓝色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 6666.00, 100, '7289c076-0530-4f6d-b556-33dc7eb24206', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:黑色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 90.00, 10, '77d99901-0dc0-4ecc-bc08-6090dc551449', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (13, '[\"颜色:白色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 5999.00, 99, '7ba7bab9-3ba3-43b4-a314-0b6d115d52da', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (13, '[\"颜色:青色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 6999.00, 99, '95b8558c-acae-408c-9069-654e6a29c3dd', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (10, '三星s24', '', NULL, NULL, 0.00, 4999.00, 10, 'a4322792-b2d4-42da-9d39-19ad9f3d4b2e', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (14, '[\"颜色:黑色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 5688.00, 99, 'bc59cc42-2ed2-4d38-80e0-bee156fc880f', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:白色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 10.00, 0, 'cbfc91f0-310e-4d92-ab1a-da395669183b', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:黑色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 90.00, 0, 'cc7f55b4-a5de-47c8-a34c-26d1c522fbe1', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:银色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 10.00, 0, 'cef92158-ee3d-4ff5-b0de-c44f262fdc2d', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (14, '[\"颜色:蓝色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 5899.00, 10, 'e0f92311-fd3a-4b2b-8736-904f56c3dc1e', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 12, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (14, '[\"颜色:黑色\",\"内存:256G\"]', '', NULL, NULL, 0.00, 6799.00, 10, 'ed27b830-0f7e-45b6-9c87-da0664cd90c4', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:白色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 10.00, 0, 'ed291e73-1f24-48c3-8db0-6963e46c257c', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:银色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 11, 'f4a0a56a-9aac-4a9c-8fc3-bdce5a288cfb', '', 1);
-INSERT INTO `sp_goods_spec` VALUES (14, '[\"颜色:白色\",\"内存:128G\"]', '', NULL, NULL, 0.00, 5688.00, 0, 'f85698f3-95fa-40c4-8ef3-5773d5b537b4', '', 0);
-INSERT INTO `sp_goods_spec` VALUES (4, '[\"颜色:白色\",\"内存:1T\"]', 'http://172.17.165.79:8080/static/uploads/2024-05/1715053862884.png', NULL, NULL, 0.00, 10.00, 9, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', '', 1);
 
 -- ----------------------------
 -- Table structure for sp_group_access
@@ -3715,96 +3509,29 @@ INSERT INTO `sp_group_access` VALUES (1, 1);
 INSERT INTO `sp_group_access` VALUES (1, 2);
 
 -- ----------------------------
--- Table structure for sp_order
+-- Table structure for sp_hotspot
 -- ----------------------------
-DROP TABLE IF EXISTS `sp_order`;
-CREATE TABLE `sp_order`  (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单id',
-  `user_id` int(11) NOT NULL COMMENT '订单关联用户id',
-  `order_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单号',
-  `order_price` decimal(10, 2) NOT NULL COMMENT '订单金额',
-  `payment_amount` decimal(10, 2) NOT NULL COMMENT '支付金额',
-  `province_id` int(11) NOT NULL COMMENT '省id',
-  `city_id` int(11) NOT NULL COMMENT '市id',
-  `district_id` int(11) NOT NULL COMMENT '区id',
-  `address_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '收货人名称',
-  `address_mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '收货人手机号码',
-  `order_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '收货地址',
-  `client_remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '客户备注',
-  `system_remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '系统备注',
-  `order_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '订单状态',
-  `delivery_time` int(11) NULL DEFAULT 0 COMMENT '收货时间',
-  `pay_time` int(11) NULL DEFAULT 0 COMMENT '支付时间',
-  `update_time` int(11) NULL DEFAULT NULL COMMENT '更新时间',
-  `create_time` int(11) NOT NULL DEFAULT 0 COMMENT '创建时间',
-  PRIMARY KEY (`order_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单表' ROW_FORMAT = Dynamic;
+DROP TABLE IF EXISTS `sp_hotspot`;
+CREATE TABLE `sp_hotspot`  (
+  `hotspot_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `scene_id` int(11) NOT NULL COMMENT '场景id',
+  `hotspot_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '热点名称',
+  `random_string` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '随机生成的字符串',
+  `hotspot_style` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '热点样式',
+  `hotspot_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'CHANGE_SCENE切换场景热点 PRODUCT_HOTSPOT货架热点 VIDEO_HOTSPOT视频热点 ',
+  `hotspot_value` int(11) NOT NULL DEFAULT 0 COMMENT '关联值',
+  `ath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '全景中球体坐标的水平位置',
+  `atv` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '全景中球体坐标的垂直位置\r',
+  `height` int(3) NULL DEFAULT 0 COMMENT '高度',
+  `width` int(3) NULL DEFAULT 0 COMMENT '宽度',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`hotspot_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '热点表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sp_order
+-- Records of sp_hotspot
 -- ----------------------------
-INSERT INTO `sp_order` VALUES (20, 1, 'SN17119511165850105', 100.01, 100.01, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, NULL, 0);
-INSERT INTO `sp_order` VALUES (21, 1, 'SN17119511310600395', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, NULL, 0);
-INSERT INTO `sp_order` VALUES (22, 1, 'SN17119521186649194', 100.01, 100.01, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, NULL, 0);
-INSERT INTO `sp_order` VALUES (23, 1, 'SN17119524085518318', 100.01, 100.01, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, NULL, 0);
-INSERT INTO `sp_order` VALUES (24, 1, 'SN17119545136799720', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1711954513, 1711954513);
-INSERT INTO `sp_order` VALUES (25, 1, 'SN17119545935383468', 0.00, 0.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1711954593, 1711954593);
-INSERT INTO `sp_order` VALUES (26, 1, 'SN17119546173992864', 0.00, 0.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1711954617, 1711954617);
-INSERT INTO `sp_order` VALUES (27, 1, 'SN17120292556486763', 10798.08, 10798.08, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712029255, 1712029255);
-INSERT INTO `sp_order` VALUES (28, 1, 'SN17120293340379810', 100.01, 100.01, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712029334, 1712029334);
-INSERT INTO `sp_order` VALUES (32, 1, 'SN17120296831406698', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712029683, 1712029683);
-INSERT INTO `sp_order` VALUES (33, 1, 'SN17120448315100357', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712044831, 1712044831);
-INSERT INTO `sp_order` VALUES (34, 1, 'SN17120460500828195', 100.01, 100.01, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712046050, 1712046050);
-INSERT INTO `sp_order` VALUES (35, 1, 'SN17120460913831445', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712046091, 1712046091);
-INSERT INTO `sp_order` VALUES (36, 1, 'SN17120514441871327', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712051444, 1712051444);
-INSERT INTO `sp_order` VALUES (37, 1, 'SN17120537022028642', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, '4', 0, 0, 1712053702, 1712053702);
-INSERT INTO `sp_order` VALUES (40, 1, 'SN17149662041475005', 110.01, 110.01, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, 'CANCEL', 0, 0, 1714966204, 1714966204);
-INSERT INTO `sp_order` VALUES (43, 1, 'SN17150621163003903', 10.00, 10.00, 5, 62, 604, '山内樱良', '13249205697', '甘肃省 兰州市 皋兰县 山内有樱名为良，树本无名只待春', NULL, NULL, 'WAIT_PAY', 0, 0, 1715062116, 1715062116);
-
--- ----------------------------
--- Table structure for sp_order_goods_snapshot
--- ----------------------------
-DROP TABLE IF EXISTS `sp_order_goods_snapshot`;
-CREATE TABLE `sp_order_goods_snapshot`  (
-  `goods_id` int(11) NOT NULL COMMENT '主键',
-  `user_id` int(11) NOT NULL COMMENT '关联用户id',
-  `order_id` int(11) NOT NULL COMMENT '关联订单id',
-  `goods_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名称',
-  `goods_gallery` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '商品轮播图片',
-  `goods_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '商品内容',
-  `key_name` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '组合名称',
-  `cover` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组合图片',
-  `gallery` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '规格轮播图片',
-  `content` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
-  `old_price` decimal(10, 2) NOT NULL COMMENT '折扣价',
-  `price` decimal(10, 2) NOT NULL COMMENT '商品价格',
-  `sku_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品码',
-  `bar_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商品条形码',
-  `quantity` smallint(3) NOT NULL COMMENT '商品数量'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单关联商品快照' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_order_goods_snapshot
--- ----------------------------
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 20, '', NULL, NULL, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 21, '', NULL, NULL, '[\"颜色:白色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 22, '', NULL, NULL, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 23, '', NULL, NULL, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 24, '', NULL, NULL, '[\"颜色:白色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (6, 1, 25, '', NULL, NULL, '内存:8G', '', NULL, NULL, 0.00, 0.00, '66e115da-5766-4199-a032-a152ae88d1c3', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (6, 1, 26, '', NULL, NULL, '内存:8G', '', NULL, NULL, 0.00, 0.00, '66e115da-5766-4199-a032-a152ae88d1c3', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 27, '魅族22', NULL, NULL, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 8);
-INSERT INTO `sp_order_goods_snapshot` VALUES (10, 1, 27, '三星s24', NULL, NULL, '三星s24', '', NULL, NULL, 0.00, 4999.00, 'a4322792-b2d4-42da-9d39-19ad9f3d4b2e', '', 2);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 28, '魅族22', NULL, NULL, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 32, '魅族22', NULL, NULL, '[\"颜色:白色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', NULL, 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 33, '魅族22', NULL, NULL, '[\"颜色:白色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 34, '魅族22', NULL, NULL, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 35, '魅族22', NULL, NULL, '[\"颜色:银色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'f4a0a56a-9aac-4a9c-8fc3-bdce5a288cfb', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 36, '魅族22', NULL, NULL, '[\"颜色:白色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 37, '魅族22', NULL, NULL, '[\"颜色:白色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 40, '魅族22', NULL, NULL, '[\"颜色:黑色\",\"内存:512G\"]', '', NULL, NULL, 0.00, 100.01, 'e7bf5be7-ddf0-4d13-bdb5-44c4695b47ba', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 40, '魅族22', NULL, NULL, '[\"颜色:银色\",\"内存:1T\"]', '', NULL, NULL, 0.00, 10.00, 'f4a0a56a-9aac-4a9c-8fc3-bdce5a288cfb', '', 1);
-INSERT INTO `sp_order_goods_snapshot` VALUES (4, 1, 43, '魅族22', '[{\"name\":\"1715053489227.png\",\"url\":\"http://172.17.165.79:8080/static/uploads/2024-05/1715053489227.png\",\"uid\":1715053842614,\"status\":\"success\"},{\"name\":\"1715053491361.png\",\"url\":\"http://172.17.165.79:8080/static/uploads/2024-05/1715053491361.png\",\"uid\":1715053842615,\"status\":\"success\"}]', NULL, '[\"颜色:白色\",\"内存:1T\"]', 'http://172.17.165.79:8080/static/uploads/2024-05/1715053862884.png', NULL, NULL, 0.00, 10.00, 'ff5648cb-aa37-4d3e-be2f-3b92b17a359e', '', 1);
+INSERT INTO `sp_hotspot` VALUES (1, 1, '', 'hotspot_ccac8cefc1e145c297ed6766fa2e3c72', 'skin_hotspotstyle_turn_left', 'CHANGE_SCENE', 4, '-102.82', '14.70', 0, 0, 1719976462);
 
 -- ----------------------------
 -- Table structure for sp_role
@@ -3887,6 +3614,66 @@ INSERT INTO `sp_rule` VALUES (37, 34, '删除', '/admin/goods/delete', '', '', 0
 INSERT INTO `sp_rule` VALUES (38, 26, '详情', '/admin/order/detail/.*', '', '', 0, 0, 1715129835);
 
 -- ----------------------------
+-- Table structure for sp_scene
+-- ----------------------------
+DROP TABLE IF EXISTS `sp_scene`;
+CREATE TABLE `sp_scene`  (
+  `scene_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '场景id',
+  `space_id` int(11) NOT NULL COMMENT '空间id',
+  `scene_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '场景名称',
+  `hlookat` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '起始水平视角',
+  `vlookat` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '起始垂直视角',
+  `fov` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '120' COMMENT '默认视角的缩放',
+  `limitview` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '视角类型',
+  `hlookatmin` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最小水平视角范围',
+  `hlookatmax` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最大水平视角范围',
+  `vlookatmin` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最小垂直视角范围',
+  `vlookatmax` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最大垂直视角范围',
+  `control` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '控制方式 drag[默认]、moveto',
+  `random_string` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '随机生成的字符串',
+  `panos_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '素材路径',
+  `xml_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'xml路径',
+  `material_file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '素材文件名',
+  `level_config` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT 'xml level配置',
+  `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-显示 2-隐藏',
+  `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '软删',
+  PRIMARY KEY (`scene_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '场景表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sp_scene
+-- ----------------------------
+INSERT INTO `sp_scene` VALUES (1, 2, '简约欧美风', '280.16', '7.47', '109.53', 'auto', '-360', '360', '-90', '90', 'drag', 'scene_395bc90d002840f1be1d1ca245a0653b', '/static/scene/material/scene_395bc90d002840f1be1d1ca245a0653b/', '/static/scene/scene_395bc90d002840f1be1d1ca245a0653b.xml', '1719817741032.tiles', '[{\"tiledimageheight\":\"1600\",\"tiledimagewidth\":\"1600\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"768\",\"tiledimagewidth\":\"768\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719817747, 0);
+INSERT INTO `sp_scene` VALUES (2, 2, '简约欧美风2', '0', '0', '120', 'auto', '180', '180', '-90', '90', 'drag', 'scene_17465661365c40ab8f36acc24a6e2a0d', '/static/scene/material/scene_17465661365c40ab8f36acc24a6e2a0d/', '/static/scene/scene_17465661365c40ab8f36acc24a6e2a0d.xml', '1719974755898.tiles', '[{\"tiledimageheight\":\"256\",\"tiledimagewidth\":\"256\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719974758, 1);
+INSERT INTO `sp_scene` VALUES (3, 2, '简约欧美风2', '180.00', '0.00', '120', 'lookat', '-360', '360', '-90', '90', 'drag', 'scene_cba08e86755247bcb6624e41c877c9b9', '/static/scene/material/scene_cba08e86755247bcb6624e41c877c9b9/', '/static/scene/scene_cba08e86755247bcb6624e41c877c9b9.xml', '1719974790394.tiles', '[{\"tiledimageheight\":\"1792\",\"tiledimagewidth\":\"1792\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"1024\",\"tiledimagewidth\":\"1024\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719974798, 0);
+INSERT INTO `sp_scene` VALUES (4, 2, '简约风', '0', '0', '120', 'auto', '-360', '360', '-90', '90', 'drag', 'scene_cf40c1ac55dd4b4585c5611528adcd30', '/static/scene/material/scene_cf40c1ac55dd4b4585c5611528adcd30/', '/static/scene/scene_cf40c1ac55dd4b4585c5611528adcd30.xml', '1720143867214.tiles', '[{\"tiledimageheight\":\"1280\",\"tiledimagewidth\":\"1280\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"640\",\"tiledimagewidth\":\"640\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1720143872, 0);
+
+-- ----------------------------
+-- Table structure for sp_space
+-- ----------------------------
+DROP TABLE IF EXISTS `sp_space`;
+CREATE TABLE `sp_space`  (
+  `space_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `space_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '空间名称',
+  `space_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '空间唯一识别码',
+  `space_thumb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '封面',
+  `background_music` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '背景音乐',
+  `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-显示 0-隐藏',
+  `sort` int(3) NULL DEFAULT 0 COMMENT '排序',
+  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '软删',
+  PRIMARY KEY (`space_id`) USING BTREE,
+  UNIQUE INDEX `space_code`(`space_code`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '空间表\r\n' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sp_space
+-- ----------------------------
+INSERT INTO `sp_space` VALUES (1, '室内设计', 'ae6c7e19-fc09-46a0-8c40-9e99844f68b6', 'http://127.0.0.1:8081/static/uploads/2024-06/1719298042461.jpg', '', 0, 0, 1);
+INSERT INTO `sp_space` VALUES (2, '房屋设计', 'abe159b5-0229-4920-acbe-dbe78ea1d91a', 'http://127.0.0.1:8081/static/uploads/2024-06/1719546934574.jpg', 'http://127.0.0.1:8081/static/uploads/2024-07/1721008384814.flac', 1, 0, 0);
+
+-- ----------------------------
 -- Table structure for sp_system
 -- ----------------------------
 DROP TABLE IF EXISTS `sp_system`;
@@ -3927,33 +3714,5 @@ CREATE TABLE `sp_user`  (
 -- Records of sp_user
 -- ----------------------------
 INSERT INTO `sp_user` VALUES (1, NULL, '', 1, 'oPj7W5TJFzG90mDKuqSyHe5e7gow', '4d87a868-39a1-448c-b4e7-6bc7584744cf', '172.18.0.1', 1715061897, 217, 0);
-
--- ----------------------------
--- Table structure for sp_user_address
--- ----------------------------
-DROP TABLE IF EXISTS `sp_user_address`;
-CREATE TABLE `sp_user_address`  (
-  `address_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `province_id` int(11) NOT NULL COMMENT '省id',
-  `province_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '省名称',
-  `city_id` int(11) NOT NULL COMMENT '市id',
-  `city_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '市名称',
-  `district_id` int(11) NOT NULL COMMENT '区id',
-  `district_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '区名称',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '收货人名称',
-  `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号码',
-  `full_address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '详细地址',
-  `is_default` int(11) NULL DEFAULT 0 COMMENT '是否默认 0非 1真【需要确保只有一个】',
-  `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` int(11) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`address_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户收货地址表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sp_user_address
--- ----------------------------
-INSERT INTO `sp_user_address` VALUES (1, 1, 5, '甘肃省', 62, '兰州市', 604, '皋兰县', '山内樱良', '13249205697', '山内有樱名为良，树本无名只待春', 1, NULL, 1711867144);
-INSERT INTO `sp_user_address` VALUES (2, 1, 2, '北京市', 52, '北京', 500, '东城区', '志贺春树', '13699999999', '🐟', 0, 1711870801, 1711870801);
 
 SET FOREIGN_KEY_CHECKS = 1;

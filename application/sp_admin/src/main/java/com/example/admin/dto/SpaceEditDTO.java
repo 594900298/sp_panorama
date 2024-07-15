@@ -23,6 +23,9 @@ public class SpaceEditDTO {
     @ApiModelProperty(value = "封面", example = "url")
     private String spaceThumb;
 
+    @ApiModelProperty(value = "音乐链接", example = "url")
+    private String backgroundMusic;
+
     @ApiModelProperty(value = "显示状态", required = true, example = "url")
     @NotNull(message = "显示状态不能为空")
     private Boolean isShow;

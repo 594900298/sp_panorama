@@ -32,9 +32,9 @@ spring:
     servlet:
         multipart:
             #单个文件大小为5MB
-            max-file-size: 5MB
+            max-file-size: 100MB
             #总上传的数据大小5MB
-            max-request-size: 5MB
+            max-request-size: 100MB
 # 整合mybatis-plus
 mybatis-plus:
     global-config:

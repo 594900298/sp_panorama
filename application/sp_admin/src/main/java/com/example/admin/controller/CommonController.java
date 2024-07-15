@@ -28,10 +28,24 @@ public class CommonController {
      */
     @ApiOperation("上传图片")
     @PostMapping("/uploadPic")
-    public ResultData<UpLoadFileVO> paginate(
+    public ResultData<UpLoadFileVO> uploadPic(
             @ApiParam(name = "img", value = "图片流", required = true) @RequestParam("img") MultipartFile file
     ) {
         return ResultData.success(commonService.uploadPic(file), "上传成功");
+    }
+
+    /**
+     * 上传音乐
+     *
+     * @param file
+     * @return
+     */
+    @ApiOperation("上传图片")
+    @PostMapping("/uploadMusic")
+    public ResultData<UpLoadFileVO> uploadMusic(
+            @ApiParam(name = "file", value = "文件流", required = true) @RequestParam("file") MultipartFile file
+    ) {
+        return ResultData.success(commonService.uploadMusic(file), "上传成功");
     }
 
 }
