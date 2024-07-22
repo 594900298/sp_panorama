@@ -75,7 +75,6 @@
 │  ├─src                    核心包
 │  │  ├─libs                公告模块
 |  |  |  ├─app.config.js    配置文件   
-├─baseXml                   baseXML
 ├─krpano                    krpano
 ├─stitic                    静态素材
 │  ├─scene                  全景素材
