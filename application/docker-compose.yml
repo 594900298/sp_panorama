@@ -1,0 +1,43 @@
+services:
+  # 用户模块
+  sp_api:
+    # 构建镜像的路径。"." 表示 Dockerfile 文件所在的当前目录
+    build:
+      context: ./sp_api
+    # 指定容器名称
+    container_name: sp_api
+    # 容器所要使用的端口号
+    ports:
+      - 8080:8080
+    restart:
+      always
+    # 设置环境变量
+    environment:
+      # 环境名称
+      - SPRING_PROFILES_ACTIVE=prod
+      # 数据库配置
+      - SPRING_DATASOURCE_URL=jdbc:p6spy:mysql://localhost/sp_panorama?serverTimezone=Asia/Shanghai
+      # 是否开启文档
+      - KNIFE4J_ENABLE=true
+  # 管理员模块
+  sp_admin:
+    # 构建镜像的路径。"." 表示 Dockerfile 文件所在的当前目录
+    build:
+      context: ./sp_admin
+    # 指定容器名称
+    container_name: sp_admin
+    # 容器所要使用的端口号
+    ports:
+      - 8081:8081
+    restart:
+      always
+    # 设置环境变量
+    environment:
+      # 环境名称
+      - SPRING_PROFILES_ACTIVE=prod
+      # 数据库配置
+      - SPRING_DATASOURCE_URL=jdbc:p6spy:mysql://localhost/sp_panorama?serverTimezone=Asia/Shanghai
+      # 是否开启文档
+      - KNIFE4J_ENABLE=true
+
+  
