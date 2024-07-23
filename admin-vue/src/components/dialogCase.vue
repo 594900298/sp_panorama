@@ -122,7 +122,9 @@ const toggleShow = (index: number, showStatus: boolean): boolean => {
 const closeAll = (): void => {
   //循环弹出层列表
   dialogList.value.forEach((item: dialogOptionsType) => {
-    item.close();
+    if (typeof item.close === 'function') {
+      item.close();
+    }
   });
   //清空弹出层
   dialogList.value = [];
@@ -136,23 +138,10 @@ defineExpose({
 <template>
   <template v-for="(item, index) in dialogList" :key="index">
     <!-- 弹出层s -->
-    <el-dialog
-      v-model="item.isShow"
-      :title="item.title"
-      :width="item.width"
-      :fullscreen="item.fullscreen"
-      :show-close="item.showClose"
-      @open="item.open"
-      @opened="item.opened"
-      @closed="item.closed"
-      append-to-body
-    >
+    <el-dialog v-model="item.isShow" :title="item.title" :width="item.width" :fullscreen="item.fullscreen"
+      :show-close="item.showClose" @open="item.open" @opened="item.opened" @closed="item.closed" append-to-body>
       <!-- 异步组件 -->
-      <component
-        :is="item.asyncComp"
-        :params="item.params"
-        :close="item.close"
-      />
+      <component :is="item.asyncComp" :params="item.params" :close="item.close" />
     </el-dialog>
   </template>
 </template>

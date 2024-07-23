@@ -28,13 +28,13 @@ import type { PropType } from "vue";
 //props 接口
 interface propsInterface {
   //指定节点标签为节点对象的某个属性值
-  label: String;
+  label: string;
   //指定子树为节点对象的某个属性值
-  children: String;
+  children: string;
   //指定节点选择框是否禁用为节点对象的某个属性值
-  disabled?: String;
+  disabled?: string;
   //自定义节点类名
-  class?: String;
+  class?: string;
 }
 const props = defineProps({
   //数据源
@@ -105,7 +105,7 @@ const checkBoxModel = (nodeKey: string | number): boolean => {
 };
 /**
  * 递归获取所有nodeKey
- * 将number 转成了 string
+ * 将number 转成了sstring
  * @param row
  */
 const getNodeKeyList = (row: any) => {
