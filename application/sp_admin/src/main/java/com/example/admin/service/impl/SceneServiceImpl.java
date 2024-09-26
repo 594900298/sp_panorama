@@ -131,7 +131,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             if (SystemUtil.getOsInfo().isWindows()) {
                 RuntimeUtil.execForStr(StrUtil.format("{}\\krpano\\win\\krpanotools64.exe makepano -config=templates\\vtour-vr.config {}", currentPath, absolutePath));
             } else {
-                RuntimeUtil.execForStr(StrUtil.format("{}\\krpano\\linux\\krpanotools makepano -config=templates\\vtour-vr.config {}", currentPath, absolutePath));
+                RuntimeUtil.execForStr(StrUtil.format("{}/krpano/linux/krpanotools makepano -config=templates/vtour-vr.config {}", currentPath, absolutePath));
             }
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), 106);

@@ -72,7 +72,7 @@ onMounted(() => {
 <template>
   <div class="login-page">
     <div class="main-continaer">
-      <el-avatar :size="50" src="./src/assets/images/avatar.png" />
+      <el-avatar :size="50" src="/src/assets/images/avatar.png" />
       <p>后台管理系统</p>
       <el-form
         :model="ruleForm"

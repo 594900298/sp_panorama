@@ -7,8 +7,8 @@ spring:
     datasource:
         driver-class-name: com.p6spy.engine.spy.P6SpyDriver
         url: jdbc:p6spy:mysql://localhost:3306/sp_panorama?serverTimezone=Asia/Shanghai
-        username: root
-        password: root
+        username: sp_panorama
+        password: aX7XkDskMbhGS4zK
     # 使用rabbitmq
     rabbitmq:
         host: localhost

@@ -13,7 +13,7 @@ export default {
         //是否携带请求信息
         withCredentials: true,
         //请求地址
-        webServiceUrl: 'admin/',
+        webServiceUrl: '/admin/',
         //请求时是否显示加载
         showLoading: true,
         //是否刷新token

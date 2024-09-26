@@ -95,7 +95,7 @@ const modifyPassword = () => {
   <div class="header-action-wrapper">
     <el-dropdown placement="bottom" trigger="click">
       <div>
-        <el-avatar src="./src/assets/images/avatar.png" />
+        <el-avatar src="/src/assets/images/avatar.png" />
         <p>{{ username }}</p>
       </div>
       <template #dropdown>
