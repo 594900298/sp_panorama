@@ -128,23 +128,25 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
         String absolutePath = new File(fileName).getAbsolutePath();
         // 执行生成命令
         try {
+            String res;
             if (SystemUtil.getOsInfo().isWindows()) {
-                RuntimeUtil.execForStr(StrUtil.format("{}\\krpano\\win\\krpanotools64.exe makepano -config=templates\\vtour-vr.config {}", currentPath, absolutePath));
+                 res = RuntimeUtil.execForStr(StrUtil.format("{}\\krpano\\win\\krpanotools64.exe makepano -config=templates\\vtour-vr.config {}", currentPath, absolutePath));
             } else {
-                RuntimeUtil.execForStr(StrUtil.format("{}/krpano/linux/krpanotools makepano -config=templates/vtour-vr.config {}", currentPath, absolutePath));
+                 res = RuntimeUtil.execForStr(StrUtil.format("{}/krpano/linux/krpanotools makepano -config=templates/vtour-vr.config {}", currentPath, currentPath+absolutePath));
             }
+            System.out.println(res);
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), 106);
         }
         // 设置一个随机值
         String randomString = StrUtil.format("scene_{}", IdUtil.simpleUUID());
         // 移动文件
-        String vtourPath = StrUtil.format("{}\\vtour", StringUtils.substringBeforeLast(absolutePath, "\\"));
-        String panosPath = StrUtil.format("{}\\panos", vtourPath);
+        String vtourPath = StrUtil.format("{}/vtour", StringUtils.substringBeforeLast(currentPath+absolutePath, "/"));
+        String panosPath = StrUtil.format("{}/panos", vtourPath);
         String materialFileName = FileUtil.ls(panosPath)[0].getName();
-        FileUtil.copy(Paths.get(panosPath), Paths.get(new File(StrUtil.format("/static/scene/material/{}/", randomString)).getAbsolutePath()));
         // 加载xml
         try {
+            FileUtil.copy(Paths.get(panosPath), Paths.get(new File(StrUtil.format("{}/static/scene/material/{}/", currentPath,randomString)).getAbsolutePath()));
             // 读取
             SAXReader saxReader = new SAXReader();
             Document document = saxReader.read(new File(StrUtil.format("{}\\tour.xml", vtourPath)));
