@@ -149,7 +149,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             FileUtil.copy(Paths.get(panosPath), Paths.get(new File(StrUtil.format("{}/static/scene/material/{}/", currentPath,randomString)).getAbsolutePath()));
             // 读取
             SAXReader saxReader = new SAXReader();
-            Document document = saxReader.read(new File(StrUtil.format("{}\\tour.xml", vtourPath)));
+            Document document = saxReader.read(new File(StrUtil.format("{}/tour.xml", vtourPath)));
             //获取根节点
             Element rootElement = document.getRootElement();
             // 获取scene节点

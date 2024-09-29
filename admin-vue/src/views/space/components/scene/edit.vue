@@ -29,55 +29,55 @@ const spotTypeList = Object.freeze([
 const styleImgList = Object.freeze([
   {
     label: "skin_prod_list",
-    value: "/src/assets/images/skin_prod_list.gif",
+    value: new URL("/src/assets/images/skin_prod_list.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_turn_left",
-    value: "/src/assets/images/skin_hotspotstyle_turn_left.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_turn_left.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_turn_right",
-    value: "/src/assets/images/skin_hotspotstyle_turn_right.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_turn_right.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_turn_left_back",
-    value: "/src/assets/images/skin_hotspotstyle_turn_left_back.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_turn_left_back.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_turn_right_back",
-    value: "/src/assets/images/skin_hotspotstyle_turn_right_back.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_turn_right_back.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_arrow",
-    value: "/src/assets/images/skin_hotspotstyle_arrow.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_arrow.gif", import.meta.url),
   },
   {
     label: "skin_layerstyle_tip",
-    value: "/src/assets/images/skin_layerstyle_tip.png",
+    value: new URL("/src/assets/images/skin_layerstyle_tip.png", import.meta.url),
   },
   {
     label: "skin_hotspotstyle",
-    value: "/src/assets/images/skin_hotspotstyle.png",
+    value: new URL("/src/assets/images/skin_hotspotstyle.png", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_hotspot",
-    value: "/src/assets/images/skin_hotspotstyle_hotspot.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_hotspot.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_inspiration",
-    value: "/src/assets/images/skin_hotspotstyle_inspiration.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_inspiration.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_video",
-    value: "/src/assets/images/skin_hotspotstyle_video.gif",
+    value: new URL("/src/assets/images/skin_hotspotstyle_video.gif", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_point",
-    value: "/src/assets/images/skin_hotspotstyle_point.jpg",
+    value: new URL("/src/assets/images/skin_hotspotstyle_point.jpg", import.meta.url),
   },
   {
     label: "skin_hotspotstyle_door",
-    value: "/src/assets/images/skin_hotspotstyle_door.jpg",
+    value: new URL("/src/assets/images/skin_hotspotstyle_door.jpg", import.meta.url),
   },
 ])
 const ruleFormRef = ref(null);
@@ -105,7 +105,7 @@ const hotRuleForm = ref({
   sceneId: route.params.sceneId,
   hotspotStyle: "skin_prod_list",
   hotspotType: null,
-  hotspotValue:null,
+  hotspotValue: null,
   ath: "",
   atv: "",
   width: 0,
@@ -159,7 +159,7 @@ const getDetail = async () => {
     vlookat.value = [ruleForm.value.vlookatmin, ruleForm.value.vlookatmax];
     embedpano({
       swf: `/static/scene/tour.swf`,
-      xml: `http://localhost:8081/admin/scene/getXml/${route.query.sceneId}`,
+      xml: `/admin/scene/getXml/${route.query.sceneId}`,
       target: "pano",
       html5: "auto",
       mobilescale: 1.0,
@@ -195,7 +195,7 @@ const getDetail = async () => {
 const initTwoPano = () => {
   embedpano({
     swf: `/static/scene/tour.swf`,
-    xml: `http://localhost:8081/admin/scene/getXml/${route.query.sceneId}`,
+    xml: `/admin/scene/getXml/${route.query.sceneId}`,
     target: "panoTwo",
     html5: "auto",
     mobilescale: 1.0,
@@ -529,7 +529,7 @@ const initSpot = () => {
     sceneId: String(route.query.sceneId),
     hotspotStyle: "skin_prod_list",
     hotspotType: null,
-    hotspotValue:null,
+    hotspotValue: null,
     ath: "",
     atv: "",
     width: 0,
@@ -605,8 +605,8 @@ const changeSpotSize = () => {
     );
   }
 }
-const getHotSoptImg = (item) =>{
-  return styleImgList.find((value)=>{
+const getHotSoptImg = (item) => {
+  return styleImgList.find((value) => {
     return item.hotspotStyle == value.label
   })?.value
 }
@@ -848,8 +848,8 @@ onMounted(() => {
     </el-container>
     <!-- 选择场景 -->
     <el-dialog title="选择场景" v-model="isSelectScene" width="50%">
-      <selectSceneVue v-if="isAddHotSpot && isSelectScene" :sceneList="sceneList" :hotspotValue="hotRuleForm.hotspotValue"
-        @selectScenData="selectScenData"></selectSceneVue>
+      <selectSceneVue v-if="isAddHotSpot && isSelectScene" :sceneList="sceneList"
+        :hotspotValue="hotRuleForm.hotspotValue" @selectScenData="selectScenData"></selectSceneVue>
     </el-dialog>
   </div>
 </template>

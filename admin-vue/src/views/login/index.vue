@@ -3,7 +3,7 @@ import { ref, reactive, onMounted } from "vue";
 import type { FormRules, FormInstance } from "element-plus";
 import { ElMessage } from "element-plus";
 import { User, Lock } from "@element-plus/icons-vue";
-import { post,get } from "@/libs/request";
+import { post, get } from "@/libs/request";
 import { useRouter } from "vue-router";
 import appConfig from "@/libs/app.config";
 import { storage } from "@/libs/storage";
@@ -57,7 +57,7 @@ const getVerify = async () => {
   });
   if (res.errCode == 0) {
     ruleForm.codeSign = res.data.codeSign;
-    imgUrl.value =  res.data.base64CodeImg;
+    imgUrl.value = res.data.base64CodeImg;
   }
 };
 onMounted(() => {
@@ -72,37 +72,23 @@ onMounted(() => {
 <template>
   <div class="login-page">
     <div class="main-continaer">
-      <el-avatar :size="50" src="/src/assets/images/avatar.png" />
+      <el-avatar :size="50">
+        <img src="@/assets/images/avatar.png">
+      </el-avatar>
       <p>后台管理系统</p>
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleFormRef"
-        @keyup.enter="submitForm(ruleFormRef)"
-      >
+      <el-form :model="ruleForm" :rules="rules" ref="ruleFormRef" @keyup.enter="submitForm(ruleFormRef)">
         <el-form-item prop="username">
-          <el-input
-            v-model="ruleForm.username"
-            :prefix-icon="User"
-            placeholder="请输入用户名"
-          />
+          <el-input v-model="ruleForm.username" :prefix-icon="User" placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            v-model="ruleForm.password"
-            :prefix-icon="Lock"
-            show-password
-            placeholder="请输入密码"
-          />
+          <el-input v-model="ruleForm.password" :prefix-icon="Lock" show-password placeholder="请输入密码" />
         </el-form-item>
         <el-form-item prop="code" class="code-wrapper">
           <el-input v-model="ruleForm.code" placeholder="请输入验证码" />
           <img :src="imgUrl" alt="验证码" @click="getVerify()" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm(ruleFormRef)"
-            >登陆</el-button
-          >
+          <el-button type="primary" @click="submitForm(ruleFormRef)">登陆</el-button>
         </el-form-item>
       </el-form>
     </div>

@@ -21,7 +21,7 @@ const value = computed({
   }
 })
 //使用计算属性获取值
-const {username} = storeToRefs(useUserNameStore());
+const { username } = storeToRefs(useUserNameStore());
 
 //退出登录按钮
 const logout = () => {
@@ -70,7 +70,7 @@ const modifyPassword = () => {
   const dialog = useDialogCase();
   dialog.show({
     title: "修改密码",
-    width:"30%",
+    width: "30%",
     path: "other/modifyPassword",
   });
 }
@@ -81,33 +81,31 @@ const modifyPassword = () => {
     <DArrowLeft v-else />
   </div>
   <div class="full-screen-wrapper">
-    <i
-      class="iconfont icon-quanping_o"
-      @click="changeFullScreen()"
-      v-if="!fullScreen"
-    ></i>
-    <i
-      class="iconfont icon-quxiaoquanping"
-      @click="changeFullScreen()"
-      v-else
-    ></i>
+    <i class="iconfont icon-quanping_o" @click="changeFullScreen()" v-if="!fullScreen"></i>
+    <i class="iconfont icon-quxiaoquanping" @click="changeFullScreen()" v-else></i>
   </div>
   <div class="header-action-wrapper">
     <el-dropdown placement="bottom" trigger="click">
       <div>
-        <el-avatar src="/src/assets/images/avatar.png" />
+        <el-avatar :size="50">
+          <img src="@/assets/images/avatar.png">
+        </el-avatar>
         <p>{{ username }}</p>
       </div>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item>
             <div @click="modifyPassword()">
-              <el-icon color="#409EFC"> <Lock /> </el-icon>变更密码
+              <el-icon color="#409EFC">
+                <Lock />
+              </el-icon>变更密码
             </div>
           </el-dropdown-item>
           <el-dropdown-item>
             <div @click="logout()">
-              <el-icon color="#409EFC"> <Back /> </el-icon>退出登录
+              <el-icon color="#409EFC">
+                <Back />
+              </el-icon>退出登录
             </div>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -115,4 +113,3 @@ const modifyPassword = () => {
     </el-dropdown>
   </div>
 </template>
-

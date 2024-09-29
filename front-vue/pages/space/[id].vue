@@ -104,7 +104,7 @@ async function getDeatil() {
         detail.value = res.data;
         embedpano({
             swf: `/static/scene/tour.swf`,
-            xml: `http://localhost:8080/api/space/getXml/${route.params.id}`,
+            xml: `/api/space/getXml/${route.params.id}`,
             target: "pano",
             html5: "auto",
             mobilescale: 1.0,
