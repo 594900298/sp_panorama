@@ -58,7 +58,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>LATEST</version>
+            <version>3.5.7</version>
         </dependency>
         <!--   pom 导包:redis     -->
         <dependency>
@@ -114,7 +114,7 @@
         <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
-            <version>LATEST</version>
+            <version>3.9.1</version>
         </dependency>
         <!--   pom 导包:  引入knife4j     -->
         <dependency>
