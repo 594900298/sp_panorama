@@ -13,7 +13,7 @@ import { computed } from "vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import { storage } from "@/libs/storage";
 import { ElMessage } from "element-plus";
-import BlotFormatter from "quill-blot-formatter";
+import BlotFormatter from "quill-blot-formatter/dist/BlotFormatter";
 import ImageUploader from "quill-image-uploader";
 import appConfig from "@/libs/app.config";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";

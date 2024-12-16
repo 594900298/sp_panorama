@@ -1,4 +1,4 @@
-                       /**
+/**
  * 应用配置
  */
 export default {

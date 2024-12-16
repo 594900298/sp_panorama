@@ -180,8 +180,9 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             insert.setVlookatmax("90");
             return sceneMapper.insert(insert);
         } catch (Exception e) {
-            FileUtil.del(vtourPath);
             throw new ServiceException(e.getMessage(), 106);
+        } finally {
+            FileUtil.del(vtourPath);
         }
     }
 
