@@ -22,7 +22,7 @@
                 color: 'gray',
                 icon: 'i-heroicons-arrow-right-20-solid',
                 class: '-end-12'
-            }" arrows class="w-80 mx-auto">
+            }" arrows class="w-1/2 mx-auto">
                 <nuxt-link :to="`/space/${item.spaceId}`">
                     <img :src="item.spaceThumb" class="w-full" draggable="false">
                 </nuxt-link>
