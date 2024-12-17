@@ -19,8 +19,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/error",
                         "/api/login/code",
-                        "/api/space/detail/*",
-                        "/api/space/getXml/*"
+                        "/api/space/*"
                 );
     }
 

@@ -172,7 +172,7 @@ function handleUp() {
         controls.value = !controls.value
     }
 }
-onMounted(async() => {
+onMounted(async () => {
     await getDeatil();
     useSeoMeta({
         title: `${detail.value.spaceName}-3DVR全景拍摄制作软件平台`,

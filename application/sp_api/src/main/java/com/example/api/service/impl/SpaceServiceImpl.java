@@ -3,13 +3,15 @@ package com.example.api.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.api.mapper.SpaceMapper;
 import com.example.api.po.SpaceDetailPO;
 import com.example.api.service.SpaceService;
-import com.example.api.vo.HotspotListVO;
-import com.example.api.vo.SceneListVO;
-import com.example.api.vo.SpaceDetailVO;
+import com.example.api.vo.*;
+import com.example.common.bo.PageParamBO;
 import com.example.common.exception.ServiceException;
 import com.example.common.po.Space;
 import org.dom4j.Document;
@@ -19,10 +21,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +35,47 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
 
     @Autowired
     private SpaceMapper spaceMapper;
+
+    /**
+     * 列表数据
+     * @return
+     */
+    @Override
+    public List<SpaceListVO> getList() {
+        return (List<SpaceListVO>) spaceMapper.selectList(
+                new QueryWrapper<Space>()
+                        .select("space_id","space_name","space_thumb")
+                        .lambda()
+                        .eq(Space::getIsShow, true)
+                        .orderByAsc(Space::getSort)
+        ).stream().map(po -> {
+            SpaceListVO vo = new SpaceListVO();
+            BeanUtils.copyProperties(po, vo);
+            return vo;
+        }).collect(Collectors.toList());
+    }
+
+    /**
+     * 分页数据
+     * @param pageParamBO
+     * @return
+     */
+    @Override
+    public IPage getPaginate(PageParamBO pageParamBO) {
+        // 查询数据
+        return spaceMapper.selectPage(
+                new Page<>(pageParamBO.getPageIndex(), pageParamBO.getPageSize()),
+                new QueryWrapper<Space>()
+                        .select("space_id","space_name","space_thumb")
+                        .lambda()
+                        .eq(Space::getIsShow, true)
+                        .orderByAsc(Space::getSort)
+        ).convert(po -> {
+            SpacePaginateVO v = new SpacePaginateVO();
+            BeanUtils.copyProperties(po, v);
+            return v;
+        });
+    }
 
     /**
      * 详情

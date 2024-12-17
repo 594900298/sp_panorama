@@ -1,8 +1,13 @@
 package com.example.api.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.api.vo.SpaceDetailVO;
+import com.example.api.vo.SpaceListVO;
+import com.example.common.bo.PageParamBO;
 import com.example.common.po.Space;
+
+import java.util.List;
 
 /**
  * @author zhenhuajiang
@@ -11,6 +16,10 @@ import com.example.common.po.Space;
  * @createDate 2024-06-25 11:10:11
  */
 public interface SpaceService extends IService<Space> {
+    List<SpaceListVO> getList();
+
+    IPage getPaginate(PageParamBO pageParamBO);
+
     SpaceDetailVO detail(Integer spaceId);
 
     String getXml(Integer spaceId);
