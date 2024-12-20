@@ -20,7 +20,12 @@
 
 </div>
 <div align="center" >
-    <a href="https://gitee.com/jiang_zhenhua/sp_panorama/blob/master/README.md">宽 屏 预 览</a>
+    <a href="https://gitee.com/jiang_zhenhua/sp_panorama/blob/master/README.md">宽 屏 预 览 文 档</a>
+</div>
+<div align="center" >
+    <a href="https://panorama.banxia.tech/">效 果 展 示</a>
+    &nbsp
+    <a href="https://panorama.banxia.tech/space/2">内 页 展 示</a>
 </div>
 <div align="center">
     如果对您有帮助，您可以点右上角 "Star" ❤️ 支持一下 谢谢！
@@ -28,15 +33,14 @@
 
 ### 📖 简介：
 
-半夏全景商城系统Java版，基于Java+Vue+Uni-app开发，在微信公众号、小程序、H5移动端都能使用，代码全开源无加密，独立部署，二开很方便，还支持免费商用，能满足企业新零售多种经营需求，自用、做二开项目都很合适。
+半夏全景商城系统Java版，基于Java+Vue+TS开发，在微信公众号、小程序、H5移动端都能使用，代码全开源无加密，独立部署，二开很方便，还支持免费商用，能满足企业新零售多种经营需求，自用、做二开项目都很合适。
 
 ### 💻 运行环境及框架：
 ~~~
-1. 接口端已经构建了dockerfile 和 docker-compose 建议使用docker-compose进行部署方便快捷
-2. 后台服务 Java SpringBoot + Mybatis-plus + Mysql + redis + RabbitMQ + MongoDB
-3. 运行环境 linux和windows等都支持,只要有Java环境和对应的数据库 redis
-4. 运行条件 Java 1.8 Mysql5.7 node18
-5. Api对应的接口文档也可以部署项目后查看    域名/doc.html 查看【knife4j生成】
+1. 后台服务 Java SpringBoot + Mybatis-plus + Mysql + redis + RabbitMQ + MongoDB
+2. 运行环境 linux和windows等都支持,只要有Java环境和对应的数据库 redis
+3. 运行条件 Java 1.8 Mysql5.7 node18
+4. Api对应的接口文档也可以部署项目后查看    域名/doc.html 查看【knife4j生成】
 ~~~
 
 ### 🔧 Java项目框架 和 项目运行环境
@@ -51,12 +55,14 @@
 *   Fastjson
 *   Lombok
 *   knife4j
+*   Krpano
 ~~~
 #### 前端依赖
 ~~~
 *   Vue3      
 *   ElementPlusUi 
 *   TypeScript
+*   NUXT
 ~~~
 
 ---
@@ -86,3 +92,7 @@
 
 ### 📷 项目截图：
 ![](demo/demo.png)
+### 构建目录
+![](demo/dir.png)
+### Nginx部署配置
+![](demo/nginx.png)
