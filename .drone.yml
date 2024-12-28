@@ -1,0 +1,20 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: restore cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - ./node_modules
+        - ./.pnpm-store
+  - name: install dependencies
+    image: gplane/pnpm:9.14
+    commands:
+      - cd admin-vue
+      - npm i --no-frozen-lockfile
