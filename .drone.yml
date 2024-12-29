@@ -13,14 +13,35 @@ steps:
       mount:
         - ./node_modules
         - ./.pnpm-store
-  - name: install dependencies and build
+  - name: install package and build
     image: node:21
     commands:
       - cd admin-vue
       - npm i --no-frozen-lockfile
       - npm run build
-      - mkdir -p /www/wwwroot/panorama/back
-      - cp -r ./dist /www/wwwroot/panorama/back
+  - name: deploy staging
+    image: ghcr.io/appleboy/drone-ssh
+    settings:
+      host:
+        - 43.133.225.186
+      username: axq
+      password:
+        from_secret: server_password
+      port: 22
+      script:
+        - rm /www/wwwroot/panorama/back
+        - mkdir /www/wwwroot/panorama/back
+  - name: publish
+      image: appleboy/drone-scp:1.6.4
+      pull: if-not-exists
+      settings:
+        host: 43.133.225.186
+        username: banxia
+        password:
+          from_secret: banxia
+        port: 22
+        source: ./dist/*
+        target: /www/wwwroot/panorama/back
 trigger:
   ref:
     - refs/heads/master
