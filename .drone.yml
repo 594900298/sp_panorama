@@ -13,8 +13,13 @@ steps:
       mount:
         - ./node_modules
         - ./.pnpm-store
-  - name: install dependencies
-    image: gplane/pnpm:9.14
+  - name: install dependencies and build
+    image: node:21
     commands:
       - cd admin-vue
       - npm i --no-frozen-lockfile
+      - npm run build
+      - cp -r ./dist /www/wwwroot/panorama/back
+trigger:
+  ref:
+    - refs/heads/devmaster
