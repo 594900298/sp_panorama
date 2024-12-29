@@ -19,6 +19,7 @@ steps:
       - cd admin-vue
       - npm i --no-frozen-lockfile
       - npm run build
+      - mkdir -p /www/wwwroot/panorama/back
       - cp -r ./dist /www/wwwroot/panorama/back
 trigger:
   ref:
