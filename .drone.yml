@@ -32,16 +32,16 @@ steps:
         - rm /www/wwwroot/panorama/back
         - mkdir /www/wwwroot/panorama/back
   - name: publish
-      image: appleboy/drone-scp:1.6.4
-      pull: if-not-exists
-      settings:
-        host: 43.133.225.186
-        username: banxia
-        password:
-          from_secret: banxia
-        port: 22
-        source: ./dist/*
-        target: /www/wwwroot/panorama/back
+    image: appleboy/drone-scp:1.6.4
+    pull: if-not-exists
+    settings:
+      host: 43.133.225.186
+      username: banxia
+      password:
+        from_secret: banxia
+      port: 22
+      source: ./dist/*
+      target: /www/wwwroot/panorama/back
 trigger:
   ref:
     - refs/heads/master
