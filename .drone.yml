@@ -24,7 +24,7 @@ steps:
     settings:
       host:
         - 43.133.225.186
-      username: banxia
+      username: ubuntu
       password:
         from_secret: ssh_pwd
       port: 22
@@ -36,12 +36,23 @@ steps:
     pull: if-not-exists
     settings:
       host: 43.133.225.186
-      username: banxia
+      username: ubuntu
       password:
         from_secret: ssh_pwd
       port: 22
       source: ./dist/*
       target: /www/wwwroot/panorama/back
+  - name: rebuild cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      rebuild: true
+      mount:
+        - ./node_modules
+        - ./.pnpm-store
+
 trigger:
   branch:
     - master
