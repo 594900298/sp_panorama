@@ -13,35 +13,43 @@ steps:
       mount:
         - ./node_modules
         - ./.pnpm-store
+
   - name: install package and build
     image: node:21
     commands:
       - cd admin-vue
       - npm i --no-frozen-lockfile
       - npm run build
+
   - name: deploy staging
     image: ghcr.io/appleboy/drone-ssh
     settings:
       host:
-        - 43.133.225.186
-      username: ubuntu
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
       password:
         from_secret: ssh_pwd
       port: 22
       script:
-        - rm /www/wwwroot/panorama/back
-        - mkdir /www/wwwroot/panorama/back
+        - if [ ! -w "/www/wwwroot/panorama" ]; then echo "Permission denied: Cannot write to /www/wwwroot/panorama"; exit 1; fi
+        - rm -rf /www/wwwroot/panorama/back || { echo "Failed to remove directory /www/wwwroot/panorama/back"; exit 1; }
+        - mkdir -p /www/wwwroot/panorama/back || { echo "Failed to create directory /www/wwwroot/panorama/back"; exit 1; }
+
   - name: publish
     image: appleboy/drone-scp:1.6.4
     pull: if-not-exists
     settings:
-      host: 43.133.225.186
-      username: ubuntu
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
       password:
         from_secret: ssh_pwd
       port: 22
       source: ./dist/*
       target: /www/wwwroot/panorama/back
+
   - name: rebuild cache
     image: drillster/drone-volume-cache
     volumes:
