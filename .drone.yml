@@ -24,9 +24,9 @@ steps:
     settings:
       host:
         - 43.133.225.186
-      username: axq
+      username: banxia
       password:
-        from_secret: server_password
+        from_secret: ssh_pwd
       port: 22
       script:
         - rm /www/wwwroot/panorama/back
@@ -38,7 +38,7 @@ steps:
       host: 43.133.225.186
       username: banxia
       password:
-        from_secret: banxia
+        from_secret: ssh_pwd
       port: 22
       source: ./dist/*
       target: /www/wwwroot/panorama/back
