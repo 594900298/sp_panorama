@@ -43,5 +43,5 @@ steps:
       source: ./dist/*
       target: /www/wwwroot/panorama/back
 trigger:
-  ref:
-    - refs/heads/master
+  branch:
+    - master
