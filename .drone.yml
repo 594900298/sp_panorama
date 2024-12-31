@@ -24,10 +24,8 @@ steps:
   - name: deploy staging
     image: ghcr.io/appleboy/drone-ssh
     settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_username
+      host: 43.133.225.186
+      username: ubuntu
       password:
         from_secret: ssh_pwd
       port: 22
@@ -40,10 +38,8 @@ steps:
     image: appleboy/drone-scp:1.6.4
     pull: if-not-exists
     settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_username
+      host:  43.133.225.186
+      username: ubuntu
       password:
         from_secret: ssh_pwd
       port: 22
