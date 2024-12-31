@@ -25,7 +25,7 @@ steps:
     image: ghcr.io/appleboy/drone-ssh
     settings:
       host: 43.133.225.186
-      username: root
+      username: ubuntu
       password:
         from_secret: ssh_pwd
       port: 22
@@ -37,7 +37,7 @@ steps:
     pull: if-not-exists
     settings:
       host:  43.133.225.186
-      username: root
+      username: ubuntu
       password:
         from_secret: ssh_pwd
       port: 22
