@@ -21,7 +21,7 @@ steps:
       - npm i --no-frozen-lockfile
       - npm run build
 
-  - name: deploy staging
+  - name: deploy
     image: ghcr.io/appleboy/drone-ssh
     settings:
       host: 43.133.225.186
@@ -41,7 +41,7 @@ steps:
       password:
         from_secret: ssh_pwd
       port: 22
-      source: ./dist/*
+      source: ./admin-vue/dist/*
       target: /www/wwwroot/panorama/back
 
   - name: rebuild cache
