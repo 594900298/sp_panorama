@@ -25,21 +25,19 @@ steps:
     image: ghcr.io/appleboy/drone-ssh
     settings:
       host: 43.133.225.186
-      username: ubuntu
+      username: root
       password:
         from_secret: ssh_pwd
       port: 22
       script:
-        - if [ ! -w "/www/wwwroot/panorama" ]; then echo "Permission denied: Cannot write to /www/wwwroot/panorama"; exit 1; fi
-        - rm -rf /www/wwwroot/panorama/back || { echo "Failed to remove directory /www/wwwroot/panorama/back"; exit 1; }
-        - mkdir -p /www/wwwroot/panorama/back || { echo "Failed to create directory /www/wwwroot/panorama/back"; exit 1; }
-
+        - rm -rf /www/wwwroot/panorama/back
+        - mkdir -p /www/wwwroot/panorama/back
   - name: publish
     image: appleboy/drone-scp:1.6.4
     pull: if-not-exists
     settings:
       host:  43.133.225.186
-      username: ubuntu
+      username: root
       password:
         from_secret: ssh_pwd
       port: 22
