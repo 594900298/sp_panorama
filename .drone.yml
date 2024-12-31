@@ -36,7 +36,7 @@ steps:
     image: appleboy/drone-scp:1.6.4
     pull: if-not-exists
     settings:
-      host:  43.133.225.186
+      host: 43.133.225.186
       username: ubuntu
       password:
         from_secret: ssh_pwd
