@@ -22,11 +22,14 @@ const dialog = ref(null);
 //路由拦截
 const router = useRouter();
 router.beforeEach((to, from) => {
-  showContainer.value = to.meta.showContainer as boolean;
+  showContainer.value = to.meta.showContainer as boolean
   //验证页面是否需要登录
-  if (to.meta.needAuth != false && !isLogin()) {
-    router.push({ path: "/" });
+  if (!isLogin() && to.meta.notAuth != true) {
+    return {
+      path: "/",
+    }
   }
+  return true;
 });
 //挂在全局弹出层组件
 onMounted(() => {

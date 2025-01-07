@@ -8,7 +8,7 @@ const routers: RouteRecordRaw[] = [
         path: '/',
         meta: {
             showContainer: false,
-            needAuth: false,
+            notAuth: true,
         },
         component: () => import('@/views/login/index.vue')
     },
