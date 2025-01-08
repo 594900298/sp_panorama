@@ -43,7 +43,7 @@ steps:
         from_secret: ssh_pwd
       port: 22
       source: ./admin-vue/dist/*
-      target: /www/wwwroot/panorama/back
+      target: /
       strip_components: 2
       overwrite: true
   - name: rebuild cache
