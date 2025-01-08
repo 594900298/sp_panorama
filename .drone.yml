@@ -32,6 +32,7 @@ steps:
       script:
         - rm -rf /www/wwwroot/panorama/back
         - mkdir -p /www/wwwroot/panorama/back
+        - chmod 777 /www/wwwroot/panorama/back
   - name: publish
     image: appleboy/drone-scp:1.6.4
     pull: if-not-exists
