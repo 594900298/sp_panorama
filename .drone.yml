@@ -43,7 +43,7 @@ steps:
       port: 22
       source: ./admin-vue/dist/*
       target: /www/wwwroot/panorama/back
-
+      overwrite: true
   - name: rebuild cache
     image: drillster/drone-volume-cache
     volumes:
