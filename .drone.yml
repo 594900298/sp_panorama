@@ -37,7 +37,7 @@ steps:
     image: appleboy/drone-scp:1.6.4
     pull: if-not-exists
     settings:
-      host: 43.133.225.186
+      host: www.banxia.tech
       username: ubuntu
       password:
         from_secret: ssh_pwd
