@@ -20,7 +20,7 @@ steps:
       - cd admin-vue
       - npm i --no-frozen-lockfile
       - npm run build
-      - chmod -R 777 ./dist
+      - chmod -R 777 ./dist/*
 
   - name: deploy
     image: ghcr.io/appleboy/drone-ssh
