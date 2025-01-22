@@ -1,4 +1,5 @@
 @charset "UTF-8";*{font-size:12px;font-family:Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,"微软雅黑",Arial,sans-serif}
+.el-loading-mask{z-index: 99999 !important;}
 .page .title{padding:15px 30px;background:#fff;border-bottom:1px solid #eee;font-size:14px}
 .page .toolbar{margin:10px 0;padding:10px 20px;background:#fff;overflow:hidden;font-size:14px;border-top:1px solid #eee;border-bottom:1px solid #eee}
 .page .toolbar .query{display:inline-block;margin:0 5px}
