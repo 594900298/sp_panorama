@@ -54,7 +54,7 @@ public class UpLoadUtil {
         }
         // 当前时间戳对文件进行重命名，并保存文件名后缀
         String fileName = System.currentTimeMillis() + "." + originalFileExt;
-        File upload = new File(getPath(filePath+fileName));
+        File upload = new File(getPath(filePath + fileName + "/"));
         try {
             // 上传文件
             file.transferTo(upload);
@@ -76,19 +76,20 @@ public class UpLoadUtil {
 
     /**
      * 获取目录工具类
+     *
      * @param subdirectory
      * @return
      */
-    public static String  getPath(String subdirectory){
+    public static String getPath(String subdirectory) {
         //获取跟目录---与jar包同级目录的upload目录下指定的子目录subdirectory
         File upload = null;
         try {
             //本地测试时获取到的是"工程目录/target/upload/subdirectory
             File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            if(!path.exists()) path = new File("");
-            upload = new File(path.getAbsolutePath(),subdirectory);
-            if(!upload.exists()) upload.mkdirs();//如果不存在则创建目录
-            String realPath = upload + "/";
+            if (!path.exists()) path = new File("");
+            upload = new File(path.getAbsolutePath(), subdirectory);
+            if (!upload.exists()) upload.mkdirs();//如果不存在则创建目录
+            String realPath = String.valueOf(upload);
             return realPath;
         } catch (FileNotFoundException e) {
             throw new ServiceException(e.getMessage(), 106);

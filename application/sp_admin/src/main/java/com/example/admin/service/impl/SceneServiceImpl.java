@@ -25,6 +25,7 @@ import com.example.common.exception.ServiceException;
 import com.example.common.mapper.SceneMapper;
 import com.example.common.po.Scene;
 import com.example.common.utils.DomainUtil;
+import com.example.common.utils.UpLoadUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -125,14 +126,14 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
         String currentPath = System.getProperty("user.dir");
         String domain = DomainUtil.getCurrentDomain(request);
         String fileName = StringUtils.substringAfter(sceneAddDTO.getPanoramicImage(), domain);
-        String absolutePath = new File(fileName).getAbsolutePath();
+        String absolutePath = UpLoadUtil.getPath(fileName);
         // 执行生成命令
         try {
             String res;
             if (SystemUtil.getOsInfo().isWindows()) {
                  res = RuntimeUtil.execForStr(StrUtil.format("{}\\krpano\\win\\krpanotools64.exe makepano -config=templates\\vtour-vr.config {}", currentPath, absolutePath));
             } else {
-                 res = RuntimeUtil.execForStr(StrUtil.format("{}/krpano/linux/krpanotools makepano -config=templates/vtour-vr.config {}", currentPath, currentPath+absolutePath));
+                 res = RuntimeUtil.execForStr(StrUtil.format("{}/krpano/linux/krpanotools makepano -config=templates/vtour-vr.config {}", currentPath, absolutePath));
             }
             System.out.println(res);
         } catch (Exception e) {
@@ -141,7 +142,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
         // 设置一个随机值
         String randomString = StrUtil.format("scene_{}", IdUtil.simpleUUID());
         // 移动文件
-        String vtourPath = StrUtil.format("{}/vtour", StringUtils.substringBeforeLast(currentPath+absolutePath, "/"));
+        String vtourPath = StrUtil.format("{}/vtour", StringUtils.substringBeforeLast(absolutePath, SystemUtil.getOsInfo().isWindows()?"\\":"/"));
         String panosPath = StrUtil.format("{}/panos", vtourPath);
         String materialFileName = FileUtil.ls(panosPath)[0].getName();
         // 加载xml
