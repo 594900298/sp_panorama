@@ -93,6 +93,6 @@
 ### 📷 项目截图：
 ![](demo/demo.png)
 ### 构建目录
-![](demo/dir.png)
+![](demo/dir.jpg)
 ### Nginx部署配置
 ![](demo/nginx.png)
