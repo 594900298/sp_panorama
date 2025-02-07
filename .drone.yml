@@ -60,4 +60,5 @@ steps:
 
 trigger:
   branch:
-    - master
+    include:
+      - master
