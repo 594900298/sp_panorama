@@ -30,6 +30,7 @@ public class RestExceptionHandler {
      * @return
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     private ResultData handleIllegalArgumentException(MethodArgumentNotValidException e) {
         return ResultData.fail(103,e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
