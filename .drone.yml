@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: 半夏VR全景
+name: default
 
 steps:
   - name: restore cache
