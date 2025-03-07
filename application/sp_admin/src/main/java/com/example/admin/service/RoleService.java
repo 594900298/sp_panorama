@@ -8,9 +8,9 @@ import com.example.admin.dto.RoleEditSortDTO;
 import com.example.admin.vo.RoleDetailVO;
 import com.example.admin.vo.RolePaginateVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.Role;
+import com.example.common.po.RolePO;
 
-public interface RoleService extends IService<Role> {
+public interface RoleService extends IService<RolePO> {
     IPage<RolePaginateVO> getPaginate(PageParamBO pageParamBO);
     Integer add(RoleAddDTO roleAddDTO);
     RoleDetailVO detail(Integer roleId);

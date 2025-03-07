@@ -1,11 +1,9 @@
 package com.example.common.po;
 
-import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -20,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsSpec implements Serializable {
+public class GoodsSpecPO implements Serializable {
     @ApiModelProperty(value = "主键", example = "1")
     private Integer goodsId;
 
@@ -57,7 +55,7 @@ public class GoodsSpec implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    public GoodsSpec(Integer goodsId, String keyName, String cover, BigDecimal oldPrice, BigDecimal price, Integer storeCount, String skuCode, String barCode) {
+    public GoodsSpecPO(Integer goodsId, String keyName, String cover, BigDecimal oldPrice, BigDecimal price, Integer storeCount, String skuCode, String barCode) {
         this.goodsId = goodsId;
         this.keyName = keyName;
         this.cover = cover;
@@ -79,7 +77,7 @@ public class GoodsSpec implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        GoodsSpec other = (GoodsSpec) that;
+        GoodsSpecPO other = (GoodsSpecPO) that;
         return (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
             && (this.getKeyName() == null ? other.getKeyName() == null : this.getKeyName().equals(other.getKeyName()))
             && (this.getCover() == null ? other.getCover() == null : this.getCover().equals(other.getCover()))

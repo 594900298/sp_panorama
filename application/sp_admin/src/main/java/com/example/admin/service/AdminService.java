@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.admin.dto.*;
 import com.example.admin.vo.AdminDetailVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.Admin;
+import com.example.common.po.AdminPO;
 
-public interface AdminService extends IService<Admin> {
+public interface AdminService extends IService<AdminPO> {
     IPage getPaginate(PageParamBO pageParamBO);
     Integer add(AdminAddDTO adminAddDTO);
     AdminDetailVO detail(Integer userId);

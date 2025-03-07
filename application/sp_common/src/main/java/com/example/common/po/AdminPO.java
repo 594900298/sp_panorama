@@ -16,7 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class Admin implements Serializable {
+public class AdminPO implements Serializable {
     @ApiModelProperty(value = "用户id")
     @TableId(type = IdType.AUTO)
     private Integer userId;

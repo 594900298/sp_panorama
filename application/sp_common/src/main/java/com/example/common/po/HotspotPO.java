@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @TableName(value = "sp_hotspot")
 @Data
-public class Hotspot implements Serializable {
+public class HotspotPO implements Serializable {
     /**
      * 主键
      */
@@ -91,7 +91,7 @@ public class Hotspot implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Hotspot other = (Hotspot) that;
+        HotspotPO other = (HotspotPO) that;
         return (this.getHotspotId() == null ? other.getHotspotId() == null : this.getHotspotId().equals(other.getHotspotId()))
                 && (this.getSceneId() == null ? other.getSceneId() == null : this.getSceneId().equals(other.getSceneId()))
                 && (this.getHotspotName() == null ? other.getHotspotName() == null : this.getHotspotName().equals(other.getHotspotName()))

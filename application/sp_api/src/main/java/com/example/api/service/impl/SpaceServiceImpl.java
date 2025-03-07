@@ -13,7 +13,7 @@ import com.example.api.service.SpaceService;
 import com.example.api.vo.*;
 import com.example.common.bo.PageParamBO;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.Space;
+import com.example.common.po.SpacePO;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * @createDate 2024-06-25 11:10:11
  */
 @Service
-public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements SpaceService {
+public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO> implements SpaceService {
 
     @Autowired
     private SpaceMapper spaceMapper;
@@ -43,11 +43,11 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
     @Override
     public List<SpaceListVO> getList() {
         return (List<SpaceListVO>) spaceMapper.selectList(
-                new QueryWrapper<Space>()
+                new QueryWrapper<SpacePO>()
                         .select("space_id","space_name","space_thumb")
                         .lambda()
-                        .eq(Space::getIsShow, true)
-                        .orderByAsc(Space::getSort)
+                        .eq(SpacePO::getIsShow, true)
+                        .orderByAsc(SpacePO::getSort)
         ).stream().map(po -> {
             SpaceListVO vo = new SpaceListVO();
             BeanUtils.copyProperties(po, vo);
@@ -65,11 +65,11 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space> implements
         // 查询数据
         return spaceMapper.selectPage(
                 new Page<>(pageParamBO.getPageIndex(), pageParamBO.getPageSize()),
-                new QueryWrapper<Space>()
+                new QueryWrapper<SpacePO>()
                         .select("space_id","space_name","space_thumb")
                         .lambda()
-                        .eq(Space::getIsShow, true)
-                        .orderByAsc(Space::getSort)
+                        .eq(SpacePO::getIsShow, true)
+                        .orderByAsc(SpacePO::getSort)
         ).convert(po -> {
             SpacePaginateVO v = new SpacePaginateVO();
             BeanUtils.copyProperties(po, v);

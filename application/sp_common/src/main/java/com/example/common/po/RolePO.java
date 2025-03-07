@@ -19,7 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class Role implements Serializable {
+public class RolePO implements Serializable {
     @ApiModelProperty(value = "角色id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer roleId;

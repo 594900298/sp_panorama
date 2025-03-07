@@ -1,7 +1,7 @@
 package com.example.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.common.po.Hotspot;
+import com.example.common.po.HotspotPO;
 
 /**
  * @author zhenhuajiang
@@ -9,7 +9,7 @@ import com.example.common.po.Hotspot;
  * @createDate 2024-07-02 09:23:17
  * @Entity com.example.admin.po.Hotspot
  */
-public interface HotspotMapper extends BaseMapper<Hotspot> {
+public interface HotspotMapper extends BaseMapper<HotspotPO> {
 
 }
 

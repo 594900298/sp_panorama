@@ -32,5 +32,5 @@ public class OrderListPO {
     private Integer createTime;
 
     @ApiModelProperty(value = "快照", example = "")
-    private List<OrderGoodsSnapshot> orderGoodsSnapshot;
+    private List<OrderGoodsSnapshotPO> orderGoodsSnapshotPO;
 }

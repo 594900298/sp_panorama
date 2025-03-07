@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsAttr implements Serializable {
+public class GoodsAttrPO implements Serializable {
     @ApiModelProperty(value = "属性id", example = "1")
     @TableId
     private Integer attrId;
@@ -46,7 +46,7 @@ public class GoodsAttr implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        GoodsAttr other = (GoodsAttr) that;
+        GoodsAttrPO other = (GoodsAttrPO) that;
         return (this.getAttrId() == null ? other.getAttrId() == null : this.getAttrId().equals(other.getAttrId()))
             && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
             && (this.getAttrName() == null ? other.getAttrName() == null : this.getAttrName().equals(other.getAttrName()))

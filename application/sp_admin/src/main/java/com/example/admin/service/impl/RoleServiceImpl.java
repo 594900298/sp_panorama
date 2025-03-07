@@ -13,7 +13,7 @@ import com.example.admin.vo.RolePaginateVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.exception.ServiceException;
 import com.example.common.mapper.RoleMapper;
-import com.example.common.po.Role;
+import com.example.common.po.RolePO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * 管理员
  */
 @Service("adminRoleServiceImpl")
-public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, RolePO>
         implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
@@ -42,7 +42,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
         // 查询数据
         return roleMapper.selectPage(
                 new Page<>(pageParamBO.getPageIndex(), pageParamBO.getPageSize()),
-                new QueryWrapper<Role>()
+                new QueryWrapper<RolePO>()
                         .select("role_id", "role_name", "sort", "is_system")
                         .orderByAsc("sort")
         ).convert(po -> {
@@ -60,7 +60,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
      */
     @Override
     public Integer add(RoleAddDTO roleAddDTO) {
-        Role insert = new Role();
+        RolePO insert = new RolePO();
         BeanUtils.copyProperties(roleAddDTO, insert);
         insert.setRules(String.join(",", roleAddDTO.getRules().stream().map(Object::toString).collect(Collectors.toList())));
         insert.setSort(0);
@@ -76,11 +76,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
      */
     @Override
     public RoleDetailVO detail(Integer roleId) {
-        Role po = roleMapper.selectOne(
-                new QueryWrapper<Role>()
+        RolePO po = roleMapper.selectOne(
+                new QueryWrapper<RolePO>()
                         .select("role_id", "role_name", "role_desc", "rules", "is_show", "sort", "is_system")
                         .lambda()
-                        .eq(Role::getRoleId, roleId)
+                        .eq(RolePO::getRoleId, roleId)
         );
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
@@ -99,14 +99,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
      */
     @Override
     public Integer edit(RoleEditDTO roleEditDTO) {
-        Role po = roleMapper.selectById(roleEditDTO.getRoleId());
+        RolePO po = roleMapper.selectById(roleEditDTO.getRoleId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Role role = new Role();
-        role.setRules(String.join(",", roleEditDTO.getRules().stream().map(Object::toString).collect(Collectors.toList())));
-        BeanUtils.copyProperties(roleEditDTO, role);
-        return roleMapper.updateById(role);
+        RolePO rolePO = new RolePO();
+        rolePO.setRules(String.join(",", roleEditDTO.getRules().stream().map(Object::toString).collect(Collectors.toList())));
+        BeanUtils.copyProperties(roleEditDTO, rolePO);
+        return roleMapper.updateById(rolePO);
     }
 
     /**
@@ -117,13 +117,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
      */
     @Override
     public Integer editSort(RoleEditSortDTO roleEditSortDTO) {
-        Role po = roleMapper.selectById(roleEditSortDTO.getRoleId());
+        RolePO po = roleMapper.selectById(roleEditSortDTO.getRoleId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Role role = new Role();
-        BeanUtils.copyProperties(roleEditSortDTO, role);
-        return roleMapper.updateById(role);
+        RolePO rolePO = new RolePO();
+        BeanUtils.copyProperties(roleEditSortDTO, rolePO);
+        return roleMapper.updateById(rolePO);
     }
 
     /**
@@ -134,7 +134,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role>
      */
     @Override
     public Integer delete(Integer roleId) {
-        Role po = roleMapper.selectById(roleId);
+        RolePO po = roleMapper.selectById(roleId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }

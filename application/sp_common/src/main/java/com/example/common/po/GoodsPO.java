@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Goods implements Serializable {
+public class GoodsPO implements Serializable {
     @ApiModelProperty(value = "商品id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer goodsId;
@@ -67,7 +67,7 @@ public class Goods implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    public Goods(Integer catId, String goodsName, String goodsKeyword, String goodsDesc, String goodsCover, String goodsGallery, String goodsContent, String unitName, Boolean specType, Boolean isHot, Boolean isNew, Boolean isShow) {
+    public GoodsPO(Integer catId, String goodsName, String goodsKeyword, String goodsDesc, String goodsCover, String goodsGallery, String goodsContent, String unitName, Boolean specType, Boolean isHot, Boolean isNew, Boolean isShow) {
         this.catId = catId;
         this.goodsName = goodsName;
         this.goodsKeyword = goodsKeyword;
@@ -93,7 +93,7 @@ public class Goods implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Goods other = (Goods) that;
+        GoodsPO other = (GoodsPO) that;
         return (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
                 && (this.getCatId() == null ? other.getCatId() == null : this.getCatId().equals(other.getCatId()))
                 && (this.getGoodsName() == null ? other.getGoodsName() == null : this.getGoodsName().equals(other.getGoodsName()))

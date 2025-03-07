@@ -15,7 +15,7 @@ import com.example.admin.vo.BannerPaginateVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.exception.ServiceException;
 import com.example.common.mapper.BannerMapper;
-import com.example.common.po.Banner;
+import com.example.common.po.BannerPO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.Objects;
  * 轮播
  */
 @Service("adminBannerServiceImpl")
-public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
+public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerPO>
         implements BannerService {
 
     @Autowired
@@ -41,7 +41,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public IPage getPaginate(PageParamBO pageParamBO, BannerPaginateDTO bannerPaginateDTO) {
-        QueryWrapper queryWrapper = new QueryWrapper<Banner>()
+        QueryWrapper queryWrapper = new QueryWrapper<BannerPO>()
                 .select("banner_id", "banner_name", "banner_image", "banner_link", "is_show", "sort")
                 .orderByAsc("sort");
         if (!Objects.isNull(bannerPaginateDTO.getIsShow())) {
@@ -66,7 +66,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public Integer add(BannerAddDTO bannerAddDTO) {
-        Banner insert = new Banner();
+        BannerPO insert = new BannerPO();
         BeanUtils.copyProperties(bannerAddDTO, insert);
         return bannerMapper.insert(insert);
     }
@@ -79,7 +79,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public BannerDetailVO detail(Integer bannerId) {
-        Banner po = bannerMapper.selectById(bannerId);
+        BannerPO po = bannerMapper.selectById(bannerId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
@@ -96,13 +96,13 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public Integer edit(BannerEditDTO bannerEditDTO) {
-        Banner po = bannerMapper.selectById(bannerEditDTO.getBannerId());
+        BannerPO po = bannerMapper.selectById(bannerEditDTO.getBannerId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Banner banner = new Banner();
-        BeanUtils.copyProperties(bannerEditDTO, banner);
-        return bannerMapper.updateById(banner);
+        BannerPO bannerPO = new BannerPO();
+        BeanUtils.copyProperties(bannerEditDTO, bannerPO);
+        return bannerMapper.updateById(bannerPO);
     }
 
     /**
@@ -113,11 +113,11 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public Integer editIsShow(Integer bannerId) {
-        Banner po = bannerMapper.selectById(bannerId);
+        BannerPO po = bannerMapper.selectById(bannerId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        return bannerMapper.update(new UpdateWrapper<Banner>().lambda().eq(Banner::getBannerId, bannerId).setSql("is_show = !is_show"));
+        return bannerMapper.update(new UpdateWrapper<BannerPO>().lambda().eq(BannerPO::getBannerId, bannerId).setSql("is_show = !is_show"));
     }
 
     /**
@@ -128,13 +128,13 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public Integer editSort(BannerEditSortDTO bannerEditSortDTO) {
-        Banner po = bannerMapper.selectById(bannerEditSortDTO.getBannerId());
+        BannerPO po = bannerMapper.selectById(bannerEditSortDTO.getBannerId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Banner banner = new Banner();
-        BeanUtils.copyProperties(bannerEditSortDTO, banner);
-        return bannerMapper.updateById(banner);
+        BannerPO bannerPO = new BannerPO();
+        BeanUtils.copyProperties(bannerEditSortDTO, bannerPO);
+        return bannerMapper.updateById(bannerPO);
     }
 
     /**
@@ -145,11 +145,11 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public Integer delete(Integer bannerId) {
-        Banner po = bannerMapper.selectById(bannerId);
+        BannerPO po = bannerMapper.selectById(bannerId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        return bannerMapper.delete(new QueryWrapper<Banner>().lambda().eq(Banner::getBannerId, bannerId));
+        return bannerMapper.delete(new QueryWrapper<BannerPO>().lambda().eq(BannerPO::getBannerId, bannerId));
     }
 
 

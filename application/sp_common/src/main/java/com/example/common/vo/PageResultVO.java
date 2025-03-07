@@ -1,4 +1,4 @@
-package com.example.common.po;
+package com.example.common.vo;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * 分页数据
  */
-public class PageResult implements Serializable {
+public class PageResultVO implements Serializable {
     @ApiModelProperty(value = "总数量")
     private int total;
     @ApiModelProperty(value = "分页数量")
@@ -31,7 +31,7 @@ public class PageResult implements Serializable {
      * @param pageIndex
      * @param pageSize
      */
-    public PageResult(Integer total, Integer pageIndex, Integer pageSize) {
+    public PageResultVO(Integer total, Integer pageIndex, Integer pageSize) {
         this.total = total;
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
@@ -43,7 +43,7 @@ public class PageResult implements Serializable {
      *
      * @param iPage
      */
-    public PageResult(IPage iPage) {
+    public PageResultVO(IPage iPage) {
         this.total = (int) iPage.getTotal();
         this.pageIndex = (int) iPage.getCurrent();
         this.pageSize = (int) iPage.getSize();

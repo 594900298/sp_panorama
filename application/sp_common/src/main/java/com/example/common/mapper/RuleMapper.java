@@ -1,12 +1,9 @@
 package com.example.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.common.po.Rule;
+import com.example.common.po.RulePO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @author admin
@@ -16,6 +13,6 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface RuleMapper extends BaseMapper<Rule> {
+public interface RuleMapper extends BaseMapper<RulePO> {
 
 }

@@ -1,12 +1,12 @@
 package com.example.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.common.po.Banner;
+import com.example.common.po.BannerPO;
 
 /**
  *
  */
-public interface BannerService extends IService<Banner> {
+public interface BannerService extends IService<BannerPO> {
 
 
 }

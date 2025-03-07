@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @TableName(value = "sp_scene")
 @Data
-public class Scene implements Serializable {
+public class ScenePO implements Serializable {
     @ApiModelProperty(value = "场景id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer sceneId;
@@ -94,7 +94,7 @@ public class Scene implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Scene other = (Scene) that;
+        ScenePO other = (ScenePO) that;
         return (this.getSceneId() == null ? other.getSceneId() == null : this.getSceneId().equals(other.getSceneId()))
                 && (this.getSpaceId() == null ? other.getSpaceId() == null : this.getSpaceId().equals(other.getSpaceId()))
                 && (this.getSceneName() == null ? other.getSceneName() == null : this.getSceneName().equals(other.getSceneName()))

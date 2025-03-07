@@ -7,8 +7,8 @@ import com.example.admin.vo.SceneDetailVO;
 import com.example.admin.vo.SceneListVO;
 import com.example.admin.vo.ScenePaginateVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.PageResult;
-import com.example.common.po.ResultData;
+import com.example.common.vo.PageResultVO;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -35,7 +35,7 @@ public class SceneController {
      */
     @ApiOperation("分页")
     @PostMapping("/paginate")
-    private ResultData<List<ScenePaginateVO>> paginate(
+    private ResultDataVO<List<ScenePaginateVO>> paginate(
             @ApiParam(name = "pageIndex", value = "当前页数", required = true) @RequestParam Integer pageIndex,
             @ApiParam(name = "pageSize", value = "每页显示条目个数", required = true) @RequestParam Integer pageSize,
             @RequestBody ScenePaginateDTO scenePaginateDTO
@@ -43,7 +43,7 @@ public class SceneController {
         // 查询数据
         IPage page = sceneService.getPaginate(new PageParamBO(pageIndex, pageSize), scenePaginateDTO);
         //构建响应对象
-        return ResultData.success(page.getRecords(), new PageResult(page));
+        return ResultDataVO.success(page.getRecords(), new PageResultVO(page));
     }
 
     /**
@@ -54,8 +54,8 @@ public class SceneController {
      */
     @ApiOperation("列表")
     @PostMapping("/getList")
-    private ResultData<List<SceneListVO>> getList(@RequestBody SceneListDTO sceneListDTO) {
-        return ResultData.success(sceneService.getList(sceneListDTO));
+    private ResultDataVO<List<SceneListVO>> getList(@RequestBody SceneListDTO sceneListDTO) {
+        return ResultDataVO.success(sceneService.getList(sceneListDTO));
     }
 
     /**
@@ -66,11 +66,11 @@ public class SceneController {
      */
     @ApiOperation("添加")
     @PostMapping("/add")
-    private ResultData add(@Validated @RequestBody SceneAddDTO sceneAddDTO) {
+    private ResultDataVO add(@Validated @RequestBody SceneAddDTO sceneAddDTO) {
         if (sceneService.add(sceneAddDTO) != 0) {
-            return ResultData.success(0, "添加成功");
+            return ResultDataVO.success(0, "添加成功");
         } else {
-            return ResultData.fail(106, "添加失败");
+            return ResultDataVO.fail(106, "添加失败");
         }
     }
 
@@ -82,10 +82,10 @@ public class SceneController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    private ResultData<SceneDetailVO> detail(
+    private ResultDataVO<SceneDetailVO> detail(
             @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer sceneId
     ) {
-        return ResultData.success(sceneService.detail(sceneId));
+        return ResultDataVO.success(sceneService.detail(sceneId));
     }
 
     /**
@@ -110,11 +110,11 @@ public class SceneController {
      */
     @ApiOperation("编辑")
     @PostMapping("/edit")
-    private ResultData edit(@Validated @RequestBody SceneEditDTO sceneEditDTO) {
+    private ResultDataVO edit(@Validated @RequestBody SceneEditDTO sceneEditDTO) {
         if (sceneService.edit(sceneEditDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -125,13 +125,13 @@ public class SceneController {
      */
     @ApiOperation("修改显示状态")
     @GetMapping("/editIsShow/{id}")
-    private ResultData editIsShow(
+    private ResultDataVO editIsShow(
             @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer sceneId
     ) {
         if (sceneService.editIsShow(sceneId) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -143,11 +143,11 @@ public class SceneController {
      */
     @ApiOperation("更新排序")
     @PostMapping("/editSort")
-    private ResultData editSort(@Validated @RequestBody SceneEditSortDTO sceneEditSortDTO) {
+    private ResultDataVO editSort(@Validated @RequestBody SceneEditSortDTO sceneEditSortDTO) {
         if (sceneService.editSort(sceneEditSortDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -159,12 +159,12 @@ public class SceneController {
      */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
-    private ResultData delete(
+    private ResultDataVO delete(
             @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer sceneId) {
         if (sceneService.delete(sceneId) != 0) {
-            return ResultData.success(0, "删除成功");
+            return ResultDataVO.success(0, "删除成功");
         } else {
-            return ResultData.fail(106, "删除失败");
+            return ResultDataVO.fail(106, "删除失败");
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.admin.controller;
 
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import com.example.common.service.CommonService;
 import com.example.common.vo.UpLoadFileVO;
 import io.swagger.annotations.Api;
@@ -28,10 +28,10 @@ public class CommonController {
      */
     @ApiOperation("上传图片")
     @PostMapping("/uploadPic")
-    public ResultData<UpLoadFileVO> uploadPic(
+    public ResultDataVO<UpLoadFileVO> uploadPic(
             @ApiParam(name = "img", value = "图片流", required = true) @RequestParam("img") MultipartFile file
     ) {
-        return ResultData.success(commonService.uploadPic(file), "上传成功");
+        return ResultDataVO.success(commonService.uploadPic(file), "上传成功");
     }
 
     /**
@@ -42,10 +42,10 @@ public class CommonController {
      */
     @ApiOperation("上传图片")
     @PostMapping("/uploadMusic")
-    public ResultData<UpLoadFileVO> uploadMusic(
+    public ResultDataVO<UpLoadFileVO> uploadMusic(
             @ApiParam(name = "file", value = "文件流", required = true) @RequestParam("file") MultipartFile file
     ) {
-        return ResultData.success(commonService.uploadMusic(file), "上传成功");
+        return ResultDataVO.success(commonService.uploadMusic(file), "上传成功");
     }
 
 }

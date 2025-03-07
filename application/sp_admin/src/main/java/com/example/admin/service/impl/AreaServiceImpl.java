@@ -11,7 +11,7 @@ import com.example.admin.vo.AreaTreeVO;
 import com.example.common.Interface.TreeNode;
 import com.example.common.exception.ServiceException;
 import com.example.common.mapper.AreaMapper;
-import com.example.common.po.Area;
+import com.example.common.po.AreaPO;
 import com.example.common.utils.RedisUtil;
 import com.example.common.utils.TreeUtil;
 import org.springframework.beans.BeanUtils;
@@ -29,7 +29,7 @@ import java.util.List;
  * 地区
  */
 @Service("adminAreaServiceImpl")
-public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
+public class AreaServiceImpl extends ServiceImpl<AreaMapper, AreaPO>
         implements AreaService {
     /**
      * 缓存前缀
@@ -64,12 +64,12 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
         List<AreaTreeVO> returnData;
         // 查询缓存中是否存在数据
         if (redisUtil.isExpire(prefix + redisKey)) {
-            QueryWrapper queryWrapper = new QueryWrapper<Area>().select("area_id", "pid", "area_name", "is_show", "sort", "area_key", "area_type", "create_time")
+            QueryWrapper queryWrapper = new QueryWrapper<AreaPO>().select("area_id", "pid", "area_name", "is_show", "sort", "area_key", "area_type", "create_time")
                     .orderByAsc("sort");
-            List<Area> list = areaMapper.selectList(queryWrapper);
+            List<AreaPO> list = areaMapper.selectList(queryWrapper);
             // 构建树形节点
             List<TreeNode> treeNode = new ArrayList<>();
-            Iterator<Area> it = list.iterator();
+            Iterator<AreaPO> it = list.iterator();
             while (it.hasNext()) {
                 TreeNode i = it.next();
                 treeNode.add(i);
@@ -100,7 +100,7 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
      */
     @Override
     public Integer add(AreaAddDTO areaAddDTO) {
-        Area insert = new Area();
+        AreaPO insert = new AreaPO();
         BeanUtils.copyProperties(areaAddDTO,insert);
         insert.setIsShow(true);
         insert.setSort(0);
@@ -120,11 +120,11 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
      */
     @Override
     public AreaDetailVO detail(Integer areaId) {
-        Area data = areaMapper.selectOne(
-                new QueryWrapper<Area>()
+        AreaPO data = areaMapper.selectOne(
+                new QueryWrapper<AreaPO>()
                         .select("area_id", "pid", "area_name", "area_key", "area_type")
                         .lambda()
-                        .eq(Area::getAreaId, areaId)
+                        .eq(AreaPO::getAreaId, areaId)
         );
         if (data == null) {
             throw new ServiceException("找不到资源", 104);
@@ -141,17 +141,17 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
      */
     @Override
     public Integer edit(AreaEditDTO areaEditDTO) {
-        Area data = areaMapper.selectOne(
-                new QueryWrapper<Area>()
+        AreaPO data = areaMapper.selectOne(
+                new QueryWrapper<AreaPO>()
                         .lambda()
-                        .eq(Area::getAreaId, areaEditDTO.getAreaId())
+                        .eq(AreaPO::getAreaId, areaEditDTO.getAreaId())
         );
         if (data == null) {
             throw new ServiceException("找不到资源", 104);
         }
-        Area area = new Area();
-        BeanUtils.copyProperties(areaEditDTO,area);
-        Integer res = areaMapper.updateById(area);
+        AreaPO areaPO = new AreaPO();
+        BeanUtils.copyProperties(areaEditDTO, areaPO);
+        Integer res = areaMapper.updateById(areaPO);
         if (res != 0) {
             redisTemplate.delete(prefix + redisKey);
             redisTemplate.delete(prefix + apiRedisKey);
@@ -167,18 +167,18 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
      */
     @Override
     public Integer editIsShow(Integer areaId) {
-        Area data = areaMapper.selectOne(
-                new QueryWrapper<Area>()
+        AreaPO data = areaMapper.selectOne(
+                new QueryWrapper<AreaPO>()
                         .lambda()
-                        .eq(Area::getAreaId, areaId)
+                        .eq(AreaPO::getAreaId, areaId)
         );
         if (data == null) {
             throw new ServiceException("找不到资源", 104);
         }
         Integer res = areaMapper.update(
-                new UpdateWrapper<Area>()
+                new UpdateWrapper<AreaPO>()
                         .lambda()
-                        .eq(Area::getAreaId, areaId)
+                        .eq(AreaPO::getAreaId, areaId)
                         .setSql("is_show = !is_show")
         );
         if (res != 0) {
@@ -196,18 +196,18 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
      */
     @Override
     public Integer delete(Integer areaId) {
-        Area data = areaMapper.selectOne(
-                new QueryWrapper<Area>()
+        AreaPO data = areaMapper.selectOne(
+                new QueryWrapper<AreaPO>()
                         .lambda()
-                        .eq(Area::getAreaId, areaId)
+                        .eq(AreaPO::getAreaId, areaId)
         );
         if (data == null) {
             throw new ServiceException("找不到资源", 104);
         }
-        Area children = areaMapper.selectOne(
-                new QueryWrapper<Area>()
+        AreaPO children = areaMapper.selectOne(
+                new QueryWrapper<AreaPO>()
                         .lambda()
-                        .eq(Area::getPid, areaId)
+                        .eq(AreaPO::getPid, areaId)
         );
         if (children != null) {
             throw new ServiceException("区域存在下级无法删除", 104);
@@ -216,9 +216,9 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
          * 删除
          */
         Integer res = areaMapper.delete(
-                new QueryWrapper<Area>()
+                new QueryWrapper<AreaPO>()
                         .lambda()
-                        .eq(Area::getAreaId, areaId)
+                        .eq(AreaPO::getAreaId, areaId)
         );
         if (res != 0) {
             redisTemplate.delete(prefix + redisKey);

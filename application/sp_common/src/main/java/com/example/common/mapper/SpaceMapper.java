@@ -1,7 +1,7 @@
 package com.example.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.common.po.Space;
+import com.example.common.po.SpacePO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @Entity com.example.admin.domain.Space
  */
 @Service
-public interface SpaceMapper extends BaseMapper<Space> {
+public interface SpaceMapper extends BaseMapper<SpacePO> {
 }
 
 

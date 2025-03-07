@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.common.mapper.BannerMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.common.po.Banner">
+    <resultMap id="BaseResultMap" type="com.example.common.po.BannerPO">
         <id property="bannerId" column="banner_id" jdbcType="INTEGER"/>
         <result property="bannerName" column="banner_name" jdbcType="VARCHAR"/>
         <result property="bannerImage" column="banner_image" jdbcType="VARCHAR"/>

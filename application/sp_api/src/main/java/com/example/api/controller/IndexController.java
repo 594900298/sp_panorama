@@ -1,7 +1,7 @@
 package com.example.api.controller;
 
 
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ public class IndexController {
      * @return
      */
     @GetMapping("/index")
-    public ResultData index(){
-        return ResultData.success(null,"running");
+    public ResultDataVO index(){
+        return ResultDataVO.success(null,"running");
     }
 }

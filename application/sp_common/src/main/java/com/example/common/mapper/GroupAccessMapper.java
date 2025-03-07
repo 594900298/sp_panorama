@@ -1,8 +1,8 @@
 package com.example.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.common.po.GroupAccess;
-import com.example.common.po.Role;
+import com.example.common.po.GroupAccessPO;
+import com.example.common.po.RolePO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +16,6 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface GroupAccessMapper extends BaseMapper<GroupAccess> {
-    List<Role> selectUidRule(Integer id);
+public interface GroupAccessMapper extends BaseMapper<GroupAccessPO> {
+    List<RolePO> selectUidRule(Integer id);
 }

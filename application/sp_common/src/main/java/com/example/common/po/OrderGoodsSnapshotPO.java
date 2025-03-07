@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderGoodsSnapshot implements Serializable {
+public class OrderGoodsSnapshotPO implements Serializable {
     @ApiModelProperty(value = "主键", example = "1")
     private Integer goodsId;
 
@@ -74,7 +74,7 @@ public class OrderGoodsSnapshot implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        OrderGoodsSnapshot other = (OrderGoodsSnapshot) that;
+        OrderGoodsSnapshotPO other = (OrderGoodsSnapshotPO) that;
         return (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
                 && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
                 && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))

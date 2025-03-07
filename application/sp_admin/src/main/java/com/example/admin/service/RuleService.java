@@ -5,11 +5,11 @@ import com.example.admin.dto.RuleAddDTO;
 import com.example.admin.dto.RuleEditDTO;
 import com.example.admin.vo.RuleDetailVO;
 import com.example.admin.vo.RuleTreeVO;
-import com.example.common.po.Rule;
+import com.example.common.po.RulePO;
 
 import java.util.List;
 
-public interface RuleService extends IService<Rule> {
+public interface RuleService extends IService<RulePO> {
     List<RuleTreeVO> getTree();
     Integer add(RuleAddDTO ruleAddDTO);
     RuleDetailVO detail(Integer ruleId);

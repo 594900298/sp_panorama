@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Area implements Serializable, TreeNode {
+public class AreaPO implements Serializable, TreeNode {
     @ApiModelProperty(value = "地区id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer areaId;
@@ -59,7 +59,7 @@ public class Area implements Serializable, TreeNode {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Area other = (Area) that;
+        AreaPO other = (AreaPO) that;
         return (this.getAreaId() == null ? other.getAreaId() == null : this.getAreaId().equals(other.getAreaId()))
                 && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
                 && (this.getAreaName() == null ? other.getAreaName() == null : this.getAreaName().equals(other.getAreaName()))

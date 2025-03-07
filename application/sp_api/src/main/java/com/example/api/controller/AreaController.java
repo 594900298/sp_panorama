@@ -2,7 +2,7 @@ package com.example.api.controller;
 
 import com.example.api.service.AreaService;
 import com.example.api.vo.AreaTreeVO;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class AreaController {
      */
     @ApiOperation("树形列表")
     @PostMapping("/getTree")
-    private ResultData<List<AreaTreeVO>> getTree() {
-        return ResultData.success(areaService.getTree());
+    private ResultDataVO<List<AreaTreeVO>> getTree() {
+        return ResultDataVO.success(areaService.getTree());
     }
 }

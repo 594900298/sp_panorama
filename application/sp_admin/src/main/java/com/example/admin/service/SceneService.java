@@ -6,7 +6,7 @@ import com.example.admin.dto.*;
 import com.example.admin.vo.SceneDetailVO;
 import com.example.admin.vo.SceneListVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.Scene;
+import com.example.common.po.ScenePO;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @description 针对表【sp_scene(场景表)】的数据库操作Service
  * @createDate 2024-06-25 15:20:51
  */
-public interface SceneService extends IService<Scene> {
+public interface SceneService extends IService<ScenePO> {
     IPage getPaginate(PageParamBO pageParamBO, ScenePaginateDTO scenePaginateDTO);
 
     List<SceneListVO> getList(SceneListDTO sceneListDTO);

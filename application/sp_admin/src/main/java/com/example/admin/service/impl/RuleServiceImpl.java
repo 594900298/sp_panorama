@@ -10,7 +10,7 @@ import com.example.admin.vo.RuleDetailVO;
 import com.example.admin.vo.RuleTreeVO;
 import com.example.common.Interface.TreeNode;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.Rule;
+import com.example.common.po.RulePO;
 import com.example.common.utils.AuthUtil;
 import com.example.common.utils.TreeUtil;
 import org.springframework.beans.BeanUtils;
@@ -23,7 +23,7 @@ import java.util.*;
  * 规则
  */
 @Service("adminRuleServiceImpl")
-public class RuleServiceImpl extends ServiceImpl<RuleMapper, Rule>
+public class RuleServiceImpl extends ServiceImpl<RuleMapper, RulePO>
         implements RuleService {
     @Autowired
     private RuleMapper ruleMapper;
@@ -39,14 +39,14 @@ public class RuleServiceImpl extends ServiceImpl<RuleMapper, Rule>
      */
     @Override
     public List<RuleTreeVO> getTree() {
-        List<Rule> list = ruleMapper.selectList(
-                new QueryWrapper<Rule>()
+        List<RulePO> list = ruleMapper.selectList(
+                new QueryWrapper<RulePO>()
                         .select("rule_id", "pid", "name", "rule_url", "icon", "remark", "sort", "create_time")
                         .orderByAsc("sort")
         );
         // 构建树形节点
         List<TreeNode> treeNode = new ArrayList<>();
-        Iterator<Rule> it = list.iterator();
+        Iterator<RulePO> it = list.iterator();
         while (it.hasNext()) {
             TreeNode i = it.next();
             treeNode.add(i);
@@ -69,7 +69,7 @@ public class RuleServiceImpl extends ServiceImpl<RuleMapper, Rule>
      */
     @Override
     public Integer add(RuleAddDTO ruleAddDTO) {
-        Rule insert = new Rule();
+        RulePO insert = new RulePO();
         BeanUtils.copyProperties(ruleAddDTO, insert);
         Integer res = ruleMapper.insert(insert);
         if (res != 0) {
@@ -86,11 +86,11 @@ public class RuleServiceImpl extends ServiceImpl<RuleMapper, Rule>
      */
     @Override
     public RuleDetailVO detail(Integer ruleId) {
-        Rule po = ruleMapper.selectOne(
-                new QueryWrapper<Rule>()
+        RulePO po = ruleMapper.selectOne(
+                new QueryWrapper<RulePO>()
                         .select("rule_id", "pid", "name", "rule_url", "icon", "remark", "is_menu", "sort")
                         .lambda()
-                        .eq(Rule::getRuleId, ruleId)
+                        .eq(RulePO::getRuleId, ruleId)
         );
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
@@ -108,13 +108,13 @@ public class RuleServiceImpl extends ServiceImpl<RuleMapper, Rule>
      */
     @Override
     public Integer edit(RuleEditDTO ruleEditDTO) {
-        Rule po = ruleMapper.selectById(ruleEditDTO.getRuleId());
+        RulePO po = ruleMapper.selectById(ruleEditDTO.getRuleId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Rule rule = new Rule();
-        BeanUtils.copyProperties(ruleEditDTO, rule);
-        Integer res = ruleMapper.updateById(rule);
+        RulePO rulePO = new RulePO();
+        BeanUtils.copyProperties(ruleEditDTO, rulePO);
+        Integer res = ruleMapper.updateById(rulePO);
         if (res != 0) {
             authUtil.clearRuleCache();
         }
@@ -129,15 +129,15 @@ public class RuleServiceImpl extends ServiceImpl<RuleMapper, Rule>
      */
     @Override
     public Integer delete(Integer ruleId) {
-        Rule po = ruleMapper.selectById(ruleId);
+        RulePO po = ruleMapper.selectById(ruleId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
         po = ruleMapper.selectOne(
-                new QueryWrapper<Rule>()
+                new QueryWrapper<RulePO>()
                         .select("rule_id", "pid")
                         .lambda()
-                        .eq(Rule::getPid, ruleId.intValue())
+                        .eq(RulePO::getPid, ruleId.intValue())
         );
         if (!Objects.isNull(po)) {
             throw new ServiceException("存在子菜单无法删除~", 106);

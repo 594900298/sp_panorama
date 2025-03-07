@@ -1,6 +1,6 @@
 package com.example.admin.controller;
 
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import com.example.common.utils.CaptchaUtil;
 import com.example.common.vo.CaptchaVO;
 import io.swagger.annotations.Api;
@@ -30,8 +30,8 @@ public class CaptchaController {
      */
     @ApiOperation("获取验证码")
     @GetMapping("/getCaptcha")
-    public ResultData<CaptchaVO> getCaptcha(
+    public ResultDataVO<CaptchaVO> getCaptcha(
             @ApiParam(name = "codeSign", value = "验证码签名", required = true, example = "初次获取可为空") @RequestParam(value = "codeSign") String codeSign) {
-        return ResultData.success(captchaUtil.getCaptcha(codeSign));
+        return ResultDataVO.success(captchaUtil.getCaptcha(codeSign));
     }
 }

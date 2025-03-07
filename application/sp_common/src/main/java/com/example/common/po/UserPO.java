@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class UserPO implements Serializable {
     @ApiModelProperty(value = "用户id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer userId;
@@ -66,7 +66,7 @@ public class User implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        User other = (User) that;
+        UserPO other = (UserPO) that;
         return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
                 && (this.getMobile() == null ? other.getMobile() == null : this.getMobile().equals(other.getMobile()))
                 && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))

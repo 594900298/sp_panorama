@@ -5,7 +5,7 @@ import com.example.admin.dto.RuleEditDTO;
 import com.example.admin.service.RuleService;
 import com.example.admin.vo.RuleDetailVO;
 import com.example.admin.vo.RuleTreeVO;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,8 +29,8 @@ public class RuleController {
      */
     @ApiOperation("树形列表")
     @GetMapping("/getTree")
-    public ResultData<List<RuleTreeVO>> getTree() {
-        return ResultData.success(
+    public ResultDataVO<List<RuleTreeVO>> getTree() {
+        return ResultDataVO.success(
                 ruleService.getTree()
         );
     }
@@ -43,11 +43,11 @@ public class RuleController {
      */
     @ApiOperation("添加")
     @PostMapping("/add")
-    public ResultData add(@Validated @RequestBody RuleAddDTO ruleAddDTO) {
+    public ResultDataVO add(@Validated @RequestBody RuleAddDTO ruleAddDTO) {
         if (ruleService.add(ruleAddDTO) != 0) {
-            return ResultData.success(0, "添加成功");
+            return ResultDataVO.success(0, "添加成功");
         } else {
-            return ResultData.fail(106, "添加失败");
+            return ResultDataVO.fail(106, "添加失败");
         }
     }
 
@@ -59,10 +59,10 @@ public class RuleController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    public ResultData<RuleDetailVO> detail(
+    public ResultDataVO<RuleDetailVO> detail(
             @ApiParam(name = "id", value = "规则id", required = true) @PathVariable("id") Integer ruleId
     ) {
-        return ResultData.success(ruleService.detail(ruleId));
+        return ResultDataVO.success(ruleService.detail(ruleId));
     }
 
     /**
@@ -73,11 +73,11 @@ public class RuleController {
      */
     @ApiOperation("编辑")
     @PostMapping("/edit")
-    public ResultData edit(@Validated @RequestBody RuleEditDTO ruleEditDTO) {
+    public ResultDataVO edit(@Validated @RequestBody RuleEditDTO ruleEditDTO) {
         if (ruleService.edit(ruleEditDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -89,13 +89,13 @@ public class RuleController {
      */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
-    public ResultData delete(
+    public ResultDataVO delete(
             @ApiParam(name = "id", value = "规则id", required = true) @PathVariable("id") Integer ruleId
     ) {
         if (ruleService.delete(ruleId) != 0) {
-            return ResultData.success(0, "删除成功");
+            return ResultDataVO.success(0, "删除成功");
         } else {
-            return ResultData.fail(106, "删除失败");
+            return ResultDataVO.fail(106, "删除失败");
         }
     }
 

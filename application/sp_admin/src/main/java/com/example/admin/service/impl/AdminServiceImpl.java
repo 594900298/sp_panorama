@@ -12,7 +12,7 @@ import com.example.admin.vo.AdminDetailVO;
 import com.example.admin.vo.AdminPaginateVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.Admin;
+import com.example.common.po.AdminPO;
 import com.example.common.utils.TokenUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import java.util.UUID;
  * 管理员
  */
 @Service("adminAdminServiceImpl")
-public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
+public class AdminServiceImpl extends ServiceImpl<AdminMapper, AdminPO>
         implements AdminService {
     @Value("${app.common.appSecret}")
     private String appSecret;
@@ -51,7 +51,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
         // 查询数据
         return adminMapper.selectPage(
                 new Page<>(pageParamBO.getPageIndex(), pageParamBO.getPageSize()),
-                new QueryWrapper<Admin>()
+                new QueryWrapper<AdminPO>()
                         .select("user_id", "username", "real_name", "mobile", "status", "is_main", "sort", "create_time")
                         .orderByDesc("user_id")
         ).convert(po -> {
@@ -69,13 +69,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      */
     @Override
     public Integer add(AdminAddDTO adminAddDTO) {
-        Admin data = adminMapper.selectOne(
-                new QueryWrapper<Admin>().select("user_id").lambda().eq(Admin::getUsername, adminAddDTO.getUsername())
+        AdminPO data = adminMapper.selectOne(
+                new QueryWrapper<AdminPO>().select("user_id").lambda().eq(AdminPO::getUsername, adminAddDTO.getUsername())
         );
         if (data != null) {
             throw new ServiceException("用户名已存在", 106);
         }
-        Admin insert = new Admin();
+        AdminPO insert = new AdminPO();
         BeanUtils.copyProperties(adminAddDTO, insert);
         insert.setPassword(DigestUtils.md5DigestAsHex((adminAddDTO.getPassword() + this.appSecret).getBytes()));
         insert.setIsMain(false);
@@ -93,11 +93,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      */
     @Override
     public AdminDetailVO detail(Integer userId) {
-        Admin po = adminMapper.selectOne(
-                new QueryWrapper<Admin>()
+        AdminPO po = adminMapper.selectOne(
+                new QueryWrapper<AdminPO>()
                         .select("user_id", "username", "real_name", "mobile", "email", "status")
                         .lambda()
-                        .eq(Admin::getUserId, userId)
+                        .eq(AdminPO::getUserId, userId)
         );
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
@@ -115,18 +115,18 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      */
     @Override
     public Integer edit(AdminEditDTO adminEditDTO) {
-        Admin po = adminMapper.selectOne(
-                new QueryWrapper<Admin>()
+        AdminPO po = adminMapper.selectOne(
+                new QueryWrapper<AdminPO>()
                         .select("user_id")
                         .lambda()
-                        .eq(Admin::getUserId, adminEditDTO.getUserId())
+                        .eq(AdminPO::getUserId, adminEditDTO.getUserId())
         );
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Admin admin = new Admin();
-        BeanUtils.copyProperties(adminEditDTO, admin);
-        return adminMapper.updateById(admin);
+        AdminPO adminPO = new AdminPO();
+        BeanUtils.copyProperties(adminEditDTO, adminPO);
+        return adminMapper.updateById(adminPO);
     }
 
     /**
@@ -137,14 +137,14 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      */
     @Override
     public Integer editStatus(Integer userId) {
-        Admin po = adminMapper.selectById(userId);
+        AdminPO po = adminMapper.selectById(userId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
         if (po.getIsMain()) {
             throw new ServiceException("系统数据无法操作~", 106);
         }
-        return adminMapper.update(new UpdateWrapper<Admin>().lambda().eq(Admin::getUserId, userId).setSql("status = !status"));
+        return adminMapper.update(new UpdateWrapper<AdminPO>().lambda().eq(AdminPO::getUserId, userId).setSql("status = !status"));
     }
 
     /**
@@ -155,16 +155,16 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      */
     @Override
     public Integer editSort(AdminEditSortDTO adminEditSortDTO) {
-        Admin po = adminMapper.selectById(adminEditSortDTO.getUserId());
+        AdminPO po = adminMapper.selectById(adminEditSortDTO.getUserId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
         if (po.getIsMain()) {
             throw new ServiceException("系统数据无法操作~", 106);
         }
-        Admin admin = new Admin();
-        BeanUtils.copyProperties(adminEditSortDTO, admin);
-        return adminMapper.updateById(admin);
+        AdminPO adminPO = new AdminPO();
+        BeanUtils.copyProperties(adminEditSortDTO, adminPO);
+        return adminMapper.updateById(adminPO);
     }
 
     /**
@@ -175,15 +175,15 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      */
     @Override
     public Integer editPassword(AdminEditPasswordDTO adminEditPasswordDTO) {
-        Admin po = adminMapper.selectById(adminEditPasswordDTO.getUserId());
+        AdminPO po = adminMapper.selectById(adminEditPasswordDTO.getUserId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
         Integer res = adminMapper.update(
-                new UpdateWrapper<Admin>()
+                new UpdateWrapper<AdminPO>()
                         .lambda()
-                        .eq(Admin::getUserId, adminEditPasswordDTO.getUserId())
-                        .set(Admin::getPassword, DigestUtils.md5DigestAsHex((adminEditPasswordDTO.getPassword() + this.appSecret).getBytes())
+                        .eq(AdminPO::getUserId, adminEditPasswordDTO.getUserId())
+                        .set(AdminPO::getPassword, DigestUtils.md5DigestAsHex((adminEditPasswordDTO.getPassword() + this.appSecret).getBytes())
                         )
         );
         //更新成功清空用户所有登录token
@@ -205,7 +205,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
             throw new ServiceException("两次密码输入不一致", 104);
         }
         Integer userId = (Integer) httpServletRequest.getSession().getAttribute("id");
-        Admin po = adminMapper.selectOne(new QueryWrapper<Admin>().lambda().eq(Admin::getUserId, userId));
+        AdminPO po = adminMapper.selectOne(new QueryWrapper<AdminPO>().lambda().eq(AdminPO::getUserId, userId));
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
@@ -213,10 +213,10 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
             throw new ServiceException("旧密码并不正确", 104);
         }
         int res = adminMapper.update(
-                new UpdateWrapper<Admin>()
+                new UpdateWrapper<AdminPO>()
                         .lambda()
-                        .eq(Admin::getUserId, userId)
-                        .set(Admin::getPassword, DigestUtils.md5DigestAsHex((modifyPasswordDTO.getPassword() + this.appSecret).getBytes())
+                        .eq(AdminPO::getUserId, userId)
+                        .set(AdminPO::getPassword, DigestUtils.md5DigestAsHex((modifyPasswordDTO.getPassword() + this.appSecret).getBytes())
                         )
         );
         //更新成功清空用户所有登录token
@@ -234,7 +234,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin>
      */
     @Override
     public Integer delete(Integer userId) {
-        Admin po = adminMapper.selectById(userId);
+        AdminPO po = adminMapper.selectById(userId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }

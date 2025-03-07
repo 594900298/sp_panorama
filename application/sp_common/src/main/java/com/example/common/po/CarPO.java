@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Car implements Serializable {
+public class CarPO implements Serializable {
     @ApiModelProperty(value = "购物车id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer carId;
@@ -55,7 +55,7 @@ public class Car implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Car other = (Car) that;
+        CarPO other = (CarPO) that;
         return (this.getCarId() == null ? other.getCarId() == null : this.getCarId().equals(other.getCarId()))
                 && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
                 && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))

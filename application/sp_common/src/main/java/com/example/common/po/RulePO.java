@@ -20,7 +20,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class Rule implements Serializable, TreeNode {
+public class RulePO implements Serializable, TreeNode {
     @ApiModelProperty(value = "权限节点id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer ruleId;

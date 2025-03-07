@@ -11,7 +11,7 @@ import com.example.admin.service.HotspotService;
 import com.example.admin.vo.HotspotListVO;
 import com.example.common.exception.ServiceException;
 import com.example.common.mapper.HotspotMapper;
-import com.example.common.po.Hotspot;
+import com.example.common.po.HotspotPO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +26,14 @@ import java.util.stream.Collectors;
  * @createDate 2024-07-02 09:23:17
  */
 @Service("adminHotspotServiceImpl")
-public class HotspotServiceImpl extends ServiceImpl<HotspotMapper, Hotspot>
+public class HotspotServiceImpl extends ServiceImpl<HotspotMapper, HotspotPO>
         implements HotspotService {
     @Resource
     private HotspotMapper hotspotMapper;
 
     @Override
     public List<HotspotListVO> getList(HotspotListDTO hotspotListDTO) {
-        QueryWrapper queryWrapper = new QueryWrapper<Hotspot>().select("hotspot_id", "scene_id", "hotspot_name", "random_string", "hotspot_style", "hotspot_type", "hotspot_value", "ath", "atv", "height", "width", "create_time").orderByAsc("hotspot_id");
+        QueryWrapper queryWrapper = new QueryWrapper<HotspotPO>().select("hotspot_id", "scene_id", "hotspot_name", "random_string", "hotspot_style", "hotspot_type", "hotspot_value", "ath", "atv", "height", "width", "create_time").orderByAsc("hotspot_id");
         if (!Objects.isNull(hotspotListDTO.getSceneId()) && hotspotListDTO.getSceneId() > 0) {
             queryWrapper.eq("scene_id", hotspotListDTO.getSceneId());
         }
@@ -52,7 +52,7 @@ public class HotspotServiceImpl extends ServiceImpl<HotspotMapper, Hotspot>
      */
     @Override
     public Integer add(HotspotAddDTO hotspotAddDTO) {
-        Hotspot insert = new Hotspot();
+        HotspotPO insert = new HotspotPO();
         BeanUtils.copyProperties(hotspotAddDTO, insert);
         insert.setRandomString(StrUtil.format("hotspot_{}", IdUtil.simpleUUID()));
         return hotspotMapper.insert(insert);
@@ -66,13 +66,13 @@ public class HotspotServiceImpl extends ServiceImpl<HotspotMapper, Hotspot>
      */
     @Override
     public Integer edit(HotspotEditDTO hotspotEditDTO) {
-        Hotspot po = hotspotMapper.selectById(hotspotEditDTO.getHotspotId());
+        HotspotPO po = hotspotMapper.selectById(hotspotEditDTO.getHotspotId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Hotspot hotspot = new Hotspot();
-        BeanUtils.copyProperties(hotspotEditDTO, hotspot);
-        return hotspotMapper.updateById(hotspot);
+        HotspotPO hotspotPO = new HotspotPO();
+        BeanUtils.copyProperties(hotspotEditDTO, hotspotPO);
+        return hotspotMapper.updateById(hotspotPO);
     }
 
     /**
@@ -83,7 +83,7 @@ public class HotspotServiceImpl extends ServiceImpl<HotspotMapper, Hotspot>
      */
     @Override
     public Integer delete(Integer hotspotId) {
-        Hotspot po = hotspotMapper.selectById(hotspotId);
+        HotspotPO po = hotspotMapper.selectById(hotspotId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }

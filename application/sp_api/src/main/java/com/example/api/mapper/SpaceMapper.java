@@ -2,8 +2,7 @@ package com.example.api.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.api.po.SpaceDetailPO;
-import com.example.api.vo.SpaceDetailVO;
-import com.example.common.po.Space;
+import com.example.common.po.SpacePO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository("apiSpaceMapper")
-public interface SpaceMapper extends BaseMapper<Space> {
+public interface SpaceMapper extends BaseMapper<SpacePO> {
     SpaceDetailPO selectJoinById(Integer id);
 }
 

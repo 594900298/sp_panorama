@@ -6,8 +6,8 @@ import com.example.api.vo.SpaceDetailVO;
 import com.example.api.vo.SpaceListVO;
 import com.example.api.vo.SpacePaginateVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.PageResult;
-import com.example.common.po.ResultData;
+import com.example.common.vo.PageResultVO;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,19 +26,19 @@ public class SpaceController {
 
     @ApiOperation("获取空间列表")
     @PostMapping("/getList")
-    public ResultData<List<SpaceListVO>> getList() {
-        return ResultData.success(spaceService.getList());
+    public ResultDataVO<List<SpaceListVO>> getList() {
+        return ResultDataVO.success(spaceService.getList());
     }
 
     @ApiOperation("获取空间分页")
     @PostMapping("/paginate")
-    public ResultData<List<SpacePaginateVO>> paginate(
+    public ResultDataVO<List<SpacePaginateVO>> paginate(
             @ApiParam(name = "pageIndex", value = "当前页数", required = true) @RequestParam Integer pageIndex,
             @ApiParam(name = "pageSize", value = "每页显示条目个数", required = true) @RequestParam Integer pageSize
     ) {
         IPage page = spaceService.getPaginate(new PageParamBO(pageIndex,pageSize));
         //构建响应对象
-        return ResultData.success(page.getRecords(), new PageResult(page));
+        return ResultDataVO.success(page.getRecords(), new PageResultVO(page));
     }
 
     /**
@@ -49,8 +49,8 @@ public class SpaceController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    private ResultData<SpaceDetailVO> detail(@ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer spaceId) {
-        return ResultData.success(spaceService.detail(spaceId));
+    private ResultDataVO<SpaceDetailVO> detail(@ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer spaceId) {
+        return ResultDataVO.success(spaceService.detail(spaceId));
     }
 
     @ApiOperation("获取xml")

@@ -3,7 +3,7 @@ package com.example.admin.controller;
 import com.example.admin.dto.LoginDTO;
 import com.example.admin.service.LoginService;
 import com.example.admin.vo.LoginVO;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,10 +28,10 @@ public class LoginController {
      */
     @ApiOperation("用户登录")
     @PostMapping("/code")
-    public ResultData<LoginVO> getCaptcha(
+    public ResultDataVO<LoginVO> getCaptcha(
             @Validated @RequestBody LoginDTO loginDTO
     ) throws Exception {
-        return ResultData.success(loginService.login(loginDTO), "登录成功");
+        return ResultDataVO.success(loginService.login(loginDTO), "登录成功");
     }
 
     /**
@@ -42,10 +42,10 @@ public class LoginController {
      */
     @ApiOperation("刷新Token")
     @PostMapping("/refreshToken")
-    public ResultData<LoginVO> refreshToken(
+    public ResultDataVO<LoginVO> refreshToken(
             @ApiParam(name = "refreshToken",value = "刷新token",required = true) @RequestBody String refreshToken
     ){
-        return ResultData.success(loginService.refreshToken(refreshToken,"admin"), "刷新成功");
+        return ResultDataVO.success(loginService.refreshToken(refreshToken,"admin"), "刷新成功");
     }
 
 }

@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsAttrValue implements Serializable {
+public class GoodsAttrValuePO implements Serializable {
     @ApiModelProperty(value = "属性值id", example = "1")
     @TableId
     private Integer attrValueId;
@@ -50,7 +50,7 @@ public class GoodsAttrValue implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        GoodsAttrValue other = (GoodsAttrValue) that;
+        GoodsAttrValuePO other = (GoodsAttrValuePO) that;
         return (this.getAttrValueId() == null ? other.getAttrValueId() == null : this.getAttrValueId().equals(other.getAttrValueId()))
                 && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))
                 && (this.getAttrId() == null ? other.getAttrId() == null : this.getAttrId().equals(other.getAttrId()))

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.api.service.BannerService;
 import com.example.api.vo.BannerSelectVO;
 import com.example.common.mapper.BannerMapper;
-import com.example.common.po.Banner;
+import com.example.common.po.BannerPO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * 轮播
  */
 @Service("apiBannerServiceImpl")
-public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
+public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerPO>
         implements BannerService {
     @Autowired
     private BannerMapper bannerMapper;
@@ -30,11 +30,11 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner>
      */
     @Override
     public List<BannerSelectVO> getList() {
-        return bannerMapper.selectList(new QueryWrapper<Banner>()
+        return bannerMapper.selectList(new QueryWrapper<BannerPO>()
                 .select("banner_id", "banner_name", "banner_image", "banner_link")
                 .lambda()
-                .eq(Banner::getIsShow, true)
-                .orderByAsc(Banner::getSort)).stream().map(po -> {
+                .eq(BannerPO::getIsShow, true)
+                .orderByAsc(BannerPO::getSort)).stream().map(po -> {
             BannerSelectVO vo = new BannerSelectVO();
             BeanUtils.copyProperties(po, vo);
             return vo;

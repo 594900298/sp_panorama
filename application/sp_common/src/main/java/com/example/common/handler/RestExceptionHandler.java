@@ -1,7 +1,7 @@
 package com.example.common.handler;
 
 import com.example.common.exception.BaseException;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,8 +20,8 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(BaseException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResultData exception(BaseException e){
-        return ResultData.fail(e.getCode(),e.getMessage());
+    public ResultDataVO exception(BaseException e){
+        return ResultDataVO.fail(e.getCode(),e.getMessage());
     }
 
     /**
@@ -31,8 +31,8 @@ public class RestExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    private ResultData handleIllegalArgumentException(MethodArgumentNotValidException e) {
-        return ResultData.fail(103,e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+    private ResultDataVO handleIllegalArgumentException(MethodArgumentNotValidException e) {
+        return ResultDataVO.fail(103,e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
 }

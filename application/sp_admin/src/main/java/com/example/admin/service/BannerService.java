@@ -8,12 +8,12 @@ import com.example.admin.dto.BannerEditSortDTO;
 import com.example.admin.dto.BannerPaginateDTO;
 import com.example.admin.vo.BannerDetailVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.Banner;
+import com.example.common.po.BannerPO;
 
 /**
  *
  */
-public interface BannerService extends IService<Banner> {
+public interface BannerService extends IService<BannerPO> {
     IPage getPaginate(PageParamBO pageParamBO, BannerPaginateDTO BannerPaginateDTO);
     Integer add(BannerAddDTO bannerAddDTO);
     BannerDetailVO detail(Integer bannerId);

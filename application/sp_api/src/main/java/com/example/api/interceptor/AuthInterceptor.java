@@ -2,7 +2,7 @@ package com.example.api.interceptor;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import com.example.common.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -28,7 +28,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 throw new ServiceException("请先登录", -1);
             } catch (ServiceException e) {
                 response.setContentType("text/html;charset=UTF-8");
-                response.getWriter().write(JSON.toJSONString(ResultData.fail(-1,"请先登录")));
+                response.getWriter().write(JSON.toJSONString(ResultDataVO.fail(-1,"请先登录")));
                 return false;
             }
         }
@@ -41,7 +41,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             request.getSession().setAttribute("openid",tokenInfo.get("openid"));
         } catch (ServiceException e) {
             response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().write(JSON.toJSONString(ResultData.fail(e.getCode(),e.getMessage())));
+            response.getWriter().write(JSON.toJSONString(ResultDataVO.fail(e.getCode(),e.getMessage())));
             return false;
         }
         return true;

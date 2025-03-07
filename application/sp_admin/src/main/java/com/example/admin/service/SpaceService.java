@@ -8,7 +8,7 @@ import com.example.admin.dto.SpaceEditSortDTO;
 import com.example.admin.vo.SpaceDetailVO;
 import com.example.admin.vo.SpaceListVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.Space;
+import com.example.common.po.SpacePO;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * )】的数据库操作Service
  * @createDate 2024-06-25 11:10:11
  */
-public interface SpaceService extends IService<Space> {
+public interface SpaceService extends IService<SpacePO> {
     IPage getPaginate(PageParamBO pageParamBO);
 
     List<SpaceListVO> getList();

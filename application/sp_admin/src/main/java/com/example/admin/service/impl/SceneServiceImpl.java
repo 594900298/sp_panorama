@@ -23,7 +23,7 @@ import com.example.common.enums.Control;
 import com.example.common.enums.Limitview;
 import com.example.common.exception.ServiceException;
 import com.example.common.mapper.SceneMapper;
-import com.example.common.po.Scene;
+import com.example.common.po.ScenePO;
 import com.example.common.utils.DomainUtil;
 import com.example.common.utils.UpLoadUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
  * @createDate 2024-06-25 15:20:51
  */
 @Service
-public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements SceneService {
+public class SceneServiceImpl extends ServiceImpl<SceneMapper, ScenePO> implements SceneService {
     @Autowired
     private SceneMapper sceneMapper;
 
@@ -65,7 +65,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
      */
     @Override
     public IPage getPaginate(PageParamBO pageParamBO, ScenePaginateDTO scenePaginateDTO) {
-        QueryWrapper queryWrapper = new QueryWrapper<Scene>().select("scene_id", "scene_name", "limitview", "hlookatmin", "hlookatmax", "vlookatmin", "vlookatmax", "is_show", "sort").orderByAsc("sort");
+        QueryWrapper queryWrapper = new QueryWrapper<ScenePO>().select("scene_id", "scene_name", "limitview", "hlookatmin", "hlookatmax", "vlookatmin", "vlookatmax", "is_show", "sort").orderByAsc("sort");
         if (!Objects.isNull(scenePaginateDTO.getSpaceId()) && scenePaginateDTO.getSpaceId() > 0) {
             queryWrapper.eq("space_id", scenePaginateDTO.getSpaceId());
         }
@@ -79,10 +79,10 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             queryWrapper.eq("is_show", scenePaginateDTO.getIsShow());
         }
         // 查询数据
-        return sceneMapper.selectPage(new Page<Scene>(pageParamBO.getPageIndex(), pageParamBO.getPageSize()), queryWrapper).convert(po -> {
+        return sceneMapper.selectPage(new Page<ScenePO>(pageParamBO.getPageIndex(), pageParamBO.getPageSize()), queryWrapper).convert(po -> {
             ScenePaginateVO vo = new ScenePaginateVO();
             BeanUtils.copyProperties(po, vo);
-            vo.setLimitview(((Scene) po).getLimitview().getKey());
+            vo.setLimitview(((ScenePO) po).getLimitview().getKey());
             return vo;
         });
     }
@@ -95,7 +95,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
      */
     @Override
     public List<SceneListVO> getList(SceneListDTO sceneListDTO) {
-        QueryWrapper queryWrapper = new QueryWrapper<Scene>().select("scene_id", "scene_name", "random_string", "material_file_name", "is_show", "sort").orderByAsc("sort");
+        QueryWrapper queryWrapper = new QueryWrapper<ScenePO>().select("scene_id", "scene_name", "random_string", "material_file_name", "is_show", "sort").orderByAsc("sort");
         if (!Objects.isNull(sceneListDTO.getSpaceId()) && sceneListDTO.getSpaceId() > 0) {
             queryWrapper.eq("space_id", sceneListDTO.getSpaceId());
         }
@@ -166,7 +166,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
                 levelConfig.add(levelConfigBO);
             }
             // 存储数据库
-            Scene insert = new Scene();
+            ScenePO insert = new ScenePO();
             BeanUtils.copyProperties(sceneAddDTO, insert);
             insert.setRandomString(randomString);
             insert.setMaterialFileName(materialFileName);
@@ -195,7 +195,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
      */
     @Override
     public SceneDetailVO detail(Integer scene_id) {
-        Scene po = sceneMapper.selectById(scene_id);
+        ScenePO po = sceneMapper.selectById(scene_id);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
@@ -332,11 +332,11 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
      */
     @Override
     public Integer edit(SceneEditDTO sceneEditDTO) {
-        Scene po = sceneMapper.selectById(sceneEditDTO.getSceneId());
+        ScenePO po = sceneMapper.selectById(sceneEditDTO.getSceneId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Scene update = new Scene();
+        ScenePO update = new ScenePO();
         BeanUtils.copyProperties(sceneEditDTO, update);
         return sceneMapper.updateById(update);
     }
@@ -349,11 +349,11 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
      */
     @Override
     public Integer editIsShow(Integer sceneId) {
-        Scene po = sceneMapper.selectById(sceneId);
+        ScenePO po = sceneMapper.selectById(sceneId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        return sceneMapper.update(new UpdateWrapper<Scene>().lambda().eq(Scene::getSceneId, sceneId).setSql("is_show = !is_show"));
+        return sceneMapper.update(new UpdateWrapper<ScenePO>().lambda().eq(ScenePO::getSceneId, sceneId).setSql("is_show = !is_show"));
     }
 
     /**
@@ -364,13 +364,13 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
      */
     @Override
     public Integer editSort(SceneEditSortDTO sceneEditSortDTO) {
-        Scene po = sceneMapper.selectById(sceneEditSortDTO.getSceneId());
+        ScenePO po = sceneMapper.selectById(sceneEditSortDTO.getSceneId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Scene scene = new Scene();
-        BeanUtils.copyProperties(sceneEditSortDTO, scene);
-        return sceneMapper.updateById(scene);
+        ScenePO scenePO = new ScenePO();
+        BeanUtils.copyProperties(sceneEditSortDTO, scenePO);
+        return sceneMapper.updateById(scenePO);
     }
 
     /**
@@ -381,7 +381,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
      */
     @Override
     public Integer delete(Integer sceneId) {
-        Scene po = sceneMapper.selectById(sceneId);
+        ScenePO po = sceneMapper.selectById(sceneId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }

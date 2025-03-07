@@ -8,8 +8,8 @@ import com.example.admin.dto.BannerPaginateDTO;
 import com.example.admin.service.BannerService;
 import com.example.admin.vo.BannerDetailVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.PageResult;
-import com.example.common.po.ResultData;
+import com.example.common.vo.PageResultVO;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,7 +34,7 @@ public class BannerController {
      */
     @ApiOperation("分页")
     @PostMapping("/paginate")
-    private ResultData paginate(
+    private ResultDataVO paginate(
             @ApiParam(name = "pageIndex", value = "当前页数", required = true) @RequestParam Integer pageIndex,
             @ApiParam(name = "pageSize", value = "每页显示条目个数", required = true) @RequestParam Integer pageSize,
             @RequestBody BannerPaginateDTO bannerPaginateDTO
@@ -42,7 +42,7 @@ public class BannerController {
         // 查询数据
         IPage page = bannerService.getPaginate(new PageParamBO(pageIndex, pageSize), bannerPaginateDTO);
         //构建响应对象
-        return ResultData.success(page.getRecords(), new PageResult(page));
+        return ResultDataVO.success(page.getRecords(), new PageResultVO(page));
     }
 
     /**
@@ -53,11 +53,11 @@ public class BannerController {
      */
     @ApiOperation("添加")
     @PostMapping("/add")
-    private ResultData add(@Validated @RequestBody BannerAddDTO bannerAddDTO) {
+    private ResultDataVO add(@Validated @RequestBody BannerAddDTO bannerAddDTO) {
         if (bannerService.add(bannerAddDTO) != 0) {
-            return ResultData.success(0, "添加成功");
+            return ResultDataVO.success(0, "添加成功");
         } else {
-            return ResultData.fail(106, "添加失败");
+            return ResultDataVO.fail(106, "添加失败");
         }
     }
 
@@ -69,10 +69,10 @@ public class BannerController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    private ResultData<BannerDetailVO> detail(
+    private ResultDataVO<BannerDetailVO> detail(
             @ApiParam(name = "id", value = "轮播id", required = true) @PathVariable("id") Integer bannerId
     ) {
-        return ResultData.success(bannerService.detail(bannerId));
+        return ResultDataVO.success(bannerService.detail(bannerId));
     }
 
     /**
@@ -83,11 +83,11 @@ public class BannerController {
      */
     @ApiOperation("编辑")
     @PostMapping("/edit")
-    private ResultData edit(@Validated @RequestBody BannerEditDTO bannerEditDTO) {
+    private ResultDataVO edit(@Validated @RequestBody BannerEditDTO bannerEditDTO) {
         if (bannerService.edit(bannerEditDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -98,13 +98,13 @@ public class BannerController {
      */
     @ApiOperation("修改显示状态")
     @GetMapping("/editIsShow/{id}")
-    private ResultData editIsShow(
+    private ResultDataVO editIsShow(
             @ApiParam(name = "id", value = "轮播id", required = true) @PathVariable("id") Integer bannerId
     ) {
         if (bannerService.editIsShow(bannerId) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -116,11 +116,11 @@ public class BannerController {
      */
     @ApiOperation("更新排序")
     @PostMapping("/editSort")
-    private ResultData editSort(@Validated @RequestBody BannerEditSortDTO bannerEditSortDTO) {
+    private ResultDataVO editSort(@Validated @RequestBody BannerEditSortDTO bannerEditSortDTO) {
         if (bannerService.editSort(bannerEditSortDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -132,12 +132,12 @@ public class BannerController {
      */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
-    private ResultData delete(
+    private ResultDataVO delete(
             @ApiParam(name = "id", value = "轮播id", required = true) @PathVariable("id") Integer bannerId) {
         if (bannerService.delete(bannerId) != 0) {
-            return ResultData.success(0, "删除成功");
+            return ResultDataVO.success(0, "删除成功");
         } else {
-            return ResultData.fail(106, "删除失败");
+            return ResultDataVO.fail(106, "删除失败");
         }
     }
 }

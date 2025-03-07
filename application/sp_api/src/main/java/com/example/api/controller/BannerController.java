@@ -2,7 +2,7 @@ package com.example.api.controller;
 
 import com.example.api.service.BannerService;
 import com.example.api.vo.BannerSelectVO;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class BannerController {
      */
     @ApiOperation("列表")
     @GetMapping("/getList")
-    private ResultData<List<BannerSelectVO>> getList() {
-        return ResultData.success(bannerService.getList());
+    private ResultDataVO<List<BannerSelectVO>> getList() {
+        return ResultDataVO.success(bannerService.getList());
     }
 }

@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.common.exception.ServiceException;
 import com.example.common.mapper.GroupAccessMapper;
 import com.example.common.mapper.RuleMapper;
-import com.example.common.po.Role;
-import com.example.common.po.Rule;
+import com.example.common.po.RolePO;
+import com.example.common.po.RulePO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -98,12 +98,12 @@ public class AuthUtil {
         List<String> returnData = new ArrayList<>();
         if (redisUtil.isExpire(prefix + authUserRule + id)) {
             //通过数据库将相关的查询出来
-            List<Role> data = groupAccessMapper.selectUidRule(id);
+            List<RolePO> data = groupAccessMapper.selectUidRule(id);
             //获取所有权限列表
             HashMap<String, String> authList = getAuthList();
-            Iterator<Role> it = data.iterator();
+            Iterator<RolePO> it = data.iterator();
             while (it.hasNext()) {
-                Role item = it.next();
+                RolePO item = it.next();
                 if ("*".equals(item.getRules())) {
                     //超级管理员
                     for (String v : authList.values()) {
@@ -140,11 +140,11 @@ public class AuthUtil {
             //创建存储的map
             returnData = new HashMap<>();
             //获取数据库值
-            List<Rule> data = ruleMapper.selectList(new QueryWrapper<Rule>().select("rule_id", "rule_url").lambda().orderByAsc(Rule::getSort));
-            Iterator<Rule> it = data.iterator();
+            List<RulePO> data = ruleMapper.selectList(new QueryWrapper<RulePO>().select("rule_id", "rule_url").lambda().orderByAsc(RulePO::getSort));
+            Iterator<RulePO> it = data.iterator();
             //插入需要存储map
             while (it.hasNext()) {
-                Rule item = it.next();
+                RulePO item = it.next();
                 //转换到小写字母然后存入到数据库
                 returnData.put(String.valueOf(item.getRuleId()), item.getRuleUrl().toLowerCase());
             }

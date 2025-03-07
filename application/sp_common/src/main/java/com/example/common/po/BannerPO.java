@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Banner implements Serializable {
+public class BannerPO implements Serializable {
     @ApiModelProperty(value = "主键", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer bannerId;
@@ -57,7 +57,7 @@ public class Banner implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Banner other = (Banner) that;
+        BannerPO other = (BannerPO) that;
         return (this.getBannerId() == null ? other.getBannerId() == null : this.getBannerId().equals(other.getBannerId()))
                 && (this.getBannerName() == null ? other.getBannerName() == null : this.getBannerName().equals(other.getBannerName()))
                 && (this.getBannerImage() == null ? other.getBannerImage() == null : this.getBannerImage().equals(other.getBannerImage()))

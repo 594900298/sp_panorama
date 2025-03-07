@@ -6,7 +6,7 @@ import com.example.api.vo.AreaTreeVO;
 import com.example.common.mapper.AreaMapper;
 import com.example.api.service.AreaService;
 import com.example.common.Interface.TreeNode;
-import com.example.common.po.Area;
+import com.example.common.po.AreaPO;
 import com.example.common.utils.RedisUtil;
 import com.example.common.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.List;
  * 地区
  */
 @Service("apiAreaServiceImpl")
-public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
+public class AreaServiceImpl extends ServiceImpl<AreaMapper, AreaPO>
         implements AreaService {
     /**
      * 缓存前缀
@@ -55,16 +55,16 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area>
         List<AreaTreeVO> returnData;
         // 查询缓存中是否存在数据
         if (redisUtil.isExpire(prefix + redisKey)) {
-            List<Area> list = areaMapper.selectList(
-                    new QueryWrapper<Area>()
+            List<AreaPO> list = areaMapper.selectList(
+                    new QueryWrapper<AreaPO>()
                             .select("area_id", "pid", "area_name", "sort", "area_key", "area_type", "create_time")
                             .lambda()
-                            .eq(Area::getIsShow, true)
-                            .orderByAsc(Area::getSort)
+                            .eq(AreaPO::getIsShow, true)
+                            .orderByAsc(AreaPO::getSort)
             );
             // 构建树形节点
             List<TreeNode> treeNode = new ArrayList<>();
-            Iterator<Area> it = list.iterator();
+            Iterator<AreaPO> it = list.iterator();
             while (it.hasNext()) {
                 TreeNode i = it.next();
                 treeNode.add(i);

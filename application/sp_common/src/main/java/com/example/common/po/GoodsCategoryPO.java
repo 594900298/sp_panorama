@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsCategory implements Serializable, TreeNode {
+public class GoodsCategoryPO implements Serializable, TreeNode {
     @ApiModelProperty(value = "分类id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer catId;
@@ -58,7 +58,7 @@ public class GoodsCategory implements Serializable, TreeNode {
         if (getClass() != that.getClass()) {
             return false;
         }
-        GoodsCategory other = (GoodsCategory) that;
+        GoodsCategoryPO other = (GoodsCategoryPO) that;
         return (this.getCatId() == null ? other.getCatId() == null : this.getCatId().equals(other.getCatId()))
                 && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
                 && (this.getCatName() == null ? other.getCatName() == null : this.getCatName().equals(other.getCatName()))

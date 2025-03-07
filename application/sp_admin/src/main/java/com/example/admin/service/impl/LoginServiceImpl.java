@@ -7,7 +7,7 @@ import com.example.common.mapper.AdminMapper;
 import com.example.admin.service.LoginService;
 import com.example.admin.vo.LoginVO;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.Admin;
+import com.example.common.po.AdminPO;
 import com.example.common.utils.CaptchaUtil;
 import com.example.common.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,24 +56,24 @@ public class LoginServiceImpl implements LoginService {
         queryWrapper.select("user_id","username","uuid","status","login_time","login_ip","login_num");
         queryWrapper.eq("username",loginDTO.getUsername());
         queryWrapper.eq("password",DigestUtils.md5DigestAsHex((loginDTO.getPassword()+this.appSecret).getBytes()));
-        Admin admin = adminMapper.selectOne(queryWrapper);
-        if(admin != null){
-            if(!admin.getStatus()){
+        AdminPO adminPO = adminMapper.selectOne(queryWrapper);
+        if(adminPO != null){
+            if(!adminPO.getStatus()){
                 throw new ServiceException("当前用户已禁用",106);
             }else{
                 // 更新
-                Admin updateAdmin = new Admin();
-                updateAdmin.setUserId(admin.getUserId());
-                updateAdmin.setLoginTime((int) (System.currentTimeMillis()/1000));
-                updateAdmin.setLoginNum(admin.getLoginNum()+1);
-                updateAdmin.setLoginIp(request.getRemoteAddr());
-                adminMapper.update(updateAdmin, new UpdateWrapper<Admin>().lambda().eq(Admin::getUserId,admin.getUserId()));
-                HashMap<String, Object> token = tokenUtil.getToken(admin.getUserId(),admin.getUuid(),"admin");
+                AdminPO updateAdminPO = new AdminPO();
+                updateAdminPO.setUserId(adminPO.getUserId());
+                updateAdminPO.setLoginTime((int) (System.currentTimeMillis()/1000));
+                updateAdminPO.setLoginNum(adminPO.getLoginNum()+1);
+                updateAdminPO.setLoginIp(request.getRemoteAddr());
+                adminMapper.update(updateAdminPO, new UpdateWrapper<AdminPO>().lambda().eq(AdminPO::getUserId, adminPO.getUserId()));
+                HashMap<String, Object> token = tokenUtil.getToken(adminPO.getUserId(), adminPO.getUuid(),"admin");
                 LoginVO vo = new LoginVO();
                 vo.setToken((String) token.get("token"));
                 vo.setRefreshToken((String) token.get("refreshToken"));
                 vo.setExpire((Long) token.get("expire"));
-                vo.setUsername(admin.getUsername());
+                vo.setUsername(adminPO.getUsername());
                 return vo;
             }
         }

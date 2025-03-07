@@ -1,7 +1,7 @@
 package com.example.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.common.po.GoodsAttrValue;
+import com.example.common.po.GoodsAttrValuePO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface GoodsAttrValueMapper extends BaseMapper<GoodsAttrValue> {
+public interface GoodsAttrValueMapper extends BaseMapper<GoodsAttrValuePO> {
 
 }
 

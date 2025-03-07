@@ -1,7 +1,7 @@
 package com.example.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.common.po.Scene;
+import com.example.common.po.ScenePO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @Entity com.example.admin.po.Scene
  */
 @Service
-public interface SceneMapper extends BaseMapper<Scene> {
+public interface SceneMapper extends BaseMapper<ScenePO> {
 
 }
 

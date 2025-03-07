@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.api.vo.SpaceDetailVO;
 import com.example.api.vo.SpaceListVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.Space;
+import com.example.common.po.SpacePO;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * )】的数据库操作Service
  * @createDate 2024-06-25 11:10:11
  */
-public interface SpaceService extends IService<Space> {
+public interface SpaceService extends IService<SpacePO> {
     List<SpaceListVO> getList();
 
     IPage getPaginate(PageParamBO pageParamBO);

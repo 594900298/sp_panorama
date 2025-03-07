@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * 商品收藏表
  * @TableName sp_goods_collect
@@ -19,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsCollect implements Serializable {
+public class GoodsCollectPO implements Serializable {
     @ApiModelProperty(value = "收藏id", example = "1")
     @TableId(type = IdType.AUTO)
     private Integer collectId;
@@ -58,7 +56,7 @@ public class GoodsCollect implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        GoodsCollect other = (GoodsCollect) that;
+        GoodsCollectPO other = (GoodsCollectPO) that;
         return (this.getCollectId() == null ? other.getCollectId() == null : this.getCollectId().equals(other.getCollectId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getGoodsId() == null ? other.getGoodsId() == null : this.getGoodsId().equals(other.getGoodsId()))

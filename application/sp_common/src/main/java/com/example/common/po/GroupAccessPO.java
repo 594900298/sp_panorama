@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupAccess implements Serializable {
+public class GroupAccessPO implements Serializable {
     @ApiModelProperty(value = "用户id", example = "1")
     private Integer uid;
 

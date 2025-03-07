@@ -9,8 +9,8 @@ import com.example.admin.vo.SpaceDetailVO;
 import com.example.admin.vo.SpaceListVO;
 import com.example.admin.vo.SpacePaginateVO;
 import com.example.common.bo.PageParamBO;
-import com.example.common.po.PageResult;
-import com.example.common.po.ResultData;
+import com.example.common.vo.PageResultVO;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -36,14 +36,14 @@ public class SpaceController {
      */
     @ApiOperation("分页")
     @PostMapping("/paginate")
-    private ResultData<List<SpacePaginateVO>> paginate(
+    private ResultDataVO<List<SpacePaginateVO>> paginate(
             @ApiParam(name = "pageIndex", value = "当前页数", required = true) @RequestParam Integer pageIndex,
             @ApiParam(name = "pageSize", value = "每页显示条目个数", required = true) @RequestParam Integer pageSize
     ) {
         // 查询数据
         IPage page = spaceService.getPaginate(new PageParamBO(pageIndex, pageSize));
         //构建响应对象
-        return ResultData.success(page.getRecords(), new PageResult(page));
+        return ResultDataVO.success(page.getRecords(), new PageResultVO(page));
     }
 
     /**
@@ -53,8 +53,8 @@ public class SpaceController {
      */
     @ApiOperation("列表")
     @GetMapping("/getList")
-    private ResultData<List<SpaceListVO>> getList() {
-        return ResultData.success(spaceService.getList());
+    private ResultDataVO<List<SpaceListVO>> getList() {
+        return ResultDataVO.success(spaceService.getList());
     }
 
     /**
@@ -65,11 +65,11 @@ public class SpaceController {
      */
     @ApiOperation("添加")
     @PostMapping("/add")
-    private ResultData add(@Validated @RequestBody SpaceAddDTO spaceAddDTO) {
+    private ResultDataVO add(@Validated @RequestBody SpaceAddDTO spaceAddDTO) {
         if (spaceService.add(spaceAddDTO) != 0) {
-            return ResultData.success(0, "添加成功");
+            return ResultDataVO.success(0, "添加成功");
         } else {
-            return ResultData.fail(106, "添加失败");
+            return ResultDataVO.fail(106, "添加失败");
         }
     }
 
@@ -82,10 +82,10 @@ public class SpaceController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    private ResultData<SpaceDetailVO> detail(
+    private ResultDataVO<SpaceDetailVO> detail(
             @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer spaceId
     ) {
-        return ResultData.success(spaceService.detail(spaceId));
+        return ResultDataVO.success(spaceService.detail(spaceId));
     }
 
     /**
@@ -96,11 +96,11 @@ public class SpaceController {
      */
     @ApiOperation("编辑")
     @PostMapping("/edit")
-    private ResultData edit(@Validated @RequestBody SpaceEditDTO spaceEditDTO) {
+    private ResultDataVO edit(@Validated @RequestBody SpaceEditDTO spaceEditDTO) {
         if (spaceService.edit(spaceEditDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -111,13 +111,13 @@ public class SpaceController {
      */
     @ApiOperation("修改显示状态")
     @GetMapping("/editIsShow/{id}")
-    private ResultData editIsShow(
+    private ResultDataVO editIsShow(
             @ApiParam(name = "id", value = "主键\"", required = true) @PathVariable("id") Integer spaceId
     ) {
         if (spaceService.editIsShow(spaceId) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -129,11 +129,11 @@ public class SpaceController {
      */
     @ApiOperation("更新排序")
     @PostMapping("/editSort")
-    private ResultData editSort(@Validated @RequestBody SpaceEditSortDTO spaceEditSortDTO) {
+    private ResultDataVO editSort(@Validated @RequestBody SpaceEditSortDTO spaceEditSortDTO) {
         if (spaceService.editSort(spaceEditSortDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -145,12 +145,12 @@ public class SpaceController {
      */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
-    private ResultData delete(
+    private ResultDataVO delete(
             @ApiParam(name = "id", value = "主键", required = true) @PathVariable("id") Integer spaceId) {
         if (spaceService.delete(spaceId) != 0) {
-            return ResultData.success(0, "删除成功");
+            return ResultDataVO.success(0, "删除成功");
         } else {
-            return ResultData.fail(106, "删除失败");
+            return ResultDataVO.fail(106, "删除失败");
         }
     }
 }

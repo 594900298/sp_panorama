@@ -3,7 +3,7 @@ package com.example.api.controller;
 import com.example.api.dto.LoginCodeDTO;
 import com.example.api.service.LoginService;
 import com.example.api.vo.LoginVO;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,8 +31,8 @@ public class LoginController {
      */
     @ApiOperation("微信登录")
     @PostMapping("/code")
-    public ResultData<LoginVO> code(@Validated @RequestBody LoginCodeDTO loginCodeDTO) throws Exception {
-        return ResultData.success(loginService.code(loginCodeDTO), "登录成功");
+    public ResultDataVO<LoginVO> code(@Validated @RequestBody LoginCodeDTO loginCodeDTO) throws Exception {
+        return ResultDataVO.success(loginService.code(loginCodeDTO), "登录成功");
     }
 
     /**
@@ -44,9 +44,9 @@ public class LoginController {
      */
     @ApiOperation("刷新Token")
     @PostMapping("/refreshToken")
-    public ResultData<LoginVO> refreshToken(
+    public ResultDataVO<LoginVO> refreshToken(
             @ApiParam(name = "refreshToken", value = "刷新token", required = true) @RequestBody String refreshToken
     ) throws Exception {
-        return ResultData.success(loginService.refreshToken(refreshToken, "com/example/api"), "刷新成功");
+        return ResultDataVO.success(loginService.refreshToken(refreshToken, "com/example/api"), "刷新成功");
     }
 }

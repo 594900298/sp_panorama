@@ -5,7 +5,7 @@ import com.example.admin.dto.AreaEditDTO;
 import com.example.admin.service.AreaService;
 import com.example.admin.vo.AreaDetailVO;
 import com.example.admin.vo.AreaTreeVO;
-import com.example.common.po.ResultData;
+import com.example.common.vo.ResultDataVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,8 +29,8 @@ public class AreaController {
      */
     @ApiOperation("树形列表")
     @PostMapping("/getTree")
-    private ResultData<List<AreaTreeVO>> getTree() {
-        return ResultData.success(areaService.getTree());
+    private ResultDataVO<List<AreaTreeVO>> getTree() {
+        return ResultDataVO.success(areaService.getTree());
     }
 
     /**
@@ -41,11 +41,11 @@ public class AreaController {
      */
     @ApiOperation("添加")
     @PostMapping("/add")
-    private ResultData add(@Validated @RequestBody AreaAddDTO areaAddDTO) {
+    private ResultDataVO add(@Validated @RequestBody AreaAddDTO areaAddDTO) {
         if (areaService.add(areaAddDTO) != 0) {
-            return ResultData.success(0, "添加成功");
+            return ResultDataVO.success(0, "添加成功");
         } else {
-            return ResultData.fail(106, "添加失败");
+            return ResultDataVO.fail(106, "添加失败");
         }
     }
 
@@ -57,10 +57,10 @@ public class AreaController {
      */
     @ApiOperation("详情")
     @GetMapping("/detail/{id}")
-    private ResultData<AreaDetailVO> detail(
+    private ResultDataVO<AreaDetailVO> detail(
             @ApiParam(name = "id", value = "地区id", required = true) @PathVariable("id") Integer areaId
     ) {
-        return ResultData.success(areaService.detail(areaId));
+        return ResultDataVO.success(areaService.detail(areaId));
     }
 
     /**
@@ -71,11 +71,11 @@ public class AreaController {
      */
     @ApiOperation("编辑")
     @PostMapping("/edit")
-    private ResultData edit(@Validated @RequestBody AreaEditDTO areaEditDTO) {
+    private ResultDataVO edit(@Validated @RequestBody AreaEditDTO areaEditDTO) {
         if (areaService.edit(areaEditDTO) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -87,13 +87,13 @@ public class AreaController {
      */
     @ApiOperation("修改显示状态")
     @GetMapping("/editIsShow/{id}")
-    private ResultData editIsShow(
+    private ResultDataVO editIsShow(
             @ApiParam(name = "id", value = "地区id", required = true) @PathVariable("id") Integer areaId
     ) {
         if (areaService.editIsShow(areaId) != 0) {
-            return ResultData.success(0, "更新成功");
+            return ResultDataVO.success(0, "更新成功");
         } else {
-            return ResultData.fail(106, "更新失败");
+            return ResultDataVO.fail(106, "更新失败");
         }
     }
 
@@ -105,13 +105,13 @@ public class AreaController {
      */
     @ApiOperation("删除")
     @GetMapping("/delete/{id}")
-    private ResultData delete(
+    private ResultDataVO delete(
             @ApiParam(name = "id", value = "地区id", required = true) @PathVariable("id") Integer areaId
     ) {
         if (areaService.delete(areaId) != 0) {
-            return ResultData.success(0, "删除成功");
+            return ResultDataVO.success(0, "删除成功");
         } else {
-            return ResultData.fail(106, "删除失败");
+            return ResultDataVO.fail(106, "删除失败");
         }
     }
 }

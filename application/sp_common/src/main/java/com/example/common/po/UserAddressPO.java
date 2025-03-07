@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAddress implements Serializable {
+public class UserAddressPO implements Serializable {
     /**
      * 主键
      */
@@ -85,7 +85,7 @@ public class UserAddress implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        UserAddress other = (UserAddress) that;
+        UserAddressPO other = (UserAddressPO) that;
         return (this.getAddressId() == null ? other.getAddressId() == null : this.getAddressId().equals(other.getAddressId()))
                 && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
                 && (this.getProvinceId() == null ? other.getProvinceId() == null : this.getProvinceId().equals(other.getProvinceId()))

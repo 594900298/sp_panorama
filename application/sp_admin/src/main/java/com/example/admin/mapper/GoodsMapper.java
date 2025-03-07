@@ -2,7 +2,7 @@ package com.example.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.admin.po.GoodsDetailPO;
-import com.example.common.po.Goods;
+import com.example.common.po.GoodsPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository("adminGoodsMapper")
-public interface GoodsMapper extends BaseMapper<Goods> {
+public interface GoodsMapper extends BaseMapper<GoodsPO> {
     GoodsDetailPO getGoodsDetail(@Param("goodsId") Integer goodsId);
 }
 

@@ -1,7 +1,5 @@
 package com.example.api.service.impl;
 
-import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.api.dto.LoginCodeDTO;
@@ -9,7 +7,7 @@ import com.example.common.mapper.UserMapper;
 import com.example.api.service.LoginService;
 import com.example.api.vo.LoginVO;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.User;
+import com.example.common.po.UserPO;
 import com.example.common.utils.CaptchaUtil;
 import com.example.common.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,24 +63,24 @@ public class LoginServiceImpl implements LoginService {
         //开启事务
         TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(transactionDefinition);
         try {
-            User user = userMapper.selectOne(
-                    new QueryWrapper<User>()
+            UserPO userPO = userMapper.selectOne(
+                    new QueryWrapper<UserPO>()
                             .select("user_id", "status", "uuid", "openid")
                             .lambda()
             );
             Map<String, Object> resMap = new HashMap<>();
-            if (user != null) {
-                if (!user.getStatus()) {
+            if (userPO != null) {
+                if (!userPO.getStatus()) {
                     throw new ServiceException("当前用户已禁用", 106);
                 }
-                resMap.put("userId", user.getUserId());
-                resMap.put("uuid", user.getUuid());
-                resMap.put("name", user.getName());
+                resMap.put("userId", userPO.getUserId());
+                resMap.put("uuid", userPO.getUuid());
+                resMap.put("name", userPO.getName());
             } else {
                 /**
                  * 插入新用户
                  */
-                User insertData = new User();
+                UserPO insertData = new UserPO();
                 insertData.setStatus(true);
                 insertData.setUuid(String.valueOf(UUID.randomUUID()));
                 userMapper.insert(insertData);
@@ -92,10 +90,10 @@ public class LoginServiceImpl implements LoginService {
             }
             // 更新
             userMapper.update(
-                    new UpdateWrapper<User>()
+                    new UpdateWrapper<UserPO>()
                             .lambda()
-                            .set(User::getLoginTime, System.currentTimeMillis() / 1000)
-                            .set(User::getLoginIp, request.getRemoteAddr())
+                            .set(UserPO::getLoginTime, System.currentTimeMillis() / 1000)
+                            .set(UserPO::getLoginIp, request.getRemoteAddr())
                             .setSql("login_num = login_num+1 ")
             );
             Map<String, Object> data = new HashMap<>();

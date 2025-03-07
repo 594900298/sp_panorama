@@ -15,7 +15,7 @@ import com.example.admin.vo.SpaceListVO;
 import com.example.admin.vo.SpacePaginateVO;
 import com.example.common.bo.PageParamBO;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.Space;
+import com.example.common.po.SpacePO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * @createDate 2024-06-25 11:10:11
  */
 @Service
-public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
+public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO>
         implements SpaceService {
 
     @Autowired
@@ -46,7 +46,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public IPage getPaginate(PageParamBO pageParamBO) {
-        QueryWrapper queryWrapper = new QueryWrapper<Space>()
+        QueryWrapper queryWrapper = new QueryWrapper<SpacePO>()
                 .select("space_id", "space_id", "space_name", "space_thumb", "is_show", "sort")
                 .orderByAsc("sort");
         // 查询数据
@@ -67,10 +67,10 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public List<SpaceListVO> getList() {
-        return spaceMapper.selectList(new QueryWrapper<Space>()
+        return spaceMapper.selectList(new QueryWrapper<SpacePO>()
                 .select("space_id", "space_id", "space_name", "space_thumb", "is_show", "sort")
                 .lambda()
-                .orderByAsc(Space::getSort)).stream().map(po -> {
+                .orderByAsc(SpacePO::getSort)).stream().map(po -> {
             SpaceListVO vo = new SpaceListVO();
             BeanUtils.copyProperties(po, vo);
             return vo;
@@ -85,7 +85,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public Integer add(SpaceAddDTO spaceAddDTO) {
-        Space insert = new Space();
+        SpacePO insert = new SpacePO();
         BeanUtils.copyProperties(spaceAddDTO, insert);
         insert.setSpaceCode(UUID.randomUUID().toString());
         return spaceMapper.insert(insert);
@@ -99,7 +99,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public SpaceDetailVO detail(Integer spaceId) {
-        Space po = spaceMapper.selectById(spaceId);
+        SpacePO po = spaceMapper.selectById(spaceId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
@@ -116,11 +116,11 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public Integer edit(SpaceEditDTO spaceEditDTO) {
-        Space po = spaceMapper.selectById(spaceEditDTO.getSpaceId());
+        SpacePO po = spaceMapper.selectById(spaceEditDTO.getSpaceId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Space banner = new Space();
+        SpacePO banner = new SpacePO();
         BeanUtils.copyProperties(spaceEditDTO, banner);
         return spaceMapper.updateById(banner);
     }
@@ -133,11 +133,11 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public Integer editIsShow(Integer spaceId) {
-        Space po = spaceMapper.selectById(spaceId);
+        SpacePO po = spaceMapper.selectById(spaceId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        return spaceMapper.update(new UpdateWrapper<Space>().lambda().eq(Space::getSpaceId, spaceId).setSql("is_show = !is_show"));
+        return spaceMapper.update(new UpdateWrapper<SpacePO>().lambda().eq(SpacePO::getSpaceId, spaceId).setSql("is_show = !is_show"));
     }
 
     /**
@@ -148,13 +148,13 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public Integer editSort(SpaceEditSortDTO spaceEditSortDTO) {
-        Space po = spaceMapper.selectById(spaceEditSortDTO.getSpaceId());
+        SpacePO po = spaceMapper.selectById(spaceEditSortDTO.getSpaceId());
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
-        Space space = new Space();
-        BeanUtils.copyProperties(spaceEditSortDTO, space);
-        return spaceMapper.updateById(space);
+        SpacePO spacePO = new SpacePO();
+        BeanUtils.copyProperties(spaceEditSortDTO, spacePO);
+        return spaceMapper.updateById(spacePO);
     }
 
     /**
@@ -165,7 +165,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
      */
     @Override
     public Integer delete(Integer spaceId) {
-        Space po = spaceMapper.selectById(spaceId);
+        SpacePO po = spaceMapper.selectById(spaceId);
         if (Objects.isNull(po)) {
             throw new ServiceException("找不到资源", 104);
         }
