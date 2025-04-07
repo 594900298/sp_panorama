@@ -1,9 +1,6 @@
 package com.example.common.po;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@TableName(value ="sp_role")
 public class RolePO implements Serializable {
     @ApiModelProperty(value = "角色id", example = "1")
     @TableId(type = IdType.AUTO)

@@ -1,5 +1,6 @@
 package com.example.common.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 /**
  * @TableName sp_group_access
  */
+@TableName(value ="sp_group_access")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

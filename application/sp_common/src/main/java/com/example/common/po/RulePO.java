@@ -1,9 +1,6 @@
 package com.example.common.po;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import com.example.common.Interface.TreeNode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -20,6 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@TableName(value ="sp_rule")
 public class RulePO implements Serializable, TreeNode {
     @ApiModelProperty(value = "权限节点id", example = "1")
     @TableId(type = IdType.AUTO)
