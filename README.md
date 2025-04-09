@@ -96,3 +96,8 @@
 ![](demo/dir.jpg)
 ### Nginx部署配置
 ![](demo/nginx.png)
+### 提供一些用于测试全景图片
+* 如果这些图片侵权了，请联系我删除
+![](demo/example-1.jpg)
+![](demo/example-2.jpg)
+![](demo/example-2.jpg)
