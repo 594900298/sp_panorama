@@ -52,8 +52,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         <el-form-item label="密码" prop="password">
           <el-input v-model="ruleForm.password" placeholder="请输入密码" show-password />
         </el-form-item>
-        <el-form-item label="真实姓名" prop="real_name">
-          <el-input v-model="ruleForm.real_name" placeholder="请输入真实姓名" />
+        <el-form-item label="真实姓名" prop="realName">
+          <el-input v-model="ruleForm.realName" placeholder="请输入真实姓名" />
         </el-form-item>
         <el-form-item label="手机号" prop="mobile">
           <el-input v-model="ruleForm.mobile" placeholder="请输入手机号" />
