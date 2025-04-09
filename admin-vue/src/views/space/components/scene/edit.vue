@@ -548,7 +548,7 @@ const deleteSpot = () => {
     type: "warning",
   }).then(async () => {
     if (hotRuleForm.value.hotspotId) {
-      const res = await post("Hotspot/delete", {
+      const res = await post("hotspot/delete", {
         hotspotId: hotRuleForm.value.hotspotId,
       });
     }
@@ -574,7 +574,7 @@ const setHotSpotPosition = async (name, ath, atv) => {
       num = index;
     }
   });
-  const res = await post("Hotspot/edit", hotspotList.value[num]);
+  const res = await post("hotspot/edit", hotspotList.value[num]);
   krpanoUtils.value.deleteHotspot(hotspotList.value[num].randomString);
   krpanoUtils.value.addHotspots(
     hotspotList.value[num].randomString,
