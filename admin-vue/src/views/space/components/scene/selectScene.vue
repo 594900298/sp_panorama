@@ -4,7 +4,7 @@
         <div class="sceneImg mb10" @dblclick="saveSet" :class="isScene == index ? 'isSceneImg' : ''" v-else
             v-for="(itme, index) in sceneList" :key="index" @click="selectSceneFn(index)">
             <img :src="itme.thumb">
-            <div class="scene_name">{{ itme.scene_name }}</div>
+            <div class="scene_name">{{ itme.sceneName }}</div>
         </div>
         <el-divider></el-divider>
         <flex style="width: 100%" justify="end" align="center">
