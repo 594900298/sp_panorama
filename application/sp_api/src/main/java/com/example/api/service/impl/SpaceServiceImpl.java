@@ -265,7 +265,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO> implemen
                 while (ii.hasNext()) {
                     HotspotListVO vv = ii.next();
                     Element hotspotEl = sceneEl.addElement("hotspot")
-                            .addAttribute("name", item.getRandomString())
+                            .addAttribute("name", vv.getRandomString())
                             .addAttribute("style", vv.getHotspotStyle().getValue())
                             .addAttribute("ath", vv.getAth())
                             .addAttribute("atv", vv.getAtv());

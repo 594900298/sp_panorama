@@ -45,6 +45,7 @@
           AND sp.is_show = 1
           AND sp.deleted = 0
           AND sc.deleted = 0
+        ORDER BY sc.sort ASC
     </select>
 
     <resultMap id="selectJoinByIdMap" type="com.example.api.po.SpaceDetailPO">
