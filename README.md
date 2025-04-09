@@ -25,7 +25,7 @@
 <div align="center" >
     <a href="https://panorama.banxia.tech/">效 果 展 示</a>
     &nbsp
-    <a href="https://panorama.banxia.tech/space/2">内 页 展 示</a>
+    <a href="https://panorama.banxia.tech/space/5">内 页 展 示</a>
 </div>
 <div align="center">
     如果对您有帮助，您可以点右上角 "Star" ❤️ 支持一下 谢谢！
