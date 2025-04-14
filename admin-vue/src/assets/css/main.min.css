@@ -64,7 +64,7 @@
 .vrScene_box .box_r .right_setting{padding:10px 20px 0}
 .vrScene_box .box_r .slideIp .el-slider__input{width:45px}
 .vrScene_box .box_r .slideIp .el-slider__input .el-input__inner{height:28px}
-.vrScene_box .box_r .slideIp .el-slider__runway{margin-right:65px}
+.vrScene_box .box_r .slideIp .el-slider__runway{margin-left:15px;margin-right:30px}
 .vrScene_box .box_r .right_hotSpot{padding:0 15px 10px}
 .vrScene_box .box_r .right_hotSpot .el-collapse-item__content{padding-bottom:0}
 .vrScene_box .box_r .right_hotSpot .el-input-number .el-input__inner{width:100%}
