@@ -39,7 +39,7 @@
 ~~~
 1. 后台服务 Java SpringBoot + Mybatis-plus + Mysql + redis + RabbitMQ + MongoDB
 2. 运行环境 linux和windows等都支持,只要有Java环境和对应的数据库 redis
-3. 运行条件 Java 1.8 Mysql5.7 node18
+3. 运行条件 Java 1.8 Mysql5.7 node18.20.2
 4. Api对应的接口文档也可以部署项目后查看    域名/doc.html 查看【knife4j生成】
 ~~~
 
