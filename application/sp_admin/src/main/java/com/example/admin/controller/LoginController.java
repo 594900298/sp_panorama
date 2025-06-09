@@ -1,6 +1,7 @@
 package com.example.admin.controller;
 
 import com.example.admin.dto.LoginDTO;
+import com.example.admin.dto.RefreshTokenDTO;
 import com.example.admin.service.LoginService;
 import com.example.admin.vo.LoginVO;
 import com.example.common.vo.ResultDataVO;
@@ -43,9 +44,9 @@ public class LoginController {
     @ApiOperation("刷新Token")
     @PostMapping("/refreshToken")
     public ResultDataVO<LoginVO> refreshToken(
-            @ApiParam(name = "refreshToken",value = "刷新token",required = true) @RequestBody String refreshToken
+            @ApiParam(name = "refreshToken",value = "刷新token",required = true) @RequestBody RefreshTokenDTO refreshTokenDTO
     ){
-        return ResultDataVO.success(loginService.refreshToken(refreshToken,"admin"), "刷新成功");
+        return ResultDataVO.success(loginService.refreshToken(refreshTokenDTO.getRefreshToken(),"admin"), "刷新成功");
     }
 
 }
