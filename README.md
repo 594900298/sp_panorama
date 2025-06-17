@@ -70,6 +70,9 @@
 ### 🧭 项目代码包介绍
 ~~~
 ├─application               应用目录
+|  ├─krpano                 krpano
+|  ├─stitic                 静态素材
+│  ├─scene                  全景素材
 │  ├─sp_common              公共模块
 │  ├─sp_admin               管理员模块【默认端口8080】
 │  └─sp_api                 用户模块 【默认端口8081】
@@ -81,9 +84,6 @@
 │  ├─src                    核心包
 │  │  ├─libs                公告模块
 |  |  |  ├─app.config.js    配置文件   
-├─krpano                    krpano
-├─stitic                    静态素材
-│  ├─scene                  全景素材
 └─mysql                     数据库备份文件
 ~~~
 
