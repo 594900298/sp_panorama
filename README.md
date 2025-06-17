@@ -96,6 +96,9 @@
 ![](demo/dir.jpg)
 ### Nginx部署配置
 ![](demo/nginx.png)
+### 激活码
+* krpano-1.19-pr16 【仅供学习使用】
+    * FXsqTqaGNSZER5dSETEm+VzQEh9sWSa5DZMFsSmMxYV9GcXs8W3R8A/mWXrGNUceXvrihmh28hfRF1ivrW0HMzEychPvNiD8B/4/ZzDaUE9Rh6Ig22aKJGDbja1/kYIqmc/VKfItRE2RTSOIbIroxOtsz626NIpxWksAAifwhpNwuPXqDQpz2sRUMBzoPqZktpkItoSenN2mKd8Klfx7pOuB6CIK3e1CDXgyndqOt2mWybLZcU/wfJVAecfxk15ghiqrzaDsbqrdABDowg==
 ### 提供一些用于测试全景图片
 * 如果这些图片侵权了，请联系我删除
 ![](demo/example-1.jpg)
