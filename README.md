@@ -95,7 +95,7 @@
     * 4. 安装Maven相关依赖【一版情况下IDEA会完成扫描】
     * 5. DEBUG启动
 * 前端
-    admin-vue和front-vue都是前端项目,npm install 后直接npm run dev启动
+    * admin-vue和front-vue都是前端项目,npm install 后直接npm run dev启动
 
 
 ### 🎬 系统演示：
