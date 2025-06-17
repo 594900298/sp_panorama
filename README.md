@@ -87,12 +87,23 @@
 └─mysql                     数据库备份文件
 ~~~
 
+### 📝 使用说明：
+* 后端
+    * 1. 导入数据库
+    * 2. 修改数据库连接信息
+    * 3. 导入application文件夹到IDEA
+    * 4. 安装Maven相关依赖【一版情况下IDEA会完成扫描】
+    * 5. DEBUG启动
+* 前端
+    admin-vue和front-vue都是前端项目,npm install 后直接npm run dev启动
+
+
 ### 🎬 系统演示：
-后台账号： admin/123123【默认密码】【线上预览密码不提供,慎防被攻击~抱歉】
+* 后台账号： admin/123123【默认密码】【线上预览密码不提供,慎防被攻击~抱歉】
 
 ### 📷 项目截图：
 ![](demo/demo.png)
-### 构建目录
+### Nginx部署参考构建目录
 ![](demo/dir.jpg)
 ### Nginx部署配置
 ![](demo/nginx.png)
