@@ -13,6 +13,9 @@
     <a href='https://gitee.com/jiang_zhenhua/sp_panorama/members'>
         <img src='https://gitee.com/jiang_zhenhua/sp_panorama/badge/fork.svg?theme=dark' alt='fork'></img>
     </a>
+    <a href='https://gitcode.com/Truth___/sp_panorama/stargazers'>
+        <img src='https://gitcode.com/Truth___/sp_panorama/star/badge.svg?theme=dark' alt='star'>
+    </a>
 </div>
 <div align="center">
 
