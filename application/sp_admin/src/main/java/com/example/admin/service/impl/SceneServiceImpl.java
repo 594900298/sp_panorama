@@ -170,7 +170,6 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, ScenePO> implemen
             BeanUtils.copyProperties(sceneAddDTO, insert);
             insert.setRandomString(randomString);
             insert.setMaterialFileName(materialFileName);
-            insert.setXmlPath(StrUtil.format("/static/scene/{}", randomString + ".xml"));
             insert.setPanosPath(StrUtil.format("/static/scene/material/{}/", randomString));
             insert.setLevelConfig(JSON.toJSONString(levelConfig));
             insert.setControl(Control.DRAG);

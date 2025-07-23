@@ -1,17 +1,17 @@
 /*
- Navicat Premium Data Transfer
+ Navicat Premium Dump SQL
 
- Source Server         : localhost
+ Source Server         : mysql
  Source Server Type    : MySQL
- Source Server Version : 50726
+ Source Server Version : 50726 (5.7.26-log)
  Source Host           : localhost:3306
- Source Schema         : sp_panorama
+ Source Schema         : test
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50726 (5.7.26-log)
  File Encoding         : 65001
 
- Date: 15/07/2024 11:04:00
+ Date: 23/07/2025 17:04:23
 */
 
 SET NAMES utf8mb4;
@@ -41,7 +41,7 @@ CREATE TABLE `sp_admin`  (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '后台管理员' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '后台管理员' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_admin
@@ -62,7 +62,7 @@ CREATE TABLE `sp_area`  (
   `area_type` tinyint(1) NOT NULL COMMENT '级别标志  0-省 1-市 2-县区',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`area_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3410 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '区域表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3410 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '区域表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_area
@@ -3487,7 +3487,7 @@ CREATE TABLE `sp_banner`  (
   `sort` int(3) NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(11) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`banner_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '轮播' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '轮播' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_banner
@@ -3500,7 +3500,7 @@ DROP TABLE IF EXISTS `sp_group_access`;
 CREATE TABLE `sp_group_access`  (
   `uid` int(11) NOT NULL COMMENT '用户id',
   `role_id` int(11) NOT NULL COMMENT '角色id'
-) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = FIXED;
 
 -- ----------------------------
 -- Records of sp_group_access
@@ -3526,7 +3526,7 @@ CREATE TABLE `sp_hotspot`  (
   `width` int(3) NULL DEFAULT 0 COMMENT '宽度',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`hotspot_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '热点表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '热点表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_hotspot
@@ -3547,7 +3547,7 @@ CREATE TABLE `sp_role`  (
   `is_system` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否系统 1-是 0-否',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '后台角色' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '后台角色' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_role
@@ -3569,7 +3569,7 @@ CREATE TABLE `sp_rule`  (
   `sort` int(3) NOT NULL DEFAULT 0 COMMENT '排序',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`rule_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '学校管理规则列表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '学校管理规则列表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_rule
@@ -3632,7 +3632,6 @@ CREATE TABLE `sp_scene`  (
   `control` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '控制方式 drag[默认]、moveto',
   `random_string` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '随机生成的字符串',
   `panos_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '素材路径',
-  `xml_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'xml路径',
   `material_file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '素材文件名',
   `level_config` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT 'xml level配置',
   `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-显示 2-隐藏',
@@ -3640,15 +3639,15 @@ CREATE TABLE `sp_scene`  (
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '软删',
   PRIMARY KEY (`scene_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '场景表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '场景表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_scene
 -- ----------------------------
-INSERT INTO `sp_scene` VALUES (1, 2, '简约欧美风', '280.16', '7.47', '109.53', 'auto', '-360', '360', '-90', '90', 'drag', 'scene_395bc90d002840f1be1d1ca245a0653b', '/static/scene/material/scene_395bc90d002840f1be1d1ca245a0653b/', '/static/scene/scene_395bc90d002840f1be1d1ca245a0653b.xml', '1719817741032.tiles', '[{\"tiledimageheight\":\"1600\",\"tiledimagewidth\":\"1600\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"768\",\"tiledimagewidth\":\"768\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719817747, 0);
-INSERT INTO `sp_scene` VALUES (2, 2, '简约欧美风2', '0', '0', '120', 'auto', '180', '180', '-90', '90', 'drag', 'scene_17465661365c40ab8f36acc24a6e2a0d', '/static/scene/material/scene_17465661365c40ab8f36acc24a6e2a0d/', '/static/scene/scene_17465661365c40ab8f36acc24a6e2a0d.xml', '1719974755898.tiles', '[{\"tiledimageheight\":\"256\",\"tiledimagewidth\":\"256\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719974758, 1);
-INSERT INTO `sp_scene` VALUES (3, 2, '简约欧美风2', '180.00', '0.00', '120', 'lookat', '-360', '360', '-90', '90', 'drag', 'scene_cba08e86755247bcb6624e41c877c9b9', '/static/scene/material/scene_cba08e86755247bcb6624e41c877c9b9/', '/static/scene/scene_cba08e86755247bcb6624e41c877c9b9.xml', '1719974790394.tiles', '[{\"tiledimageheight\":\"1792\",\"tiledimagewidth\":\"1792\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"1024\",\"tiledimagewidth\":\"1024\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719974798, 0);
-INSERT INTO `sp_scene` VALUES (4, 2, '简约风', '0', '0', '120', 'auto', '-360', '360', '-90', '90', 'drag', 'scene_cf40c1ac55dd4b4585c5611528adcd30', '/static/scene/material/scene_cf40c1ac55dd4b4585c5611528adcd30/', '/static/scene/scene_cf40c1ac55dd4b4585c5611528adcd30.xml', '1720143867214.tiles', '[{\"tiledimageheight\":\"1280\",\"tiledimagewidth\":\"1280\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"640\",\"tiledimagewidth\":\"640\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1720143872, 0);
+INSERT INTO `sp_scene` VALUES (1, 2, '简约欧美风', '280.16', '7.47', '109.53', 'auto', '-360', '360', '-90', '90', 'drag', 'scene_395bc90d002840f1be1d1ca245a0653b', '/static/scene/material/scene_395bc90d002840f1be1d1ca245a0653b/', '1719817741032.tiles', '[{\"tiledimageheight\":\"1600\",\"tiledimagewidth\":\"1600\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"768\",\"tiledimagewidth\":\"768\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719817747, 0);
+INSERT INTO `sp_scene` VALUES (2, 2, '简约欧美风2', '0', '0', '120', 'auto', '180', '180', '-90', '90', 'drag', 'scene_17465661365c40ab8f36acc24a6e2a0d', '/static/scene/material/scene_17465661365c40ab8f36acc24a6e2a0d/', '1719974755898.tiles', '[{\"tiledimageheight\":\"256\",\"tiledimagewidth\":\"256\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719974758, 1);
+INSERT INTO `sp_scene` VALUES (3, 2, '简约欧美风2', '180.00', '0.00', '120', 'lookat', '-360', '360', '-90', '90', 'drag', 'scene_cba08e86755247bcb6624e41c877c9b9', '/static/scene/material/scene_cba08e86755247bcb6624e41c877c9b9/', '1719974790394.tiles', '[{\"tiledimageheight\":\"1792\",\"tiledimagewidth\":\"1792\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"1024\",\"tiledimagewidth\":\"1024\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1719974798, 0);
+INSERT INTO `sp_scene` VALUES (4, 2, '简约风', '0', '0', '120', 'auto', '-360', '360', '-90', '90', 'drag', 'scene_cf40c1ac55dd4b4585c5611528adcd30', '/static/scene/material/scene_cf40c1ac55dd4b4585c5611528adcd30/', '1720143867214.tiles', '[{\"tiledimageheight\":\"1280\",\"tiledimagewidth\":\"1280\",\"url\":\"/%s/l2/%v/l2_%s_%v_%h.jpg\"},{\"tiledimageheight\":\"640\",\"tiledimagewidth\":\"640\",\"url\":\"/%s/l1/%v/l1_%s_%v_%h.jpg\"}]', 1, 0, 1720143872, 0);
 
 -- ----------------------------
 -- Table structure for sp_space
@@ -3665,7 +3664,7 @@ CREATE TABLE `sp_space`  (
   `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '软删',
   PRIMARY KEY (`space_id`) USING BTREE,
   UNIQUE INDEX `space_code`(`space_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '空间表\r\n' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '空间表\r\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_space
@@ -3684,7 +3683,7 @@ CREATE TABLE `sp_system`  (
   `cvalue` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '开发环境值',
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间戳',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_system
@@ -3708,7 +3707,7 @@ CREATE TABLE `sp_user`  (
   `create_time` int(11) NOT NULL DEFAULT 0 COMMENT '创建时间',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `openid`(`openid`) USING BTREE COMMENT 'openid'
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sp_user

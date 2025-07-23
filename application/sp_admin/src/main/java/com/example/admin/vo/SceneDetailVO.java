@@ -56,9 +56,6 @@ public class SceneDetailVO implements Serializable {
     @ApiModelProperty(value = "素材路径", example = "/scene/material/scene_8fbe40cdfd2fc681c7d9c9f0832ae52e/")
     private String panosPath;
 
-    @ApiModelProperty(value = "xml路径", example = "/scene/scene_8fbe40cdfd2fc681c7d9c9f0832ae52e.xml")
-    private String xmlPath;
-
     @ApiModelProperty(value = "素材文件名", example = "34.tiles")
     private String materialFileName;
 

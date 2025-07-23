@@ -59,9 +59,6 @@ public class ScenePO implements Serializable {
     @ApiModelProperty(value = "素材路径", example = "/scene/material/scene_8fbe40cdfd2fc681c7d9c9f0832ae52e/")
     private String panosPath;
 
-    @ApiModelProperty(value = "xml路径", example = "/scene/scene_8fbe40cdfd2fc681c7d9c9f0832ae52e.xml")
-    private String xmlPath;
-
     @ApiModelProperty(value = "素材文件名", example = "34.tiles")
     private String materialFileName;
 
@@ -109,7 +106,6 @@ public class ScenePO implements Serializable {
                 && (this.getControl() == null ? other.getControl() == null : this.getControl().equals(other.getControl()))
                 && (this.getRandomString() == null ? other.getRandomString() == null : this.getRandomString().equals(other.getRandomString()))
                 && (this.getPanosPath() == null ? other.getPanosPath() == null : this.getPanosPath().equals(other.getPanosPath()))
-                && (this.getXmlPath() == null ? other.getXmlPath() == null : this.getXmlPath().equals(other.getXmlPath()))
                 && (this.getMaterialFileName() == null ? other.getMaterialFileName() == null : this.getMaterialFileName().equals(other.getMaterialFileName()))
                 && (this.getLevelConfig() == null ? other.getLevelConfig() == null : this.getLevelConfig().equals(other.getLevelConfig()))
                 && (this.getIsShow() == null ? other.getIsShow() == null : this.getIsShow().equals(other.getIsShow()))
@@ -136,7 +132,6 @@ public class ScenePO implements Serializable {
         result = prime * result + ((getControl() == null) ? 0 : getControl().hashCode());
         result = prime * result + ((getRandomString() == null) ? 0 : getRandomString().hashCode());
         result = prime * result + ((getPanosPath() == null) ? 0 : getPanosPath().hashCode());
-        result = prime * result + ((getXmlPath() == null) ? 0 : getXmlPath().hashCode());
         result = prime * result + ((getMaterialFileName() == null) ? 0 : getMaterialFileName().hashCode());
         result = prime * result + ((getLevelConfig() == null) ? 0 : getLevelConfig().hashCode());
         result = prime * result + ((getIsShow() == null) ? 0 : getIsShow().hashCode());
@@ -166,7 +161,6 @@ public class ScenePO implements Serializable {
         sb.append(", control=").append(control);
         sb.append(", randomString=").append(randomString);
         sb.append(", panosPath=").append(panosPath);
-        sb.append(", xmlPath=").append(xmlPath);
         sb.append(", materialFileName=").append(materialFileName);
         sb.append(", levelConfig=").append(levelConfig);
         sb.append(", isShow=").append(isShow);
