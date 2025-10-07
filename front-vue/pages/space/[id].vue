@@ -3,17 +3,19 @@
         <div id="pano" @mousedown="handleDown" @mouseup="handleUp">
             <noscript>
                 <table style="width: 100%; height: 100%">
-                    <tr style="vertical-align: middle">
-                        <td>
-                            <div style="text-align: center">
-                                ERROR:
-                                <br />
-                                <br />Javascript not activated
-                                <br />
-                                <br />
-                            </div>
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr style="vertical-align: middle">
+                            <td>
+                                <div style="text-align: center">
+                                    ERROR:
+                                    <br />
+                                    <br />Javascript not activated
+                                    <br />
+                                    <br />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </noscript>
         </div>

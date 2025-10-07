@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  css: ['~/assets/css/main.css'],
+  ui: {
+    fonts: false
+  },
   postcss: {
     plugins: {
       'postcss-px-to-viewport': {
@@ -40,4 +44,5 @@ export default defineNuxtConfig({
     }
   },
   compatibilityDate: '2024-07-06',
+  devtools: { enabled: true },
 })
