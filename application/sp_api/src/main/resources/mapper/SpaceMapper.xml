@@ -22,7 +22,6 @@
                sc.control,
                sc.random_string as scene_random_string,
                sc.panos_path,
-               sc.xml_path,
                sc.material_file_name,
                sc.level_config,
                h.hotspot_id,
@@ -68,7 +67,6 @@
             <result property="control" column="control" jdbcType="VARCHAR"/>
             <result property="randomString" column="scene_random_string" jdbcType="VARCHAR"/>
             <result property="panosPath" column="panos_path" jdbcType="VARCHAR"/>
-            <result property="xmlPath" column="xml_path" jdbcType="VARCHAR"/>
             <result property="materialFileName" column="material_file_name" jdbcType="VARCHAR"/>
             <result property="levelConfig" column="level_config" jdbcType="VARCHAR"/>
             <collection property="hotspotListPO" ofType="com.example.api.po.HotspotListPO">
