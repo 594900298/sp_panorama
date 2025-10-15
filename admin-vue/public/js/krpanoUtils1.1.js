@@ -296,4 +296,10 @@ class KrpanoUtilsClass {
             this.krpano.set("view.fovmax", fovmax);
         }
     }
+    /**
+     * 切换当前 VR 模式状态 - 根据当前状态切换到 VR 模式或退出。
+     */
+    toggleVR() {
+        this.krpano.call("WebVR.toggleVR()");
+    }
 }

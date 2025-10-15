@@ -130,7 +130,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO> implemen
                     .addAttribute("maps_google_api_key", "")
                     .addAttribute("maps_zoombuttons", "false")
                     .addAttribute("gyro", "true")
-                    .addAttribute("webvr", "false")
+                    .addAttribute("webvr", "true")
                     .addAttribute("webvr_gyro_keeplookingdirection", "false")
                     .addAttribute("webvr_prev_next_hotspots", "true")
                     .addAttribute("littleplanetintro", "false")

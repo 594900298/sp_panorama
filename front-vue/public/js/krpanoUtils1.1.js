@@ -278,4 +278,10 @@ export class KrpanoUtilsClass {
     setViewFov(fov) {
         this.krpano.set("view.fov", fov);
     }
+    /**
+     * 切换当前 VR 模式状态 - 根据当前状态切换到 VR 模式或退出。
+     */
+    toggleVR() {
+        this.krpano.call("WebVR.toggleVR()");
+    }
 }

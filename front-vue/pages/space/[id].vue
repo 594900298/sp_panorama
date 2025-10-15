@@ -30,6 +30,10 @@
             </div>
         </div>
         <div class="right-menu" v-if="controls">
+            <div @click="handleToggleVR">
+                <img src="/images/vr_toggle.png" alt="VR_TOGGLE">
+                <p>VRToggle</p>
+            </div>
             <div @click="handleMusic">
                 <img :src="isPlayAudio ? `/images/vr_music.png` : `/images/vr_unmusic.png`" alt="MUSIC">
                 <p>MUSIC</p>
@@ -151,6 +155,12 @@ function handleBack() {
 function handleViewPort() {
     krpanoUtils.setViewFov(viewPort.value);
     krpanoUtils.setViewLookat(viewLookat.value?.hlookat, viewLookat.value?.vlookat);
+}
+/**
+ * 切换VR模式
+ */
+function handleToggleVR() {
+    krpanoUtils.toggleVR();
 }
 /**
  * 背景音乐
