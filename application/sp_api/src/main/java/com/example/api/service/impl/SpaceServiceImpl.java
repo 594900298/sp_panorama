@@ -259,7 +259,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO> implemen
                 sceneEl.addElement("image")
                         .addAttribute("if", "webvr.isenabled")
                         .addElement("cube")
-                        .addAttribute("url", StrUtil.format("/vr/pano_%s.jpg", materialPath));
+                        .addAttribute("url", StrUtil.format("{}/vr/pano_%s.jpg", materialPath));
                 //处理热点
                 Iterator<HotspotListVO> ii = item.getHotspotListVO().iterator();
                 while (ii.hasNext()) {

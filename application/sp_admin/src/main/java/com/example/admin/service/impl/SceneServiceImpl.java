@@ -316,7 +316,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, ScenePO> implemen
                 imageEl.addElement("level").addAttribute("tiledimagewidth", jsonObject.getString("tiledimagewidth")).addAttribute("tiledimageheight", jsonObject.getString("tiledimageheight")).addElement("cube").addAttribute("url", materialPath + jsonObject.getString("url"));
             }
             //image标签
-            sceneEl.addElement("image").addAttribute("if", "webvr.isenabled").addElement("cube").addAttribute("url", StrUtil.format("/vr/pano_%s.jpg", materialPath));
+            sceneEl.addElement("image").addAttribute("if", "webvr.isenabled").addElement("cube").addAttribute("url", StrUtil.format("{}/vr/pano_%s.jpg", materialPath));
             return document.asXML();
         } catch (Exception e) {
             throw new ServiceException(e.getMessage(), 106);
