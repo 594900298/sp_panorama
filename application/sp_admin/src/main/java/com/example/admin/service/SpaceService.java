@@ -29,6 +29,8 @@ public interface SpaceService extends IService<SpacePO> {
 
     Integer edit(SpaceEditDTO spaceEditDTO);
 
+    Integer editLittleplanetintro(Integer spaceId);
+
     Integer editIsShow(Integer spaceId);
 
     Integer editSort(SpaceEditSortDTO spaceEditSortDTO);

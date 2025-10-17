@@ -9,6 +9,7 @@
                sp.space_code,
                sp.space_thumb,
                sp.background_music,
+               sp.littleplanetintro,
                sc.scene_id,
                sc.scene_name,
                sc.hlookat,
@@ -41,7 +42,7 @@
                            ON sc.scene_id = h.scene_id
         WHERE sp.space_id = #{id}
           AND sp.is_show = 1
-          AND sp.is_show = 1
+          AND sc.is_show = 1
           AND sp.deleted = 0
           AND sc.deleted = 0
         ORDER BY sc.sort ASC
@@ -53,6 +54,7 @@
         <result property="spaceCode" column="space_code" jdbcType="VARCHAR"/>
         <result property="spaceThumb" column="space_thumb" jdbcType="VARCHAR"/>
         <result property="backgroundMusic" column="background_music" jdbcType="VARCHAR"/>
+        <result property="littleplanetintro" column="littleplanetintro" jdbcType="BOOLEAN"/>
         <collection property="sceneListPO" ofType="com.example.api.po.SceneListPO">
             <id property="sceneId" column="scene_id" jdbcType="INTEGER"/>
             <result property="sceneName" column="scene_name" jdbcType="VARCHAR"/>

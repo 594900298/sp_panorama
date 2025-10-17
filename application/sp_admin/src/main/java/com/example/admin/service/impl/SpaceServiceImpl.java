@@ -47,7 +47,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO>
     @Override
     public IPage getPaginate(PageParamBO pageParamBO) {
         QueryWrapper queryWrapper = new QueryWrapper<SpacePO>()
-                .select("space_id", "space_id", "space_name", "space_thumb", "is_show", "sort")
+                .select("space_id", "space_id", "space_name", "space_thumb","littleplanetintro", "is_show", "sort")
                 .orderByAsc("sort");
         // 查询数据
         return spaceMapper.selectPage(
@@ -68,7 +68,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO>
     @Override
     public List<SpaceListVO> getList() {
         return spaceMapper.selectList(new QueryWrapper<SpacePO>()
-                .select("space_id", "space_id", "space_name", "space_thumb", "is_show", "sort")
+                .select("space_id", "space_id", "space_name", "space_thumb","littleplanetintro", "is_show", "sort")
                 .lambda()
                 .orderByAsc(SpacePO::getSort)).stream().map(po -> {
             SpaceListVO vo = new SpaceListVO();
@@ -123,6 +123,15 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO>
         SpacePO banner = new SpacePO();
         BeanUtils.copyProperties(spaceEditDTO, banner);
         return spaceMapper.updateById(banner);
+    }
+
+    @Override
+    public Integer editLittleplanetintro(Integer spaceId) {
+        SpacePO po = spaceMapper.selectById(spaceId);
+        if (Objects.isNull(po)) {
+            throw new ServiceException("找不到资源", 104);
+        }
+        return spaceMapper.update(new UpdateWrapper<SpacePO>().lambda().eq(SpacePO::getSpaceId, spaceId).setSql("littleplanetintro = !littleplanetintro"));
     }
 
     /**

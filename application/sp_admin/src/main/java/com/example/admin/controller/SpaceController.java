@@ -105,6 +105,23 @@ public class SpaceController {
     }
 
     /**
+     * 修改小行星进场模式
+     * @param spaceId
+     * @return
+     */
+    @ApiOperation("修改显示状态")
+    @GetMapping("/editLittleplanetintro/{id}")
+    private ResultDataVO editLittleplanetintro(
+            @ApiParam(name = "id", value = "主键\"", required = true) @PathVariable("id") Integer spaceId
+    ) {
+        if (spaceService.editLittleplanetintro(spaceId) != 0) {
+            return ResultDataVO.success(0, "更新成功");
+        } else {
+            return ResultDataVO.fail(106, "更新失败");
+        }
+    }
+
+    /**
      * 修改显示状态
      *
      * @return

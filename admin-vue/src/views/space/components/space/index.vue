@@ -42,6 +42,16 @@ const handleChangeSort = async (row: any) => {
     ElMessage.error(res.errMsg);
   }
 };
+// 修改小行星状态
+const handleChangeLittleplanetintro = async (row: any) => {
+  const res = await get(`space/editLittleplanetintro/${row.spaceId}`);
+  if (res.errCode == 0) {
+    ElMessage.success(res.errMsg);
+    getPaginateDate();
+  } else {
+    ElMessage.error(res.errMsg);
+  }
+};
 //修改显示状态
 const handleChangeShow = async (row: any) => {
   const res = await get(`space/editIsShow/${row.spaceId}`);
@@ -85,13 +95,13 @@ const editRow = (row: any) => {
     },
   });
 };
-const handelRowClick = (row)=>{
+const handelRowClick = (row) => {
   clickRow.value = row;
-  emits("update:modelValue",row.spaceId)
+  emits("update:modelValue", row.spaceId)
 }
-const handleRow = ()=>{
+const handleRow = () => {
   clickRow.value = null
-  emits("update:modelValue",0)
+  emits("update:modelValue", 0)
 }
 onMounted(() => {
   getPaginateDate();
@@ -101,7 +111,7 @@ onMounted(() => {
   <div class="page">
     <div class="title font-bold">空间列表</div>
     <div class="toolbar">
-      <el-tag type="primary" closable @click="handleRow" v-if="clickRow">{{clickRow?.spaceName}}</el-tag>
+      <el-tag type="primary" closable @click="handleRow" v-if="clickRow">{{ clickRow?.spaceName }}</el-tag>
       <el-button type="primary" @click="addRow()" class="float-right">添加空间</el-button>
     </div>
     <div class="main">
@@ -121,13 +131,19 @@ onMounted(() => {
           </template>
         </el-table-column>
         <el-table-column prop="spaceName" label="空间名称" />
-        <el-table-column label="状态">
+        <el-table-column label="小新星进场" width="100" fixed="right">
+          <template #default="scope">
+            <el-switch v-model="scope.row.littleplanetintro" :active-value="true" :inactive-value="false"
+              @change="handleChangeLittleplanetintro(scope.row)" />
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" width="80" fixed="right">
           <template #default="scope">
             <el-switch v-model="scope.row.isShow" :active-value="true" :inactive-value="false"
               @change="handleChangeShow(scope.row)" />
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="220">
+        <el-table-column label="操作" align="center" width="180" fixed="right">
           <template #default="scope">
             <el-button type="primary" size="small" @click="editRow(scope.row)">编辑</el-button>
             <el-button type="danger" size="small" @click="deleteRow(scope.row)">删除</el-button>

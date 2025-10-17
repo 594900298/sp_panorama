@@ -22,6 +22,10 @@ public class SpaceAddDTO {
     @ApiModelProperty(value = "音乐链接", example = "url")
     private String backgroundMusic;
 
+    @ApiModelProperty(value = "小行星模式",required = true, example = "true")
+    @NotNull(message = "小行星模式不能为空")
+    private Boolean littleplanetintro;
+
     @ApiModelProperty(value = "显示状态", required = true, example = "url")
     @NotNull(message = "显示状态不能为空")
     private Boolean isShow;

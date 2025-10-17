@@ -49,6 +49,12 @@ public class SpacePO implements Serializable {
     private Boolean isShow;
 
     /**
+     * 小行星模式 0-关闭 1-开启
+     */
+    @ApiModelProperty(value = "小行星模式", example = "true")
+    private Boolean littleplanetintro;
+
+    /**
      * 排序
      */
     @ApiModelProperty(value = "排序", example = "50")
@@ -78,6 +84,7 @@ public class SpacePO implements Serializable {
                 && (this.getSpaceName() == null ? other.getSpaceName() == null : this.getSpaceName().equals(other.getSpaceName()))
                 && (this.getSpaceCode() == null ? other.getSpaceCode() == null : this.getSpaceCode().equals(other.getSpaceCode()))
                 && (this.getSpaceThumb() == null ? other.getSpaceThumb() == null : this.getSpaceThumb().equals(other.getSpaceThumb()))
+                && (this.getLittleplanetintro() == null ? other.getLittleplanetintro() == null : this.getLittleplanetintro().equals(other.getLittleplanetintro()))
                 && (this.getIsShow() == null ? other.getIsShow() == null : this.getIsShow().equals(other.getIsShow()))
                 && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
                 && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()));
@@ -91,6 +98,7 @@ public class SpacePO implements Serializable {
         result = prime * result + ((getSpaceName() == null) ? 0 : getSpaceName().hashCode());
         result = prime * result + ((getSpaceCode() == null) ? 0 : getSpaceCode().hashCode());
         result = prime * result + ((getSpaceThumb() == null) ? 0 : getSpaceThumb().hashCode());
+        result = prime * result + ((getLittleplanetintro() == null) ? 0 : getLittleplanetintro().hashCode());
         result = prime * result + ((getIsShow() == null) ? 0 : getIsShow().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
@@ -107,6 +115,7 @@ public class SpacePO implements Serializable {
         sb.append(", spaceName=").append(spaceName);
         sb.append(", spaceCode=").append(spaceCode);
         sb.append(", spaceThumb=").append(spaceThumb);
+        sb.append(", littleplanetintro=").append(littleplanetintro);
         sb.append(", isShow=").append(isShow);
         sb.append(", sort=").append(sort);
         sb.append(", Deleted=").append(deleted);

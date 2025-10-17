@@ -1,13 +1,9 @@
 package com.example.api.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.example.api.dto.LoginCodeDTO;
-import com.example.common.mapper.UserMapper;
 import com.example.api.service.LoginService;
 import com.example.api.vo.LoginVO;
 import com.example.common.exception.ServiceException;
-import com.example.common.po.UserPO;
+import com.example.common.mapper.UserMapper;
 import com.example.common.utils.CaptchaUtil;
 import com.example.common.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 
 /**
@@ -50,68 +43,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Resource
     TransactionDefinition transactionDefinition;
-
-    /**
-     * 微信登录
-     *
-     * @param loginCodeDTO
-     * @return
-     * @throws Exception
-     */
-    @Override
-    public LoginVO code(LoginCodeDTO loginCodeDTO) throws Exception {
-        //开启事务
-        TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(transactionDefinition);
-        try {
-            UserPO userPO = userMapper.selectOne(
-                    new QueryWrapper<UserPO>()
-                            .select("user_id", "status", "uuid", "openid")
-                            .lambda()
-            );
-            Map<String, Object> resMap = new HashMap<>();
-            if (userPO != null) {
-                if (!userPO.getStatus()) {
-                    throw new ServiceException("当前用户已禁用", 106);
-                }
-                resMap.put("userId", userPO.getUserId());
-                resMap.put("uuid", userPO.getUuid());
-                resMap.put("name", userPO.getName());
-            } else {
-                /**
-                 * 插入新用户
-                 */
-                UserPO insertData = new UserPO();
-                insertData.setStatus(true);
-                insertData.setUuid(String.valueOf(UUID.randomUUID()));
-                userMapper.insert(insertData);
-                resMap.put("userId", insertData.getUserId());
-                resMap.put("uuid", insertData.getUuid());
-                resMap.put("name", null);
-            }
-            // 更新
-            userMapper.update(
-                    new UpdateWrapper<UserPO>()
-                            .lambda()
-                            .set(UserPO::getLoginTime, System.currentTimeMillis() / 1000)
-                            .set(UserPO::getLoginIp, request.getRemoteAddr())
-                            .setSql("login_num = login_num+1 ")
-            );
-            Map<String, Object> data = new HashMap<>();
-            //这些数据不会返回给用户
-            tokenUtil.setRedisData(data);
-            HashMap<String, Object> token = tokenUtil.getToken((Integer) resMap.get("userId"), (String) resMap.get("uuid"), "api");
-            dataSourceTransactionManager.commit(transactionStatus);
-            LoginVO vo = new LoginVO();
-            vo.setToken((String) token.get("token"));
-            vo.setRefreshToken((String) token.get("refreshToken"));
-            vo.setExpire((Long) token.get("expire"));
-            vo.setName((String) resMap.get("name"));
-            return vo;
-        } catch (Exception e) {
-            dataSourceTransactionManager.rollback(transactionStatus);
-            throw new ServiceException(e.getMessage(), 106);
-        }
-    }
 
     /**
      * 刷新token

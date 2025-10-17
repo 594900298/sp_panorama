@@ -11,11 +11,13 @@ const ruleForm = ref({
   spaceThumb: undefined,
   backgroundMusic: undefined,
   isShow: undefined,
+  littleplanetintro: undefined,
   sort: undefined,
 });
 const rules = reactive<FormRules>({
   spaceName: [{ required: true, message: "请输入空间名称", trigger: "blur" }],
   isShow: [{ required: true, message: "请选择是否显示", trigger: "blur" }],
+  littleplanetintro: [{ required: true, message: "请选择是否使用小行星进场", trigger: "blur" }],
   sort: [{ required: true, message: "请输入排序", trigger: "blur" }],
 });
 const ruleFormRef = ref<FormInstance>();
@@ -62,8 +64,11 @@ onMounted(async () => {
           <upload-image-case v-model="ruleForm.spaceThumb" action="common/uploadPic" name="img"></upload-image-case>
         </el-form-item>
         <el-form-item label="背景音乐" prop="backgroundMusic">
-          <upload-file-case v-model="ruleForm.backgroundMusic" action="common/uploadMusic"
-            name="file" accept=".ogg,.mp3,.wav,.flac"></upload-file-case>
+          <upload-file-case v-model="ruleForm.backgroundMusic" action="common/uploadMusic" name="file"
+            accept=".ogg,.mp3,.wav,.flac"></upload-file-case>
+        </el-form-item>
+        <el-form-item label="小行星进场" prop="littleplanetintro">
+          <el-switch v-model="ruleForm.littleplanetintro" />
         </el-form-item>
         <el-form-item label="状态" prop="isShow">
           <el-switch v-model="ruleForm.isShow" />

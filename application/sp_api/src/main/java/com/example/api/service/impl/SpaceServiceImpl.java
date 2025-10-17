@@ -133,7 +133,7 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, SpacePO> implemen
                     .addAttribute("webvr", "true")
                     .addAttribute("webvr_gyro_keeplookingdirection", "false")
                     .addAttribute("webvr_prev_next_hotspots", "true")
-                    .addAttribute("littleplanetintro", "false")
+                    .addAttribute("littleplanetintro", vo.getLittleplanetintro().toString())
                     .addAttribute("title", "false")
                     .addAttribute("thumbs", "false")
                     .addAttribute("thumbs_width", "120")

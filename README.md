@@ -118,3 +118,10 @@
 ![](demo/example-1.jpg)
 ![](demo/example-2.jpg)
 ![](demo/example-2.jpg)
+### 更新记录
+* 增加小行星配置，移除废弃代码，修复已知bug
+    * 新增sql
+~~~
+ALTER TABLE `sp_panorama`.`sp_space` 
+ADD COLUMN `littleplanetintro` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否显示小行星介绍 0-否 1-是' AFTER `is_show`;
+~~~

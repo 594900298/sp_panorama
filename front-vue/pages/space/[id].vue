@@ -120,7 +120,7 @@ async function getDeatil() {
             krpanoUtils = new KrpanoUtilsClass();
             window.linkedsceneClick = linkedsceneClick
             if (detail.value.sceneListVO.length) {
-                linkedsceneClick(detail.value.sceneListVO[0].randomString);
+                linkedsceneClick(detail.value.sceneListVO[0].randomString,true);
             }
         })
     } else {
@@ -131,10 +131,12 @@ async function getDeatil() {
  * 点击热点跳转
  * @param randomString 
  */
-function linkedsceneClick(randomString: String) {
+function linkedsceneClick(randomString: String,init=false) {
     curRandomString.value = randomString;
     sceneStack.value.push(randomString);
-    krpanoUtils.loadscene(randomString);
+    if(!init){
+        krpanoUtils.loadscene(randomString);
+    }
     viewPort.value = krpanoUtils.getViewFov();
     viewLookat.value = krpanoUtils.getViewLookat();
 }

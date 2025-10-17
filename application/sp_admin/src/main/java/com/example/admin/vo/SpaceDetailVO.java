@@ -44,6 +44,10 @@ public class SpaceDetailVO implements Serializable {
 
     @ApiModelProperty(value = "音乐链接", example = "url")
     private String backgroundMusic;
+
+    @ApiModelProperty(value = "小行星模式",required = true, example = "true")
+    private Boolean littleplanetintro;
+
     /**
      * 1-显示 0-隐藏
      */
@@ -76,6 +80,7 @@ public class SpaceDetailVO implements Serializable {
                 && (this.getSpaceCode() == null ? other.getSpaceCode() == null : this.getSpaceCode().equals(other.getSpaceCode()))
                 && (this.getSpaceThumb() == null ? other.getSpaceThumb() == null : this.getSpaceThumb().equals(other.getSpaceThumb()))
                 && (this.getIsShow() == null ? other.getIsShow() == null : this.getIsShow().equals(other.getIsShow()))
+                && (this.getLittleplanetintro() == null ? other.getLittleplanetintro() == null : this.getLittleplanetintro().equals(other.getLittleplanetintro()))
                 && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()));
     }
 
@@ -88,6 +93,7 @@ public class SpaceDetailVO implements Serializable {
         result = prime * result + ((getSpaceCode() == null) ? 0 : getSpaceCode().hashCode());
         result = prime * result + ((getSpaceThumb() == null) ? 0 : getSpaceThumb().hashCode());
         result = prime * result + ((getIsShow() == null) ? 0 : getIsShow().hashCode());
+        result = prime * result + ((getLittleplanetintro() == null) ? 0 : getLittleplanetintro().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         return result;
     }
@@ -103,6 +109,7 @@ public class SpaceDetailVO implements Serializable {
         sb.append(", spaceCode=").append(spaceCode);
         sb.append(", spaceThumb=").append(spaceThumb);
         sb.append(", isShow=").append(isShow);
+        sb.append(", littleplanetintro=").append(littleplanetintro);
         sb.append(", sort=").append(sort);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

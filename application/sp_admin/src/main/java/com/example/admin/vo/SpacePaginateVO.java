@@ -43,6 +43,12 @@ public class SpacePaginateVO implements Serializable {
     private String spaceThumb;
 
     /**
+     * 小行星模式 0-关闭 1-开启
+     */
+    @ApiModelProperty(value = "小行星模式", example = "true")
+    private Boolean littleplanetintro;
+
+    /**
      * 1-显示 0-隐藏
      */
     @ApiModelProperty(value = "显示状态", example = "true")
