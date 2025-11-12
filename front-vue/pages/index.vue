@@ -4,10 +4,7 @@
             <img src="../public/images/logo.png">
             <div class="nav-wrapper">
                 <nuxt-link to="/">首页</nuxt-link>
-                <nuxt-link to="/">关于我们</nuxt-link>
-                <nuxt-link to="/">产品中心</nuxt-link>
-                <nuxt-link to="/">新闻资讯</nuxt-link>
-                <nuxt-link to="/">联系我们</nuxt-link>
+                <a href="https://gitee.com/jiang_zhenhua/sp_panorama" target="_blank">联系我们</a>
             </div>
         </div>
         <div class="main-wrapper">
