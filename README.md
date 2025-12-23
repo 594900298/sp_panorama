@@ -26,9 +26,9 @@
     <a href="https://gitee.com/jiang_zhenhua/sp_panorama/blob/master/README.md">宽 屏 预 览 文 档</a>
 </div>
 <div align="center" >
-    <a href="https://panorama.banxia.tech/">效 果 展 示</a>
+    <a href="https://panorama.banxia.website/">效 果 展 示</a>
     &nbsp
-    <a href="https://panorama.banxia.tech/space/5">内 页 展 示</a>
+    <a href="https://panorama.banxia.website/space/5">内 页 展 示</a>
 </div>
 <div align="center">
     如果对您有帮助，您可以点右上角 "Star" ❤️ 支持一下 谢谢！
