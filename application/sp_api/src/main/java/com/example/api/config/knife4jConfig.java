@@ -47,7 +47,7 @@ public class knife4jConfig implements WebMvcConfigurer {
      */
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .groupName("api")
                 .enable(Boolean.parseBoolean(enable))
                 .apiInfo(apiInfo())
