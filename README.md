@@ -111,6 +111,7 @@
 ### Nginx部署配置
 ![](demo/nginx.png)
 ### 激活码
+* <a href="https://blog.csdn.net/qq_31708763/article/details/86561952">激活方法</a>
 * krpano-1.19-pr16 【仅供学习使用】
     * FXsqTqaGNSZER5dSETEm+VzQEh9sWSa5DZMFsSmMxYV9GcXs8W3R8A/mWXrGNUceXvrihmh28hfRF1ivrW0HMzEychPvNiD8B/4/ZzDaUE9Rh6Ig22aKJGDbja1/kYIqmc/VKfItRE2RTSOIbIroxOtsz626NIpxWksAAifwhpNwuPXqDQpz2sRUMBzoPqZktpkItoSenN2mKd8Klfx7pOuB6CIK3e1CDXgyndqOt2mWybLZcU/wfJVAecfxk15ghiqrzaDsbqrdABDowg==
 ### 提供一些用于测试全景图片
